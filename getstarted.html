@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container" id="auth-container">
+            <div class="form-box login">
+                <form action="#">
+                    <h1>Login</h1>
+                    <div class="input-box">
+                        <input type="text" id="login-user" placeholder="Username" required>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" id="login-pass" placeholder="Password" required>
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="forgot-link"><a href="#">Forgot Password?</a></div>
+                    <button type="submit" class="btn">Login</button>
+                    <p>or login with social platforms</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-google"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-github"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-box registration">
+                <form action="#">
+                    <h1>Registration</h1>
+                    <div class="input-box">
+                        <input type="text" placeholder="Username" required>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" placeholder="Email" required>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Password" required>
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-google"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-github"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="toggle-box">
+                <div class="toggle-panel toggle-left">
+                    <img src="images/getstarted/capybam-safetycapybam.gif" alt="Capy" class="auth-capy-img">
+                    <h1>Hello, Welcome!</h1>
+                    <p>Don't have an account?</p>
+                    <button class="btn registration-btn">Registration</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <img src="images/getstarted/coffee-bara-capybara.gif" alt="Capy" class="auth-capy-img">
+                    <h1>Welcome Back!</h1>
+                    <p>Already have an account?</p>
+                    <button class="btn login-btn">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const authContainer = document.getElementById('auth-container');
+        const registerBtn = document.querySelector('.registration-btn');
+        const loginBtn = document.querySelector('.login-btn');
+        
+        // Перемикання
+        registerBtn.addEventListener('click', () => authContainer.classList.add("active"));
+        loginBtn.addEventListener('click', () => authContainer.classList.remove("active"));
+
+        // Логіка капібари для пароля
+        const passInput = document.getElementById('login-pass');
+        const capyImg = document.querySelector('.toggle-panel:not([style*="display: none"]) .capy-img');
+        passInput.addEventListener('focus', () => {
+            capyImg.style.transform = 'scale(0.8) translateY(20px)';
+            capyImg.style.opacity = '0.5';
+        });
+
+        passInput.addEventListener('blur', () => {
+            capyImg.style.transform = 'scale(1) translateY(0)';
+            capyImg.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
