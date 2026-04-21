@@ -90,6 +90,53 @@ a {
     opacity: 85%;
 }
 
+
+
+
+/* --- Language Switcher Styles --- */
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Відстань між вибором мови і кнопкою Get Started */
+}
+
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
+}
+
+.lang-btn {
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--gray);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.lang-btn:hover {
+    color: var(--dark);
+}
+
+/* ПІДСВІЧУВАННЯ АКТИВНОЇ МОВИ */
+.lang-btn.active {
+    color: var(--blackgold); /* Золотий колір */
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transform: scale(1.1);
+}
+
+.lang-divider {
+    color: #ccc;
+    font-size: 14px;
+    user-select: none; /* Щоб не виділялося мишкою */
+}
+
+
+
+
+
 main {
     margin-top: 80px; 
 }
@@ -107,6 +154,11 @@ main {
     justify-content: center;
     color: white;
 }
+
+.hero > .hero__container {
+    transform: translateY(-40px); /* Мінус піднімає вгору. Можете змінити на -60px або -80px, якщо треба ще вище */
+}
+
 
 .hero__container {
     width: 100%;
@@ -232,6 +284,19 @@ main {
     border-radius: 12px;
     padding: 12px 15px;
     background: #F9F9F9; /* Світло-сірий фон для полів */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Додано плавність переходу */
+}
+
+/* --- Підсвітка при наведенні (hover) та при кліку (focus-within) --- */
+.input-wrapper:hover,
+.input-wrapper:focus-within {
+    border-color: var(--blackgold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4); /* Легке золотисте сяйво */
+}
+
+.input-wrapper input::placeholder {
+    color: #a0a0a0;
+    font-family: "Mulish", sans-serif;
 }
 
 .input-wrapper input {
@@ -240,6 +305,7 @@ main {
     outline: none;
     width: 100%;
     font-size: 16px;
+    color: var(--dark); /* Щоб текст дати і placeholder читалися добре */
 }
 
 .booking-card__btn {
@@ -277,6 +343,108 @@ main {
     opacity: 60%;
     transition: 0.3s;
 }
+/* АНІМАЦІЇ ПОЯВИ ПРИ ЗАВАНТАЖЕННІ (СЕКЦІЯ HERO) */
+
+/* 1. Створюємо правило для руху зліва направо */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px); /* Починаємо на 100px лівіше */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Стаємо на своє місце */
+    }
+}
+
+/* 2. Створюємо правило для руху справа наліво */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px); /* Починаємо на 100px правіше */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Стаємо на своє місце */
+    }
+}
+
+/* 3. Ховаємо всі елементи зліва до початку анімації і додаємо їм рух */
+.hero__left > * {
+    opacity: 0; 
+    /* forwards означає, що після анімації елемент залишиться на екрані (opacity: 1) */
+    /* cubic-bezier дає дуже плавну "дорогу" анімацію (швидко починається, плавно гальмує) */
+    animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* 4. Задаємо затримку кожному рядку, щоб вони випливали по черзі (ефект каскаду) */
+.hero__left .hero__subtitle { animation-delay: 0.1s; }
+.hero__left .hero__title    { animation-delay: 0.3s; }
+.hero__left .hero__desc     { animation-delay: 0.5s; }
+.hero__left .hero__desc-sub { animation-delay: 0.7s; }
+.hero__left .hero__btn-explore { animation-delay: 0.9s; }
+
+/* 5. Додаємо анімацію для картки бронювання (вона виїжджає справа) */
+.hero__right {
+    opacity: 0;
+    animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.4s; /* Починає виїжджати майже разом із головним заголовком */
+}
+
+
+/* Базовий клас для всіх елементів, що будуть анімуватись */
+.reveal {
+    opacity: 0;
+    /* Елементи приховані, поки до них не доскролять */
+}
+
+/* Ключові кадри для різних напрямків */
+@keyframes revealUp {
+    from { opacity: 0; transform: translateY(70px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealLeft {
+    from { opacity: 0; transform: translateX(-80px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes revealRight {
+    from { opacity: 0; transform: translateX(80px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Класи, які JS буде додавати при появі на екрані */
+.reveal.active.fade-up {
+    animation: revealUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.reveal.active.fade-left {
+    animation: revealLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.reveal.active.fade-right {
+    animation: revealRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Затримки для красивого каскадного виїзду карток по черзі */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -330,6 +498,7 @@ main {
     gap: 20px;
     width: 100%;;
 }
+
 
 .promise-card {
     background-color: white;
@@ -760,6 +929,7 @@ main {
 
 
 /*section1*/
+/*section1*/
 .accommodations {
     padding-top: 20px;
     padding-bottom: 100px;
@@ -877,70 +1047,57 @@ main {
     filter: grayscale(1) opacity(0.6); /* Робимо іконку приглушеною */
 }
 
-/* Стан іконки, коли картка активна (Золотистий ефект) */
-.mood__card.active .mood__card-icon img {
-    /* Цей фільтр імітує колір #d4af37 (золото) */
-    filter: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(913%) hue-rotate(352deg) brightness(91%) contrast(89%);
-    opacity: 1;
-}
-
+/* --- ГАЛОЧКА (Прихована за замовчуванням) --- */
 .mood__card-check {
     position: absolute;
     top: 15px;
     right: 15px;
-    font-size: 14px;
-    color: var(--blackgold);
+    font-size: 16px; /* Трохи збільшив для кращої видимості */
+    color: var(--blackgold) !important; /* Робимо її золотою */
     opacity: 0;
+    visibility: hidden; /* Надійно приховуємо */
+    transition: all 0.3s ease;
 }
 
-.mood__card.active {
-    background-color: #F2EDE4 !important; /* Бежевий фон */
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    transform: translateY(-2px); /* Легке підняття для акценту */
+/* --- ОБРАНА КАРТКА (Загальні стилі) --- */
+.mood__card.selected {
+    border: 2px solid var(--blackgold) !important; /* Золотистий контур */
+    transform: translateY(-5px); /* Трішки піднімаємо для ефекту натискання */
 }
 
-.mood__card.active .mood__card-check {
+/* Показуємо галочку, коли картка обрана */
+.mood__card.selected .mood__card-check {
     opacity: 1;
+    visibility: visible;
 }
 
-/* Загальне правило для активної картки: змінюємо іконку та текст */
-.mood__card.active .mood__card-icon img {
+/* Загальне правило: робимо текст і іконку білими (крім світлих карток) */
+.mood__card.selected .mood__card-icon img {
     filter: invert(70%) sepia(50%) saturate(1000%) hue-rotate(10deg) brightness(90%) contrast(100%); 
-    /* Цей фільтр робить SVG золотистим. Підберіть точніше, якщо потрібно */
+}
+.mood__card.selected .mood__card-title,
+.mood__card.selected .mood__card-text {
+    color: white !important; 
 }
 
-.mood__card.active .mood__card-title,
-.mood__card.active .mood__card-text,
-.mood__card.active .mood__card-check {
-    color: white !important; /* На темних фонах текст стає білим */
-}
+/* --- ІНДИВІДУАЛЬНІ КОЛЬОРИ ЗАЛИВКИ ОБРАНИХ КАРТОК --- */
+.mood__card.card--1.selected { background-color: #0c0624 !important; }
+.mood__card.card--2.selected { background-color: #d0b564 !important; }
+.mood__card.card--3.selected { background-color: #a17950 !important; }
+.mood__card.card--4.selected { background-color: #1a2a44 !important; }
+.mood__card.card--5.selected { background-color: #9bd2cc !important; }
+.mood__card.card--6.selected { background-color: #698e5d !important; }
 
-/* Індивідуальні кольори для кожної картки */
-
-/* 1. Темно-синій */
-.mood__card.card--1.active { background-color: #0c0624 !important; }
-
-/* 2. Золотистий */
-.mood__card.card--2.active { background-color: #d6c695 !important; }
-
-/* 3. Кава з молоком */
-.mood__card.card--3.active { background-color: #a17950 !important; }
-
-/* 4. Темно-синій (повтор або інший відтінок синього) */
-.mood__card.card--4.active { background-color: #1a2a44 !important; }
-
-/* 5. Блакитний з бірюзою */
-.mood__card.card--5.active { background-color: #5aeedf !important; }
-
-/* 6. Світло-зелений (лісовий) */
-.mood__card.card--6.active { background-color: #4F7942 !important; }
-
-/* Якщо на світлих картах (наприклад, 5 або 6) текст має бути темним */
-.mood__card.card--5.active .mood__card-title,
-.mood__card.card--5.active .mood__card-text,
-.mood__card.card--6.active .mood__card-title,
-.mood__card.card--6.active .mood__card-text {
+/* Для світлих карток повертаємо темний текст і галочку */
+.mood__card.card--5.selected .mood__card-title,
+.mood__card.card--5.selected .mood__card-text,
+.mood__card.card--6.selected .mood__card-title,
+.mood__card.card--6.selected .mood__card-text {
     color: var(--dark) !important;
+}
+.mood__card.card--5.selected .mood__card-check,
+.mood__card.card--6.selected .mood__card-check {
+    color: var(--blackgold) !important; /* Галочка темна на світлому фоні */
 }
 
 /* Контейнер, який контролює центрування */
@@ -977,7 +1134,6 @@ main {
     color: var(--dark);
     text-decoration: underline;
 }
-
 
 
 
@@ -1110,6 +1266,29 @@ main {
     font-size: 0.8rem;
     margin: 0 4px 8px 0;
 }
+
+/* --- Спеціальна анімація для горизонтального списку --- */
+
+/* Початковий стан: картка трохи менша, прозора і зміщена вправо */
+.room-card.room-reveal {
+    opacity: 0;
+    transform: scale(0.9) translateX(30px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* cubic-bezier додає ефект "пружини" при появі */
+}
+
+/* Стан, коли картка потрапила в зону видимості (JS додає клас active) */
+.room-card.room-reveal.active {
+    opacity: 1;
+    transform: scale(1) translateX(0) !important;
+}
+
+/* Додамо плавний ефект наведення, щоб картка не "стрибала" під час анімації */
+.room-card:hover {
+    transform: translateY(-10px);
+    z-index: 5;
+}
+
 
 /* Кнопки */
 .room-card__actions {
@@ -1251,39 +1430,73 @@ main {
 
 
 
+/* --- СТИЛІ МОДАЛЬНОГО ВІКНА (ДЕТАЛІ КІМНАТИ) --- */
+
+/* Сітка вікна: зліва фото, справа текст */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Дві рівні колонки */
+    padding: 0 !important; /* Прибираємо стандартний паддінг, щоб фото було на весь лівий край */
+    overflow: hidden; /* Обрізаємо кути */
+    max-width: 950px; /* Оптимальна ширина для ПК */
+    background: white;
+    align-items: stretch; /* Розтягуємо колонки на однакову висоту */
+}
+
+/* Блок із зображенням */
+.modal-visual {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    background-color: #f5f5f5;
+}
+
 .modal-visual img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
+/* Блок з текстом */
 .modal-info {
-    padding: 40px 40px 40px 0; /* Відступи тільки для тексту */
+    padding: 40px 50px; /* Додаємо "повітря" навколо тексту */
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .modal-info__title {
-    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; /* Зробили меншим і елегантнішим (було 2rem/32px) */
     color: var(--dark);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
 .modal-info__location {
     display: flex;
     align-items: center;
     gap: 5px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
     color: var(--blackgold);
     margin-bottom: 20px;
 }
 
 .modal-info__description {
+    font-family: "Mulish", sans-serif;
+    font-size: 15px;
     color: var(--gray);
     line-height: 1.6;
     margin-bottom: 25px;
 }
 
+/* Зручності (Іконки) */
 .modal-info__amenities {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1295,64 +1508,125 @@ main {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 0.9rem;
-    color: var(--gray);
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    color: var(--dark);
 }
 
+.amenity-item img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+/* Нижня панель з ціною та кнопкою */
 .modal-info__footer {
-    margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #eaeaea;
     padding-top: 20px;
+    margin-top: auto;
 }
 
 .price-label {
     display: block;
-    font-size: 0.8rem;
+    font-family: "Mulish", sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     color: var(--gray);
+    margin-bottom: 4px;
 }
 
 .price-amount {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--blue);
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    color: var(--dark);
 }
 
 .btn-book-now {
-    background-color: var(--blue);
+    background-color: var(--blackgold); /* Золота кнопка виглядає дорожче за синю */
     color: white;
+    font-family: "DM Sans", sans-serif;
     border: none;
-    padding: 15px 30px;
-    border-radius: 12px;
+    padding: 12px 30px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 15px;
     font-weight: bold;
-    transition: transform 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
 .btn-book-now:hover {
     transform: translateY(-2px);
-    background-color: #0c4bb3;
+    background-color: #a58a6d;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
 }
 
-/* Адаптивність для мобілок */
+/* Карта */
+.modal-info__map {
+    margin-top: 25px;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 120px; /* Зробили карту нижчою, щоб вона не забирала весь акцент */
+    border: 1px solid #eaeaea;
+}
+
+.modal-info__map iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Красива кнопка закриття (хрестик) */
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 36px;
+    height: 36px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--dark);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background-color: var(--blackgold);
+    color: white;
+    transform: rotate(90deg); /* Крутий ефект при наведенні */
+}
+
+/* --- АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ ВІКОН --- */
 @media (max-width: 768px) {
     .details-grid {
         grid-template-columns: 1fr;
+        max-height: 90vh; /* Вікно не вилазить за екран */
+        overflow-y: auto; /* Дозволяємо скрол всередині вікна */
+    }
+    .modal-visual {
+        min-height: 250px;
     }
     .modal-info {
-        padding: 20px;
+        padding: 25px;
+    }
+    .modal-info__footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        text-align: center;
     }
 }
 
-.modal-info__map {
-    margin-top: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border-radius: 12px;
-    overflow: hidden;
-    height: 200px;
-}
 
 
 
@@ -1411,7 +1685,29 @@ main {
 .btn-confirm { background: #d4af37; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; }
 
 
+/* Базовий стан для всіх елементів, що виринають */
+.reveal {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
+/* Стан після того, як доскролили (клас active додає JS) */
+.reveal.active {
+    opacity: 1;
+    transform: translate(0, 0) !important;
+}
+
+/* Напрямки */
+.fade-up { transform: translateY(50px); }
+.fade-left { transform: translateX(-50px); }
+.fade-right { transform: translateX(50px); }
+
+/* Затримки (щоб картки з'являлись одна за одною) */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.5s; }
+.delay-4 { transition-delay: 0.7s; }
 
 
 

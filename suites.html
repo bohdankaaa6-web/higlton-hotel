@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" >
     <head>
-        <meta charset="UTF-8">
-        <title> Higlton</title>
-        <script type="text/javascript" nonce="178ae7e0c8434642afd6fc105dd" src="//local.adguard.org?ts=1775744098507&amp;type=content-script&amp;dmn=contribution.usercontent.google.com&amp;url=https%3A%2F%2Fcontribution.usercontent.google.com%2Fdownload%3Fc%3DCgxiYXJkX3N0b3JhZ2USTxIMcmVxdWVzdF9kYXRhGj8KMGRhMTYzNGJhNDk1ODk0NTEwMDA2NGYwNzNhOWEyOGRhMDNmMTQyOWI1ZjAzOGVjMhILEgcQ1Yip7ZofGAE%26filename%3Dsuites.html%26opi%3D103135050&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="178ae7e0c8434642afd6fc105dd" src="//local.adguard.org?ts=1775744098507&amp;name=AdGuard%20Extra&amp;type=user-script"></script><link rel="stylesheet" href="style.css" >
-        <link rel="shortcut icon" href="images/favicon.svg" type="image/svg">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet"></head>
+    <meta charset="UTF-8">
+    <title>Higlton - Suites</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/favicon.svg" type="image/svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    </head>
+
     <body style="background-color: antiquewhite">
 
         <header class="header">
@@ -16,19 +18,28 @@
                     <img src="images/higlton.svg" alt="Logo" width="200">
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <a class="header__list-link" href="index.html">Home</a>
+                            <a class="header__list-link" href="index.html" data-i18n="nav_home">Home</a>
                         </li>
                         <li class="header__list-item">
-                            <a class="header__list-link active" href="suites.html">Suites</a>
+                            <a class="header__list-link active" href="suites.html" data-i18n="nav_suites">Suites</a>
                         </li>
                         <li class="header__list-item" >
-                            <a class="header__list-link" href="locations.html">Locations</a>
+                            <a class="header__list-link" href="locations.html" data-i18n="nav_locations">Locations</a>
                         </li>
                         <li class="header__list-item">
-                            <a class="header__list-link" href="aboutus.html">About us</a>
+                            <a class="header__list-link" href="aboutus.html" data-i18n="nav_about">About us</a>
                         </li>
                     </ul>
-                    <a class="header__button" href="getstarted.html">Get Started</a>
+                    
+                    <div class="header__actions">
+                        <div class="lang-switcher">
+                            <span class="lang-btn active" data-lang="en">EN</span>
+                            <span class="lang-divider">|</span>
+                            <span class="lang-btn" data-lang="ua">UA</span>
+                        </div>
+                        <a class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
+                    </div>
+                    
                 </nav>
             </div>
         </header>
@@ -36,9 +47,9 @@
         <section class="suites-hero">
             <div class="suites-hero__container">
                 <div class="suites-hero__content">
-                    <h1 class="suites-hero__title">Our Suites</h1>
+                    <h1 class="suites-hero__title" data-i18n="suites_hero_title">Our Suites</h1>
                     <p class="suites-hero__subtitle">
-                    Home / <span class="suites-hero__current">Suites</span>
+                    Home / <span class="suites-hero__current" data-i18n="suites_hero_crumb">Suites</span>
                     </p>
                 </div>
             </div>
@@ -47,110 +58,101 @@
 
         <section class="accommodations">
             <div class="accommodations__container">
-                <div class="accomodations__header">
-                    <span class="accommodations__subtitle">ACCOMMODATIONS</span>
-                    <h2 class="accommodations__title">Discover Your Perfect Suite</h2>
-                    <p class="accommodations__desc">Each room thoughtfully curated to match your mood and travel aspirations</p>
+                <div class="accomodations__header reveal fade-up">
+                    <span class="accommodations__subtitle" data-i18n="acc_subtitle">ACCOMMODATIONS</span>
+                    <h2 class="accommodations__title" data-i18n="acc_title">Discover Your Perfect Suite</h2>
+                    <p class="accommodations__desc" data-i18n="acc_desc">Each room thoughtfully curated to match your mood and travel aspirations</p>
                 </div>
 
                 <div class="accommodations__grid">
 
-                    <div class="mood__card card--1" data-mood="silence">
-                        <div class="mood__card-check">✔</div> <div class="mood__card-header">
+                    <div class="mood__card card--1 reveal fade-up delay-1" data-mood="silence">
+                        <div class="mood__card-check">✔</div> 
+                        <div class="mood__card-header">
                             <div class="mood__card-icon">
                                 <img src="images/suites_section1/moon-svgrepo-com.svg" alt="icon">
                             </div>
-                            <h3 class="mood__card-title">Total Silence</h3>
+                            <h3 class="mood__card-title" data-i18n="mood_1_title">Total Silence</h3>
                         </div>
-                        <p class="mood__card-text">Escape to tranquil spaces where peace reigns supreme</p>
+                        <p class="mood__card-text" data-i18n="mood_1_desc">Escape to tranquil spaces where peace reigns supreme</p>
                     </div>
 
-                    <div class="mood__card card--2" data-mood="city">
-                        <div class="mood__card-check">✔</div> <div class="mood__card-header">
+                    <div class="mood__card card--2 reveal fade-up delay-2" data-mood="city">
+                        <div class="mood__card-check">✔</div> 
+                        <div class="mood__card-header">
                             <div class="mood__card-icon">
                                 <img src="images/suites_section1/buildings-2-svgrepo-com.svg" alt="icon">
                             </div>
-                            <h3 class="mood__card-title">City Center Pulse</h3>
+                            <h3 class="mood__card-title" data-i18n="mood_2_title">City Center Pulse</h3>
                         </div>
-                        <p class="mood__card-text">Immerse yourself in vibrant urban energy and culture</p>
+                        <p class="mood__card-text" data-i18n="mood_2_desc">Immerse yourself in vibrant urban energy and culture</p>
                     </div>
 
-                    <div class="mood__card card--3" data-mood="work">
-                        <div class="mood__card-check">✔</div> <div class="mood__card-header">
+                    <div class="mood__card card--3 reveal fade-up delay-3" data-mood="work">
+                        <div class="mood__card-check">✔</div> 
+                        <div class="mood__card-header">
                             <div class="mood__card-icon">
                                 <img src="images/suites_section1/cup-of-hot-coffee-svgrepo-com.svg" alt="icon">
                             </div>
-                            <h3 class="mood__card-title">Work + Relax</h3>
+                            <h3 class="mood__card-title" data-i18n="mood_3_title">Work + Relax</h3>
                         </div>
-                        <p class="mood__card-text">Perfect balance of productivity and comfort</p>
+                        <p class="mood__card-text" data-i18n="mood_3_desc">Perfect balance of productivity and comfort</p>
                     </div>
 
-                    <div class="mood__card card--4" data-mood="luxury">
-                        <div class="mood__card-check">✔</div> <div class="mood__card-header">
+                    <div class="mood__card card--4 reveal fade-up delay-4" data-mood="luxury">
+                        <div class="mood__card-check">✔</div> 
+                        <div class="mood__card-header">
                             <div class="mood__card-icon">
                                 <img src="images/suites_section1/star-fall-svgrepo-com.svg" alt="icon">
                             </div>
-                            <h3 class="mood__card-title">Ultimate Luxury</h3>
+                            <h3 class="mood__card-title" data-i18n="mood_4_title">Ultimate Luxury</h3>
                         </div>
-                        <p class="mood__card-text">Experience the pinnacle of opulent living</p>
+                        <p class="mood__card-text" data-i18n="mood_4_desc">Experience the pinnacle of opulent living</p>
                     </div>
 
-                    <div class="mood__card card--5" data-mood="water">
-                        <div class="mood__card-check">✔</div> <div class="mood__card-header">
+                    <div class="mood__card card--5 reveal fade-up delay-5" data-mood="water">
+                        <div class="mood__card-check">✔</div> 
+                        <div class="mood__card-header">
                             <div class="mood__card-icon">
                                 <img src="images/suites_section1/water-svgrepo-com.svg" alt="icon">
                             </div>
-                            <h3 class="mood__card-title">Pure Relaxation</h3>
+                            <h3 class="mood__card-title" data-i18n="mood_5_title">Pure Relaxation</h3>
                         </div>
-                        <p class="mood__card-text">Unwind in serene sanctuaries of wellness</p>
+                        <p class="mood__card-text" data-i18n="mood_5_desc">Unwind in serene sanctuaries of wellness</p>
                     </div>
 
-                    <div class="mood__card card--6" data-mood="nature">
-                        <div class="mood__card-check">✔</div> <div class="mood__card-header">
+                    <div class="mood__card card--6 reveal fade-up delay-6" data-mood="nature">
+                        <div class="mood__card-check">✔</div> 
+                        <div class="mood__card-header">
                             <div class="mood__card-icon">
                                 <img src="images/suites_section1/forest-tree-svgrepo-com.svg" alt="icon">
                             </div>
-                            <h3 class="mood__card-title">Nature Embrace</h3>
+                            <h3 class="mood__card-title" data-i18n="mood_6_title">Nature Embrace</h3>
                         </div>
-                        <p class="mood__card-text">Connect with natural beauty and fresh air</p>
+                        <p class="mood__card-text" data-i18n="mood_6_desc">Connect with natural beauty and fresh air</p>
                     </div>
-                </div>
+
+                </div> <!-- Закриваємо Grid -->
+
                 <div class="accommodations__actions">
                     <button id="reset-selection" class="reset-link">
-                        <span class="reset-link__icon"></span> Clear selection 
+                        <span data-i18n="btn_clear_selection">Clear selection</span>
                     </button>
                 </div>
-
             </div>
         </section>
-        <script>
-            const cards = document.querySelectorAll('.mood__card');
-            const resetBtn = document.getElementById('reset-selection');
-
-            cards.forEach(card => {
-                card.addEventListener('click', () => {
-                    cards.forEach(c => c.classList.remove('active'));
-                    card.classList.add('active');
-                    resetBtn.classList.add('show');
-                });
-            });
-
-            resetBtn.addEventListener('click', () => {
-                cards.forEach(c => c.classList.remove('active'));
-                resetBtn.classList.remove('show');
-            });
-        </script>
+        
 
         <section class="rooms">
             <div class="rooms__container">
                 <div class="rooms__grid">
 
-                    <div class="room-card" data-category="silence">
+                    <div class="room-card reveal room-reveal" data-category="silence">
                         <div class="room-card__image-container card__image-wrapper"> 
-                            <div class="badge-location">CH || Zurich</div>
+                            <div class="badge-location" data-i18n="loc_zurich" data-map="Zurich, Switzerland">CH || Zurich</div>
                             <div class="badge-price">
                                 <span class="price-value">$320</span>
-                                <span class="price-period">per night</span>
+                                <span class="price-period" data-i18n="room_per_night">per night</span>
                             </div>
                             
                             <img src="images/suites_section-rooms/bedroom-zurich.jpg" alt="Serene Sanctuary" class="room-card__img">
@@ -169,7 +171,7 @@
                         
                         <div class="room-card__body">
                             <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <h4 class="room-card__title">Serene Sanctuary</h4>
+                                <h4 class="room-card__title" data-i18n="room1_title">Serene Sanctuary</h4>
 
                                 <div class="card__rating" data-avg="4.9" data-count="156">
                                     <span class="star" data-value="1">★</span>
@@ -180,12 +182,12 @@
                                 </div>
                             </div>
                             
-                            <p class="room-card__description">A peaceful retreat designed for ultimate tranquility</p>
+                            <p class="room-card__description"  data-i18n="room1_desc">A peaceful retreat designed for ultimate tranquility</p>
                             
                             <div class="room-card__specs">
                                 <div class="spec-item">
                                     <span class="spec-icon">👥</span>
-                                    <span class="spec-text">2 guests</span>
+                                    <span class="spec-text" data-i18n="room_guests_2">2 guests</span>
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">⛶</span>
@@ -193,31 +195,31 @@
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">🛏️</span>
-                                    <span class="spec-text">King Bed</span>
+                                    <span class="spec-text" data-i18n="room_bed_king">King Bed</span>
                                 </div>
                             </div>
 
                              <div class="room-card__amenities">
-                                <span class="amenity-tag">Blackout Curtains</span>
-                                <span class="amenity-tag">White Noise</span>
-                                <span class="amenity-tag">Premium Bedding</span>
-                                <span class="amenity-tag">Tea Lounge</span>
+                                <span class="amenity-tag" data-i18n="am_curtains">Blackout Curtains</span>
+                                <span class="amenity-tag" data-i18n="am_noise">White Noise</span>
+                                <span class="amenity-tag" data-i18n="am_bedding">Premium Bedding</span>
+                                <span class="amenity-tag" data-i18n="am_tea">Tea Lounge</span>
                             </div>
 
                             <div class="room-card__actions">
-                                <button class="btn-book">Book Now</button>
-                                <button class="btn-details">View Details</button>
+                                <button class="btn-book" data-i18n="btn_book_now">Book Now</button>
+                                <button class="btn-details" data-i18n="btn_view_details">View Details</button>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="room-card" data-category="city">
+                    <div class="room-card reveal room-reveal" data-category="city">
                         <div class="room-card__image-container card__image-wrapper"> <!-- Додано клас card__image-wrapper -->
-                            <div class="badge-location">US || New York</div>
+                            <div class="badge-location" data-i18n="loc_ny" data-map="New York, USA">US || New York</div>
                             <div class="badge-price">
                                 <span class="price-value">$425</span>
-                                <span class="price-period">per night</span>
+                                <span class="price-period" data-i18n="room_per_night">per night</span>
                             </div>
                             
                             <img src="images/suites_section-rooms/bedroom-newyork.jpg" alt="Urban Panorama" class="room-card__img">
@@ -236,7 +238,7 @@
                         
                         <div class="room-card__body">
                             <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <h4 class="room-card__title">Urban Panorama</h4>
+                                <h4 class="room-card__title" data-i18n="room2_title">Urban Panorama</h4>
                                 <div class="card__rating" data-avg="4.9" data-count="243">
                                     <span class="star" data-value="1">★</span>
                                     <span class="star" data-value="2">★</span>
@@ -246,12 +248,12 @@
                                 </div>
                             </div>
                             
-                            <p class="room-card__description">Stunning city views with contemporary elegance</p>
+                            <p class="room-card__description"  data-i18n="room2_desc">Stunning city views with contemporary elegance</p>
                             
                             <div class="room-card__specs">
                                 <div class="spec-item">
                                     <span class="spec-icon">👥</span>
-                                    <span class="spec-text">1 or 2 guests</span>
+                                    <span class="spec-text" data-i18n="room_guests_1">1 or 2 guests</span>
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">⛶</span>
@@ -259,30 +261,30 @@
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">🛏️</span>
-                                    <span class="spec-text">King Bed</span>
+                                    <span class="spec-text" data-i18n="room_bed_king">King Bed</span>
                                 </div>
                             </div>
 
                              <div class="room-card__amenities">
-                                <span class="amenity-tag">Floor-to-Ceiling Windows</span>
-                                <span class="amenity-tag">4K TV</span>
-                                <span class="amenity-tag">Premium Bar</span>
-                                <span class="amenity-tag">Skyline View</span>
+                                <span class="amenity-tag" data-i18n="am_windows">Floor-to-Ceiling Windows</span>
+                                <span class="amenity-tag" data-i18n="am_tv">4K TV</span>
+                                <span class="amenity-tag" data-i18n="am_bar">Premium Bar</span>
+                                <span class="amenity-tag" data-i18n="am_skyline">Skyline View</span>
                             </div>
 
                             <div class="room-card__actions">
-                                <button class="btn-book">Book Now</button>
-                                <button class="btn-details">View Details</button>
+                                <button class="btn-book" data-i18n="btn_book_now">Book Now</button>
+                                <button class="btn-details" data-i18n="btn_view_details">View Details</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="room-card" data-category="city, work">
+                    <div class="room-card reveal room-reveal" data-category="city, work">
                         <div class="room-card__image-container card__image-wrapper"> 
-                            <div class="badge-location">GB || London</div>
+                            <div class="badge-location" data-i18n="loc_london" data-map="London, UK">GB || London</div>
                             <div class="badge-price">
                                 <span class="price-value">$520</span>
-                                <span class="price-period">per night</span>
+                                <span class="price-period" data-i18n="room_per_night">per night</span>
                             </div>
                             
                             <img src="images/suites_section-rooms/london.jpg" alt="Executive Haven" class="room-card__img">
@@ -301,7 +303,7 @@
                         
                         <div class="room-card__body">
                             <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <h4 class="room-card__title">Executive Haven</h4>
+                                <h4 class="room-card__title" data-i18n="room3_title">Executive Haven</h4>
                                 <div class="card__rating" data-avg="5.0" data-count="189"> <!-- Додано атрибути -->
                                     <span class="star" data-value="1">★</span>
                                     <span class="star" data-value="2">★</span>
@@ -311,12 +313,12 @@
                                 </div>
                             </div>
                             
-                            <p class="room-card__description">Perfect workspace integration with luxury living</p>
+                            <p class="room-card__description" data-i18n="room3_desc">Perfect workspace integration with luxury living</p>
                             
                             <div class="room-card__specs">
                                 <div class="spec-item">
                                     <span class="spec-icon">👥</span>
-                                    <span class="spec-text">4 guests</span>
+                                    <span class="spec-text" data-i18n="room_guests_4">4 guests</span>
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">⛶</span>
@@ -324,32 +326,32 @@
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">🛏️</span>
-                                    <span class="spec-text">King Bed + Sofa</span>
+                                    <span class="spec-text" data-i18n="room_bed_king_sofa">King Bed + Sofa</span>
                                 </div>
                             </div>
 
                              <div class="room-card__amenities">
-                                <span class="amenity-tag">Ergonomic Office</span>
-                                <span class="amenity-tag">Ultra-Fast WiFi</span>
-                                <span class="amenity-tag">Nespresso</span>
-                                <span class="amenity-tag">Meeting Room</span>
+                                <span class="amenity-tag" data-i18n="am_office">Ergonomic Office</span>
+                                <span class="amenity-tag" data-i18n="am_wifi_fast">Ultra-Fast WiFi</span>
+                                <span class="amenity-tag" data-i18n="am_nespresso">Nespresso</span>
+                                <span class="amenity-tag" data-i18n="am_meeting">Meeting Room</span>
                             </div>
 
                             <div class="room-card__actions">
-                                <button class="btn-book">Book Now</button>
-                                <button class="btn-details">View Details</button>
+                                <button class="btn-book" data-i18n="btn_book_now">Book Now</button>
+                                <button class="btn-details" data-i18n="btn_view_details">View Details</button>
                             </div>
                         </div>
                     </div>
 
 
 
-                    <div class="room-card" data-category="city">
+                    <div class="room-card reveal room-reveal" data-category="city">
                         <div class="room-card__image-container card__image-wrapper"> 
-                            <div class="badge-location">AE || Dubai</div>
+                            <div class="badge-location" data-i18n="loc_dubai" data-map="Dubai, UAE">AE || Dubai</div>
                             <div class="badge-price">
                                 <span class="price-value">$880</span>
-                                <span class="price-period">per night</span>
+                                <span class="price-period" data-i18n="room_per_night">per night</span>
                             </div>
                             
                             <img src="images/suites_section-rooms/dubai.jpg" alt="Presidential Opus" class="room-card__img">
@@ -368,7 +370,7 @@
                         
                         <div class="room-card__body">
                             <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <h4 class="room-card__title">Presidential Opus</h4>
+                                <h4 class="room-card__title" data-i18n="room4_title">Presidential Opus</h4>
                                 <div class="card__rating" data-avg="5.0" data-count="97">
                                     <span class="star" data-value="1">★</span>
                                     <span class="star" data-value="2">★</span>
@@ -378,12 +380,12 @@
                                 </div>
                             </div>
                             
-                            <p class="room-card__description">The pinnacle of luxury and sophistication</p>
+                            <p class="room-card__description" data-i18n="room4_desc">The pinnacle of luxury and sophistication</p>
                             
                             <div class="room-card__specs">
                                 <div class="spec-item">
                                     <span class="spec-icon">👥</span>
-                                    <span class="spec-text">6 guests</span>
+                                    <span class="spec-text" data-i18n="room_guests_6">6 guests</span>
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">⛶</span>
@@ -391,20 +393,20 @@
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">🛏️</span>
-                                    <span class="spec-text">2 King Beds</span>
+                                    <span class="spec-text" data-i18n="room_bed_2king">2 King Beds</span>
                                 </div>
                             </div>
 
                              <div class="room-card__amenities">
-                                <span class="amenity-tag">Private Terrace</span>
-                                <span class="amenity-tag">Jacuzzi</span>
-                                <span class="amenity-tag">Butler Service</span>
-                                <span class="amenity-tag">Chef's Kitchen</span>
+                                <span class="amenity-tag" data-i18n="am_terrace">Private Terrace</span>
+                                <span class="amenity-tag" data-i18n="am_jacuzzi">Jacuzzi</span>
+                                <span class="amenity-tag" data-i18n="am_butler">Butler Service</span>
+                                <span class="amenity-tag" data-i18n="am_kitchen">Chef's Kitchen</span>
                             </div>
 
                             <div class="room-card__actions">
-                                <button class="btn-book">Book Now</button>
-                                <button class="btn-details">View Details</button>
+                                <button class="btn-book" data-i18n="btn_book_now">Book Now</button>
+                                <button class="btn-details" data-i18n="btn_view_details">View Details</button>
                             </div>
                         </div>
                     </div>
@@ -413,12 +415,12 @@
                     
                     
 
-                    <div class="room-card" data-category="nature">
+                    <div class="room-card reveal room-reveal" data-category="nature">
                         <div class="room-card__image-container card__image-wrapper"> 
-                            <div class="badge-location">JP || Japan</div>
+                            <div class="badge-location" data-i18n="loc_japan" data-map="Tokyo, Japan">JP || Japan</div>
                             <div class="badge-price">
                                 <span class="price-value">$180</span>
-                                <span class="price-period">per night</span>
+                                <span class="price-period" data-i18n="room_per_night">per night</span>
                             </div>
                             
                             <img src="images/suites_section-rooms/japan.jpg" alt="Zen Minimalist" class="room-card__img">
@@ -437,7 +439,7 @@
                         
                         <div class="room-card__body">
                             <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <h4 class="room-card__title">Zen Minimalist</h4>
+                                <h4 class="room-card__title" data-i18n="room5_title">Zen Minimalist</h4>
                                 <div class="card__rating" data-avg="4.8" data-count="233">
                                     <span class="star" data-value="1">★</span>
                                     <span class="star" data-value="2">★</span>
@@ -447,12 +449,12 @@
                                 </div>
                             </div>
                             
-                            <p class="room-card__description">Clean lines and mindful design for reflection</p>
+                            <p class="room-card__description" data-i18n="room5_desc">Clean lines and mindful design for reflection</p>
                             
                             <div class="room-card__specs">
                                 <div class="spec-item">
                                     <span class="spec-icon">👥</span>
-                                    <span class="spec-text">2 guests</span>
+                                    <span class="spec-text" data-i18n="room_guests_2">2 guests</span>
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">⛶</span>
@@ -460,31 +462,31 @@
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">🛏️</span>
-                                    <span class="spec-text">Queen Bed</span>
+                                    <span class="spec-text" data-i18n="room_bed_queen">Queen Bed</span>
                                 </div>
                             </div>
 
                              <div class="room-card__amenities">
-                                <span class="amenity-tag">Meditation Corner</span>
-                                <span class="amenity-tag">Natural Light</span>
-                                <span class="amenity-tag">Organic Linens</span>
-                                <span class="amenity-tag">Aromatherapy</span>
+                                <span class="amenity-tag" data-i18n="am_meditation">Meditation Corner</span>
+                                <span class="amenity-tag" data-i18n="am_light">Natural Light</span>
+                                <span class="amenity-tag" data-i18n="am_linen">Organic Linens</span>
+                                <span class="amenity-tag" data-i18n="am_aroma">Aromatherapy</span>
                             </div>
 
                             <div class="room-card__actions">
-                                <button class="btn-book">Book Now</button>
-                                <button class="btn-details">View Details</button>
+                                <button class="btn-book" data-i18n="btn_book_now">Book Now</button>
+                                <button class="btn-details" data-i18n="btn_view_details">View Details</button>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="room-card" data-category="city">
+                    <div class="room-card reveal room-reveal" data-category="city">
                         <div class="room-card__image-container card__image-wrapper"> 
-                            <div class="badge-location">IT || Rome</div>
+                            <div class="badge-location" data-i18n="loc_rome" data-map="Rome, Italy">IT || Rome</div>
                             <div class="badge-price">
                                 <span class="price-value">$780</span>
-                                <span class="price-period">per night</span>
+                                <span class="price-period" data-i18n="room_per_night">per night</span>
                             </div>
                             
                             <img src="images/suites_section-rooms/rome.jpg" alt="Garden Penthouse" class="room-card__img">
@@ -503,7 +505,7 @@
                         
                         <div class="room-card__body">
                             <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <h4 class="room-card__title">Garden Penthouse</h4>
+                                <h4 class="room-card__title" data-i18n="room6_title">Garden Penthouse</h4>
                                 <div class="card__rating" data-avg="4.9" data-count="178">
                                     <span class="star" data-value="1">★</span>
                                     <span class="star" data-value="2">★</span>
@@ -513,12 +515,12 @@
                                 </div>
                             </div>
                             
-                            <p class="room-card__description">Rooftop sanctuary with private garden oasis</p>
+                            <p class="room-card__description"  data-i18n="room6_desc">Rooftop sanctuary with private garden oasis</p>
                             
                             <div class="room-card__specs">
                                 <div class="spec-item">
                                     <span class="spec-icon">👥</span>
-                                    <span class="spec-text">4 guests</span>
+                                    <span class="spec-text" data-i18n="room_guests_4">4 guests</span>
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">⛶</span>
@@ -526,32 +528,32 @@
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">🛏️</span>
-                                    <span class="spec-text">King + Day Bed</span>
+                                    <span class="spec-text" data-i18n="room_bed_king_day">King + Day Bed</span>
                                 </div>
                             </div>
 
                              <div class="room-card__amenities">
-                                <span class="amenity-tag">Private Garden</span>
-                                <span class="amenity-tag">Outdoor Lounge</span>
-                                <span class="amenity-tag">Fire Pit</span>
-                                <span class="amenity-tag">Spa Bath</span>
+                                <span class="amenity-tag" data-i18n="am_garden">Private Garden</span>
+                                <span class="amenity-tag" data-i18n="am_outdoor">Outdoor Lounge</span>
+                                <span class="amenity-tag" data-i18n="am_fire">Fire Pit</span>
+                                <span class="amenity-tag" data-i18n="am_spa">Spa Bath</span>
                             </div>
 
                             <div class="room-card__actions">
-                                <button class="btn-book">Book Now</button>
-                                <button class="btn-details">View Details</button>
+                                <button class="btn-book" data-i18n="btn_book_now">Book Now</button>
+                                <button class="btn-details" data-i18n="btn_view_details">View Details</button>
                             </div>
                         </div>
                     </div>
 
 
 
-                    <div class="room-card" data-category="luxury">
+                    <div class="room-card reveal room-reveal" data-category="luxury">
                         <div class="room-card__image-container card__image-wrapper"> 
-                            <div class="badge-location">UA || Kyiv</div>
+                            <div class="badge-location" data-i18n="loc_kyiv" data-map="Kyiv, Ukraine">UA || Kyiv</div>
                             <div class="badge-price">
                                 <span class="price-value">$180</span>
-                                <span class="price-period">per night</span>
+                                <span class="price-period" data-i18n="room_per_night">per night</span>
                             </div>
                             
                             <img src="images/suites_section-rooms/kyiv.webp" alt="Lux apartment" class="room-card__img">
@@ -570,7 +572,7 @@
                         
                         <div class="room-card__body">
                             <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <h4 class="room-card__title">Lux apartment</h4>
+                                <h4 class="room-card__title" data-i18n="room7_title">Lux apartment</h4>
                                 <div class="card__rating" data-avg="5.0" data-count="197">
                                     <span class="star" data-value="1">★</span>
                                     <span class="star" data-value="2">★</span>
@@ -580,12 +582,12 @@
                                 </div>
                             </div>
                             
-                            <p class="room-card__description">You can feel the energy and rhythm</p>
+                            <p class="room-card__description"  data-i18n="room7_desc">You can feel the energy and rhythm</p>
                             
                             <div class="room-card__specs">
                                 <div class="spec-item">
                                     <span class="spec-icon">👥</span>
-                                    <span class="spec-text">4 guests</span>
+                                    <span class="spec-text" data-i18n="room_guests_4">4 guests</span>
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">⛶</span>
@@ -593,20 +595,20 @@
                                 </div>
                                 <div class="spec-item">
                                     <span class="spec-icon">🛏️</span>
-                                    <span class="spec-text">2 King Beds</span>
+                                    <span class="spec-text" data-i18n="room_bed_2king">2 King Beds</span>
                                 </div>
                             </div>
 
                              <div class="room-card__amenities">
-                                <span class="amenity-tag">Private Terrace</span>
-                                <span class="amenity-tag">Jacuzzi</span>
-                                <span class="amenity-tag">Butler Service</span>
-                                <span class="amenity-tag">Chef's Kitchen</span>
+                                <span class="amenity-tag" data-i18n="am_terrace">Private Terrace</span>
+                                <span class="amenity-tag" data-i18n="am_jacuzzi">Jacuzzi</span>
+                                <span class="amenity-tag" data-i18n="am_butler">Butler Service</span>
+                                <span class="amenity-tag" data-i18n="am_kitchen">Chef's Kitchen</span>
                             </div>
 
                             <div class="room-card__actions">
-                                <button class="btn-book">Book Now</button>
-                                <button class="btn-details">View Details</button>
+                                <button class="btn-book" data-i18n="btn_book_now">Book Now</button>
+                                <button class="btn-details" data-i18n="btn_view_details">View Details</button>
                             </div>
                         </div>
                     </div>
@@ -631,23 +633,29 @@
                         <span id="modal-location"></span>
                     </div>
                     
-                    <p class="modal-info__description">
-                        Experience luxury and comfort in our meticulously designed suite. 
-                        Perfect for those seeking peace and high-end amenities.
-                    </p>
+                    <p class="modal-info__description" data-i18n="modal_desc"></p>
 
-                    <div class="modal-info__amenities">
-                        <div class="amenity-item"><img src="https://img.icons8.com/material-outlined/24/696871/wifi--v1.png"> Free Wi-Fi</div>
-                        <div class="amenity-item"><img src="https://img.icons8.com/material-outlined/24/696871/bath.png"> Bath</div>
-                        <div class="amenity-item"><img src="https://img.icons8.com/material-outlined/24/696871/coffee-maker.png"> Coffee</div>
+                   <div class="modal-info__amenities">
+                        <div class="amenity-item">
+                            <img src="https://img.icons8.com/material-outlined/24/696871/wifi--v1.png"> 
+                            <span data-i18n="am_wifi">Free Wi-Fi</span>
+                        </div>
+                        <div class="amenity-item">
+                            <img src="https://img.icons8.com/material-outlined/24/696871/bath.png"> 
+                            <span data-i18n="am_bath">Bath</span>
+                        </div>
+                        <div class="amenity-item">
+                            <img src="https://img.icons8.com/material-outlined/24/696871/coffee-maker.png"> 
+                            <span data-i18n="am_coffee">Coffee</span>
+                        </div>
                     </div>
 
                     <div class="modal-info__footer">
                         <div class="modal-price-block">
-                            <span class="price-label">Price per night</span>
+                            <span class="price-label" data-i18n="modal_price_label">Price per night</span>
                             <span id="modal-price" class="price-amount"></span>
                         </div>
-                        <button class="btn-book-now">Book Now</button>
+                        <button class="btn-book-now"  data-i18n="modal_book_btn">Book Now</button>
                     </div>
 
                     <div class="modal-info__map">
@@ -663,150 +671,46 @@
                 <h2>Book <span id="book-room-name"></span></h2>
                 <form id="booking-form">
                     <div class="form-group">
-                        <label>Full Name *</label>
+                        <label data-i18n="modal_full_name">Full Name *</label>
                         <input type="text" placeholder="John Doe" required>
                     </div>
                     <div class="form-group">
-                        <label>Email *</label>
+                        <label data-i18n="modal_email">Email *</label>
                         <input type="email" placeholder="john@example.com" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Check-in *</label>
+                            <label data-i18n="modal_checkin">Check-in *</label>
                             <input type="date" required>
                         </div>
                         <div class="form-group">
-                            <label>Check-out *</label>
+                            <label data-i18n="modal_checkout">Check-out *</label>
                             <input type="date" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn-confirm">Confirm Booking</button>
+                    <button type="submit" class="btn-confirm" data-i18n="modal_confirm">Confirm Booking</button>
                 </form>
             </div>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const moodCards = document.querySelectorAll('.mood__card');
-                const roomCards = document.querySelectorAll('.room-card');
-                const resetBtn = document.getElementById('reset-selection');
-                const modalDetails = document.getElementById('modal-details');
-                const modalBook = document.getElementById('modal-book');
-                const closeButtons = document.querySelectorAll('.close-modal');
-
-                // --- ФІЛЬТРАЦІЯ ---
-                moodCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const selectedMood = card.getAttribute('data-mood');
-                        
-                        // Візуальний фокус на картці
-                        moodCards.forEach(c => c.classList.remove('active'));
-                        card.classList.add('active');
-                        resetBtn.classList.add('show');
-
-                        // Логіка фільтрації
-                        roomCards.forEach(room => {
-                            const categories = room.getAttribute('data-category').split(', ');
-                            room.style.display = categories.includes(selectedMood) ? 'block' : 'none';
-                        });
-                    });
-                });
-
-                resetBtn.addEventListener('click', () => {
-                    moodCards.forEach(c => c.classList.remove('active'));
-                    roomCards.forEach(room => room.style.display = 'block');
-                    resetBtn.classList.remove('show');
-                });
-
-                // --- МОДАЛЬНІ ВІКНА ---
-                document.querySelectorAll('.btn-details').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const card = e.target.closest('.room-card');
-                        // Отримуємо дані з картки
-                        const title = card.querySelector('.room-card__title').innerText;
-                        const imgSrc = card.querySelector('.room-card__img').src;
-                        const price = card.querySelector('.price-value').innerText;
-                        const location = card.querySelector('.badge-location').innerText;
-
-                        // Заповнюємо модальне вікно текстом та картинкою
-                        document.getElementById('modal-title').innerText = title;
-                        document.getElementById('modal-img').src = imgSrc;
-                        document.getElementById('modal-price').innerText = price + " per night";
-                        document.getElementById('modal-location').innerText = location;
-                        // --- ОНОВЛЕННЯ КАРТИ ---
-                        // 1. Кодуємо назву міста для URL
-                        const encodedLocation = encodeURIComponent(location);
-                        // 2. Встановлюємо нову адресу для iframe
-                        const mapIframe = document.getElementById('google-map');
-                        if (mapIframe) {
-                            mapIframe.src = `https://maps.google.com/maps?q=${encodedLocation}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
-                        }
-                         modalDetails.classList.add('active');
-                    });
-                });
-
-                const openBooking = (card) => {
-                    const roomName = card.querySelector('.room-card__title').innerText;
-                    document.getElementById('book-room-name').innerText = roomName;
-                    modalBook.classList.add('active');
-                    modalDetails.classList.remove('active');
-                };
-
-                document.querySelectorAll('.btn-book').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        openBooking(e.target.closest('.room-card'));
-                    });
-                });
-
-                closeButtons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        modalDetails.classList.remove('active');
-                        modalBook.classList.remove('active');
-                    });
-                });
-
-                window.onclick = (event) => {
-                    if (event.target.classList.contains('modal')) {
-                        modalDetails.classList.remove('active');
-                        modalBook.classList.remove('active');
-                    }
-                };
-                // Знаходимо кнопку "Book Now" у модальному вікні деталей
-                const btnBookNow = document.querySelector('.btn-book-now');
-
-                if (btnBookNow) {
-                    btnBookNow.addEventListener('click', () => {
-                        // Отримуємо назву номера, яка зараз відображена в модальному вікні деталей
-                        const currentRoomName = document.getElementById('modal-title').innerText;
-                        
-                        // Встановлюємо цю назву у вікно бронювання
-                        document.getElementById('book-room-name').innerText = currentRoomName;
-                        
-                        // Перемикаємо вікна
-                        modalDetails.classList.remove('active');
-                        modalBook.classList.add('active');
-                    });
-                }
-            });
-        </script>
-
-
+        
 
         <section class="capy-search">
             <div class="capy-search__container">
                 <div class="capy-search__wrapper">
-                    <div class="capy-search__visual">
+                    <div class="capy-search__visual reveal fade-left">
+
                         <img src="images/capy2.gif" alt="Capybara" class="capy-gif">
                     </div>
 
-                    <div class="capy-search__content">
-                        <p class="capy-search__text">
+                    <div class="capy-search__content reveal fade-right">
+                        <p class="capy-search__text" data-i18n="capy_search_text">
                             Well, we know that your eyes are already running wild, so we offer you a search query that can show the country that suits you best.
                         </p>
                         
                         <div class="search-wrapper">
                             <div class="google-search-bar" id="trigger-keyboard">
                                 <span class="search-icon">🔍</span>
-                                <input type="text" id="emoji-input" placeholder="Click to choose emojis..." readonly>
+                                <input type="text" id="emoji-input" data-i18n-placeholder="capy_placeholder" placeholder="Click to choose emojis..." readonly>
                             </div>
 
                             <div id="emoji-keyboard" class="emoji-keyboard">
@@ -824,244 +728,46 @@
             </div>
         </section>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const emojiInput = document.getElementById('emoji-input');
-            const keyboard = document.getElementById('emoji-keyboard');
-            const trigger = document.getElementById('trigger-keyboard');
-            const grid = document.getElementById('emoji-grid');
-            const closeBtn = document.getElementById('close-keyboard');
-            const result = document.getElementById('country-suggestion');
+        
 
-            // Список країн без зайвих шифрів
-            const countries = ['Ukraine', 'Italy', 'Japan', 'France', 'Switzerland', 'Thailand', 'Greece', 'Norway', 'Egypt', 'Brazil', 'Portugal'];
-
-            function generateEmojis() {
-                let emojiHtml = '';
-                // Додаємо кнопку BACKSPACE на початок клавіатури
-                emojiHtml += `<span class="keyboard-key backspace-key" id="emoji-backspace" title="Delete">⌫</span>`;
-                
-                // Смайли, тварини, їжа
-                const ranges = [[128512, 128567], [127744, 127800], [127801, 127870]];
-                ranges.forEach(range => {
-                    for (let i = range[0]; i <= range[1]; i++) {
-                        emojiHtml += `<span class="keyboard-key">${String.fromCodePoint(i)}</span>`;
-                    }
-                });
-                grid.innerHTML = emojiHtml;
-            }
-
-            generateEmojis();
-
-            trigger.addEventListener('click', () => {
-                keyboard.style.display = 'block';
-            });
-
-            closeBtn.onclick = (e) => {
-                e.stopPropagation();
-                keyboard.style.display = 'none';
-            };
-
-            grid.addEventListener('click', (e) => {
-                if (e.target.id === 'emoji-backspace') {
-                    // ЛОГІКА ВИДАЛЕННЯ: емодзі займають 2 байти, тому видаляємо коректно
-                    const currentVal = Array.from(emojiInput.value);
-                    currentVal.pop();
-                    emojiInput.value = currentVal.join('');
-                    return;
-                }
-
-                if (e.target.classList.contains('keyboard-key')) {
-                    const emoji = e.target.innerText;
-                    emojiInput.value += emoji;
-                    
-                    // Рандомна чиста назва країни
-                    const randomCountry = countries[Math.floor(Math.random() * countries.length)];
-                    result.innerHTML = `Our magic capybara thinks you should visit: <strong>${randomCountry}</strong>`;
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!trigger.contains(e.target) && !keyboard.contains(e.target)) {
-                    keyboard.style.display = 'none';
-                }
-            });
-        });
-        // Функція для перемикання сердечка
-            function toggleWishlist(btn) {
-                btn.classList.toggle('active');
-                
-                // Опціонально: анімація "пульсу" при кліку
-                if(btn.classList.contains('active')) {
-                    btn.style.transform = 'scale(1.3)';
-                    setTimeout(() => {
-                        btn.style.transform = 'scale(1.1)';
-                    }, 200);
-                }
-            }
-            document.addEventListener('DOMContentLoaded', () => {
-                // Елементи
-                const moodCards = document.querySelectorAll('.mood__card');
-                const roomCards = document.querySelectorAll('.room-card');
-                const resetBtn = document.getElementById('reset-selection');
-                const modalDetails = document.getElementById('modal-details');
-                const modalBook = document.getElementById('modal-book');
-                const closeButtons = document.querySelectorAll('.close-modal');
-
-                // 1. Фільтрація карток
-                moodCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const selectedMood = card.getAttribute('data-mood');
-                        moodCards.forEach(c => c.classList.remove('active'));
-                        card.classList.add('active');
-                        resetBtn.classList.add('show');
-
-                        roomCards.forEach(room => {
-                            const categories = room.getAttribute('data-category').split(', ');
-                            room.style.display = categories.includes(selectedMood) ? 'block' : 'none';
-                        });
-                    });
-                });
-
-                resetBtn.addEventListener('click', () => {
-                    moodCards.forEach(c => c.classList.remove('active'));
-                    roomCards.forEach(room => room.style.display = 'block');
-                    resetBtn.classList.remove('show');
-                });
-
-                // 2. Логіка рейтингу (Зірочки)
-                const ratingBlocks = document.querySelectorAll('.card__rating');
-
-                ratingBlocks.forEach(block => {
-                    const stars = block.querySelectorAll('.star');
-                    
-                    stars.forEach(star => {
-                        star.addEventListener('click', function() {
-                            if (block.classList.contains('rated')) return; // Блокуємо повторний клік
-
-                            const userRating = parseInt(this.getAttribute('data-value'));
-                            const card = this.closest('.room-card');
-                            
-                            // Отримуємо дані з атрибутів (захист від NaN через || 0)
-                            let currentAvg = parseFloat(block.getAttribute('data-avg')) || 0;
-                            let currentCount = parseInt(block.getAttribute('data-count')) || 0;
-
-                            // Математика
-                            let newCount = currentCount + 1;
-                            let newAvg = ((currentAvg * currentCount) + userRating) / newCount;
-
-                            // Оновлення атрибутів
-                            block.setAttribute('data-avg', newAvg.toFixed(1));
-                            block.setAttribute('data-count', newCount);
-
-                            // Оновлення плашки над фото
-                            const avgDisplay = card.querySelector('.avg-display');
-                            const countDisplay = card.querySelector('.rating-count');
-
-                            if (avgDisplay) avgDisplay.innerText = newAvg.toFixed(1);
-                            if (countDisplay) countDisplay.innerText = `(${newCount})`;
-
-                            // Зафарбовування зірочок
-                            stars.forEach(s => {
-                                const val = parseInt(s.getAttribute('data-value'));
-                                s.style.color = (val <= userRating) ? "#ffcc00" : "#ccc";
-                            });
-
-                            block.classList.add('rated');
-                            alert(`Thank you! Your ${userRating}-star rating has been added.`);
-                        });
-                    });
-                });
-
-                // 3. Модальні вікна (Деталі)
-                document.querySelectorAll('.btn-details').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const card = e.target.closest('.room-card');
-                        const title = card.querySelector('.room-card__title').innerText;
-                        const imgSrc = card.querySelector('.room-card__img').src;
-                        const price = card.querySelector('.price-value').innerText;
-                        const location = card.querySelector('.badge-location').innerText;
-
-                        document.getElementById('modal-title').innerText = title;
-                        document.getElementById('modal-img').src = imgSrc;
-                        document.getElementById('modal-price').innerText = price + " per night";
-                        document.getElementById('modal-location').innerText = location;
-
-                        const mapIframe = document.getElementById('google-map');
-                        if (mapIframe) {
-                            mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(location)}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
-                        }
-                        modalDetails.classList.add('active');
-                    });
-                });
-
-                // 4. Бронювання
-                document.querySelectorAll('.btn-book').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const card = e.target.closest('.room-card');
-                        document.getElementById('book-room-name').innerText = card.querySelector('.room-card__title').innerText;
-                        modalBook.classList.add('active');
-                    });
-                });
-
-                // Закриття модалок
-                closeButtons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        modalDetails.classList.remove('active');
-                        modalBook.classList.remove('active');
-                    });
-                });
-            });
-
-            // Глобальна функція для Wishlist
-            function toggleWishlist(btn) {
-                btn.classList.toggle('active');
-                if(btn.classList.contains('active')) {
-                    btn.style.transform = 'scale(1.2)';
-                    setTimeout(() => btn.style.transform = 'scale(1)', 200);
-                }
-            }
-        </script>
-
-
-
- <footer class="footer">
+        <footer class="footer">
                 <div class="footer__container">
                     <div class="footer__brand">
                         <h6 class="footer__logo-text">Higlton</h6>
-                        <p class="footer__tagline">
+                        <p class="footer__tagline" data-i18n="footer_tagline">
                             Where timeless elegance meets <br> contemporary luxury. Experience <br> exceptional hospitality in the world's <br> most iconic destinations.
                         </p>
                     </div>
 
                     <div class="footer__columns">
                         <div class="footer__col">
-                            <h7 class="footer__title">Navigation</h7>
+                            <h7 class="footer__title" data-i18n="footer_nav">Navigation</h7>
                             <ul class="footer__list">
-                                <li><a href="index.html">About Higlton</a></li>
-                                <li><a href="suites.html">Our suites</a></li>
-                                <li><a href="/">Locations</a></li>
-                                <li><a href="/">Experiences</a></li>
-                                <li><a href="/">Dining</a></li>
-                                <li><a href="/">Wellness and Spa</a></li>
+                                <li><a href="index.html" data-i18n="footer_nav_about">About Higlton</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_suites">Our suites</a></li>
+                                <li><a href="locations.html" data-i18n="footer_nav_locations">Locations</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_exp">Experiences</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_dining">Dining</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_spa">Wellness and Spa</a></li>
                             </ul>
                         </div>
 
                         <div class="footer__col">
-                            <h4 class="footer__title">Guest Services</h4>
-                            <ul class="footer__list"> <li><a href="/">24/7 Room Service</a></li>
-                                <li><a href="/">Business Center</a></li>
-                                <li><a href="/">Events & Meetings</a></li>
-                                <li><a href="/">Valet Parking</a></li>
-                                <li><a href="/">Airport Transfer</a></li>
+                            <h4 class="footer__title" data-i18n="footer_services">Guest Services</h4>
+                            <ul class="footer__list">
+                            <li><a href="suites.html" data-i18n="footer_srv_room">24/7 Room Service</a></li>
+                            <li><a href="aboutus.html" data-i18n="footer_srv_biz">Business Center</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_events">Events & Meetings</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_parking">Valet Parking</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_transfer">Airport Transfer</a></li>
                             </ul>
                         </div>
 
                         <div class="footer__col">
-                            <h4 class="footer__title">Contact</h4>
+                            <h4 class="footer__title" data-i18n="footer_contact">Contact</h4>
                             <ul class="footer__list"> <li><a href="mailto:info@higlton.com">info@higlton.com</a></li>
                                 <li><a href="tel:+380000000000">+380 (63) 676 76 76</a></li>
-                                <li><a href="/">📍 Kyiv, Ukraine</a></li>
+                                <li><a href="/" data-i18n="footer_con_sity">📍 Kyiv, Ukraine</a></li>
                             </ul>
                         </div>
 
@@ -1069,14 +775,234 @@
                 </div>
 
                 <div class="footer__copyright">
-                        <p>&copy; 2026 Higlton Luxury Hotel. All rights reserved.</p>
+                        <p data-i18n="footer_rights">&copy; 2026 Higlton Luxury Hotel. All rights reserved.</p>
                         <ul class="footer__ens-list">
-                                <li><a href="privacy.html">Privacy Policy</a></li>
-                                <li><a href="terms.html">Terms & Conditions</a></li>
-                                <li><a href="cookies.html">Cookie Settings</a></li>
+                                <li><a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a></li>
+                                <li><a href="terms.html" data-i18n="footer_terms">Terms & Conditions</a></li>
+                                <li><a href="cookies.html" data-i18n="footer_cookies">Cookie Settings</a></li>
                             </ul>
 
                     </div>
             </footer>
+        <script src="lang.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              // --- 1. ФІЛЬТРАЦІЯ (MOOD CARDS) ---
+                const moodCards = document.querySelectorAll('.mood__card');
+                const roomCards = document.querySelectorAll('.room-card');
+                const resetBtn = document.getElementById('reset-selection');
+
+                moodCards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        const selectedMood = card.getAttribute('data-mood');
+
+                        // 1. Прибираємо виділення з усіх карток (АЛЕ НЕ ХОВАЄМО ЇХ)
+                        moodCards.forEach(c => {
+                            c.classList.remove('selected');
+                        });
+
+                        // 2. Виділяємо тільки ту, на яку клікнули
+                        card.classList.add('selected');
+                        resetBtn.classList.add('show');
+
+                        // 3. Фільтруємо КІМНАТИ (нижні великі картки)
+                        roomCards.forEach(room => {
+                            const categories = room.getAttribute('data-category').split(', ');
+                            room.style.display = categories.includes(selectedMood) ? '' : 'none';
+                        });
+                    });
+                });
+
+                // Кнопка "Clear selection"
+                resetBtn.addEventListener('click', () => {
+                    // Просто знімаємо виділення з усіх карток настрою
+                    moodCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Показуємо всі кімнати назад
+                    roomCards.forEach(room => room.style.display = ''); 
+                    
+                    // Ховаємо саму кнопку
+                    resetBtn.classList.remove('show');
+                });
+
+                // --- 2. МОДАЛЬНІ ВІКНА ---
+                const modalDetails = document.getElementById('modal-details');
+                const modalBook = document.getElementById('modal-book');
+                const closeButtons = document.querySelectorAll('.close-modal');
+                const btnBookNowModal = document.querySelector('.btn-book-now'); // Кнопка броні ВСЕРЕДИНІ модалки
+
+                // Відкриття деталей (View Details)
+                document.querySelectorAll('.btn-details').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const card = e.target.closest('.room-card');
+                        
+                        // Заповнюємо базові дані (без жорсткого "per night")
+                        document.getElementById('modal-title').innerText = card.querySelector('.room-card__title').innerText;
+                        document.getElementById('modal-img').src = card.querySelector('.room-card__img').src;
+                        document.getElementById('modal-price').innerText = card.querySelector('.price-value').innerText;
+                        
+                        // Переклад локації та точна карта
+                        const locationBadge = card.querySelector('.badge-location');
+                        const modalLocationEl = document.getElementById('modal-location');
+                        
+                        // Копіюємо текст і передаємо ключ перекладу
+                        modalLocationEl.innerText = locationBadge.innerText;
+                        if (locationBadge.hasAttribute('data-i18n')) {
+                            modalLocationEl.setAttribute('data-i18n', locationBadge.getAttribute('data-i18n'));
+                        }
+                        
+                        // Оновлення карти за допомогою точних англійських координат (data-map)
+                        const mapIframe = document.getElementById('google-map');
+                        if (mapIframe && locationBadge.hasAttribute('data-map')) {
+                            const mapQuery = locationBadge.getAttribute('data-map');
+                            mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+                        }
+                        
+                        modalDetails.classList.add('active');
+                    });
+                });
+
+                // Відкриття вікна бронювання
+                const openBooking = (roomName) => {
+                    document.getElementById('book-room-name').innerText = roomName;
+                    modalDetails.classList.remove('active');
+                    modalBook.classList.add('active');
+                };
+
+                // Кліки на кнопки "Book Now" на самих картках
+                document.querySelectorAll('.btn-book').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const roomName = e.target.closest('.room-card').querySelector('.room-card__title').innerText;
+                        openBooking(roomName);
+                    });
+                });
+
+                // Клік на кнопку "Book Now" ВСЕРЕДИНІ модалки деталей
+                if (btnBookNowModal) {
+                    btnBookNowModal.addEventListener('click', () => {
+                        const currentRoomName = document.getElementById('modal-title').innerText;
+                        openBooking(currentRoomName);
+                    });
+                }
+
+                // Закриття модалок по кліку на хрестик
+                closeButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        modalDetails.classList.remove('active');
+                        modalBook.classList.remove('active');
+                    });
+                });
+
+                // Закриття модалок по кліку на темний фон навколо
+                window.onclick = (event) => {
+                    if (event.target.classList.contains('modal')) {
+                        modalDetails.classList.remove('active');
+                        modalBook.classList.remove('active');
+                    }
+                };
+
+                // --- 3. СИСТЕМА РЕЙТИНГУ (ЗІРОЧКИ) ---
+                document.querySelectorAll('.card__rating').forEach(block => {
+                    const stars = block.querySelectorAll('.star');
+                    
+                    stars.forEach(star => {
+                        star.addEventListener('click', function() {
+                            if (block.classList.contains('rated')) return;
+
+                            const userRating = parseInt(this.getAttribute('data-value'));
+                            let currentAvg = parseFloat(block.getAttribute('data-avg')) || 0;
+                            let currentCount = parseInt(block.getAttribute('data-count')) || 0;
+
+                            let newCount = currentCount + 1;
+                            let newAvg = ((currentAvg * currentCount) + userRating) / newCount;
+
+                            block.setAttribute('data-avg', newAvg.toFixed(1));
+                            block.setAttribute('data-count', newCount);
+
+                            const card = this.closest('.room-card');
+                            if (card.querySelector('.avg-display')) card.querySelector('.avg-display').innerText = newAvg.toFixed(1);
+                            if (card.querySelector('.rating-count')) card.querySelector('.rating-count').innerText = `(${newCount})`;
+
+                            stars.forEach(s => {
+                                const val = parseInt(s.getAttribute('data-value'));
+                                s.style.color = (val <= userRating) ? "#ffcc00" : "#ccc";
+                            });
+
+                            block.classList.add('rated');
+                        });
+                    });
+                });
+
+                // --- 4. КАПІБАРА ПОШУК (EMOJI) ---
+                const emojiInput = document.getElementById('emoji-input');
+                const keyboard = document.getElementById('emoji-keyboard');
+                const trigger = document.getElementById('trigger-keyboard');
+                const grid = document.getElementById('emoji-grid');
+                const closeBtnKeyboard = document.getElementById('close-keyboard');
+                const result = document.getElementById('country-suggestion');
+
+                // Масив ключів країн (мають збігатися з ключами в lang.js)
+                const countryKeys = ['ukraine', 'italy', 'japan', 'france', 'switzerland', 'thailand', 'greece', 'norway', 'egypt', 'brazil', 'portugal'];
+
+                function generateEmojis() {
+                    let emojiHtml = `<span class="keyboard-key backspace-key" id="emoji-backspace" title="Delete">⌫</span>`;
+                    const ranges = [[128512, 128567], [127744, 127800], [127801, 127870]];
+                    ranges.forEach(range => {
+                        for (let i = range[0]; i <= range[1]; i++) {
+                            emojiHtml += `<span class="keyboard-key">${String.fromCodePoint(i)}</span>`;
+                        }
+                    });
+                    grid.innerHTML = emojiHtml;
+                }
+
+                if(grid) {
+                    generateEmojis();
+
+                    trigger.addEventListener('click', () => keyboard.style.display = 'block');
+                    closeBtnKeyboard.onclick = (e) => { e.stopPropagation(); keyboard.style.display = 'none'; };
+
+                    grid.addEventListener('click', (e) => {
+                        if (e.target.id === 'emoji-backspace') {
+                            const currentVal = Array.from(emojiInput.value);
+                            currentVal.pop();
+                            emojiInput.value = currentVal.join('');
+                            return;
+                        }
+                        if (e.target.classList.contains('keyboard-key')) {
+                            emojiInput.value += e.target.innerText;
+                            
+                            // Визначаємо поточну мову з localStorage
+                            const currentLang = localStorage.getItem('site_language') || 'en';
+                            
+                            // Вибираємо рандомний ключ країни
+                            const randomKey = countryKeys[Math.floor(Math.random() * countryKeys.length)];
+                            
+                            // Отримуємо перекладений текст фрази та назву країни
+                            const resultPhrase = translations[currentLang]['capy_result_text'];
+                            const translatedCountry = translations[currentLang]['country_' + randomKey];
+
+                            // Виводимо фінальний результат
+                            result.innerHTML = `${resultPhrase} <strong>${translatedCountry}</strong>`;
+                        }
+                    });
+
+                    document.addEventListener('click', (e) => {
+                        if (!trigger.contains(e.target) && !keyboard.contains(e.target)) {
+                            keyboard.style.display = 'none';
+                        }
+                    });
+                }
+                });
+                // --- 5. WISHLIST ФУНКЦІЯ (Має бути глобальною) ---
+            function toggleWishlist(btn) {
+                btn.classList.toggle('active');
+                if(btn.classList.contains('active')) {
+                    btn.style.transform = 'scale(1.3)';
+                    setTimeout(() => btn.style.transform = 'scale(1.1)', 200);
+                }
+            }
+
+        </script>
      </body>
 </html>
