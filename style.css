@@ -42,38 +42,78 @@ body {
     align-items: center;
 }
 
+
+
+/* --- ФІКС НАВІГАЦІЇ: ПРИБИРАЄМО ТОЧКИ ТА ОЖИВЛЯЄМО КАПІБАРУ --- */
+
 .header__list {
     display: flex;
-    gap: 49px;
+    align-items: center;
+    gap: 10px;
+    list-style: none !important; /* ПРИБИРАЄ ТОЧКИ */
+    padding: 0;
+    margin: 0;
 }
 
-ul {
-    list-style: none;
+.header__list-item {
+    list-style: none !important; /* ПРИБИРАЄ ТОЧКИ (контрольно) */
+    display: block;
 }
 
 .header__list-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 50px;
     font-family: "DM Sans", sans-serif;
     font-weight: 700;
     font-size: 15px;
-    letter-spacing: -0.47px;
     color: var(--gray);
-    transition: color 0.3s;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none !important;
 }
 
-.header__list-link.active {
-    color: var(--dark);
-    border-bottom: 2px solid var(--blue);
-    padding-bottom: 10px; 
+/* Загальний стиль для іконок (крім капібари) */
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: grayscale(1) opacity(0.6); /* Всі іконки сірі */
+    transition: all 0.3s ease;
+}
+
+/* --- СПЕЦІАЛЬНО ДЛЯ КАПІБАРИ (БЕЗ ФІЛЬТРІВ) --- */
+.nav-icon.capy-style {
+    filter: none !important; /* ПРИБИРАЄ СІРИЙ КОЛІР */
+    opacity: 1 !important;    /* ПРИБИРАЄ ПРОЗОРІСТЬ */
 }
 
 .header__list-link:hover {
     color: var(--dark);
-
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-a {
-    text-decoration: none;
+/* Активний стан (пігулка) */
+.header__list-link.active {
+    background-color: var(--bg-blue) !important;
+    color: #ffffff !important;
 }
+
+/* Коли пункт активний, звичайні іконки стають білими */
+.header__list-link.active .nav-icon:not(.capy-style) {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Капібара залишається собою навіть у темній пігулці */
+.header__list-link.active .capy-style {
+    filter: none !important;
+}
+
+
+
+
 
 .header__button {
     font-weight: 700;
