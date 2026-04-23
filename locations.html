@@ -16,30 +16,38 @@
                     <img src="images/higlton.svg" alt="Logo" width="200">
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <a class="header__list-link" href="index.html">Home</a>
+                            <a class="header__list-link" href="index.html" data-i18n="nav_home">Home</a>
                         </li>
                         <li class="header__list-item">
-                            <a class="header__list-link " href="suites.html">Suites</a>
+                            <a class="header__list-link" href="suites.html" data-i18n="nav_suites">Suites</a>
                         </li>
                         <li class="header__list-item" >
-                            <a class="header__list-link active" href="locations.html">Locations</a>
+                            <a class="header__list-link active" href="locations.html" data-i18n="nav_locations">Locations</a>
                         </li>
                         <li class="header__list-item">
-                            <a class="header__list-link" href="aboutus.html">About us</a>
+                            <a class="header__list-link" href="aboutus.html" data-i18n="nav_about">About us</a>
                         </li>
                     </ul>
-                    <a class="header__button" href="getstarted.html">Get Started</a>
+                    
+                    <div class="header__actions">
+                        <div class="lang-switcher">
+                            <span class="lang-btn active" data-lang="en">EN</span>
+                            <span class="lang-divider">|</span>
+                            <span class="lang-btn" data-lang="ua">UA</span>
+                        </div>
+                        <a class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
+                    </div>
+                    
                 </nav>
             </div>
         </header>
-
         <!-- Hero Section -->
         <section class="locations-hero">
             <div class="locations-hero__container">
                 <div class="locations-hero__content">
-                    <h1 class="locations-hero__title">LOCATIONS</h1>
+                    <h1 class="locations-hero__title"  data-i18n="loc_hero_title">LOCATIONS</h1>
                     <p class="locations-hero__subtitle">
-                        Home / <span class="locations-hero__current">Locations</span>
+                        Home / <span class="locations-hero__current" data-i18n="loc_hero_crumb">Locations</span>
                     </p>
                 </div>
             </div>
@@ -48,81 +56,81 @@
         <!-- Visit Us Section -->
         <section class="visitus">
             <div class="visitus__container">
-                <div class="visitus__header">
-                    <span class="visitus__subtitle">VISIT US</span>
-                    <h2 class="visitus__title">Our Location</h2>
-                    <p class="visitus__desc">Perfectly situated in the heart of downtown, surrounded by the city's finest attractions</p>
+                <div class="visitus__header  reveal fade-up">
+                    <span class="visitus__subtitle" data-i18n="visitus_subtitle">VISIT US</span>
+                    <h2 class="visitus__title" data-i18n="visitus_title">Our Location</h2>
+                    <p class="visitus__desc" data-i18n="visitus_desc">Perfectly situated in the heart of downtown, surrounded by the city's finest attractions</p>
                 </div>
 
                 <div class="visitus__grid">
                     <!-- Card 1: Address -->
-                    <div class="visit__card">
+                    <div class="visit__card reveal fade-up delay-1">
                         <div class="visit__card-header">
                             <div class="visit__card-icon">
                                 <img src="images/locations/pin-on-map-svgrepo-com.svg" alt="Address">
                             </div>
-                            <h3 class="visit__card-title">Address</h3>
+                            <h3 class="visit__card-title" data-i18n="card_addr_title">Address</h3>
                         </div>
                         <div class="visit__card-content">
                             <p class="hotel-name">Grand Vista Hotel</p>
-                            <p>123 Grand Vista Avenue</p>
-                            <p>Downtown District</p>
-                            <p>Kyiv, KV 10001</p>
-                            <p>Ukraine</p>
+                            <p data-i18n="hotel_addr_street">123 Grand Vista Avenue</p>
+                            <p data-i18n="hotel_addr_dist">Downtown District</p>
+                            <p data-i18n="hotel_addr_city">Kyiv, KV 10001</p>
+                            <p data-i18n="hotel_addr_country">Ukraine</p>
                         </div>
                     </div>
 
                     <!-- Card 2: Contact -->
-                    <div class="visit__card">
+                    <div class="visit__card reveal fade-up delay-2">
                         <div class="visit__card-header">
                             <div class="visit__card-icon">
                                 <img src="images/locations/contact-phonebook-support-svgrepo-com.svg" alt="Contact">
                             </div>
-                            <h3 class="visit__card-title">Contact</h3>
+                            <h3 class="visit__card-title"  data-i18n="card_cont_title">Contact</h3>
                         </div>
                         <div class="visit__card-content">
-                            <p><strong>Reception:</strong>+380 (67) 67 67672</p>
-                            <p><strong>Reservations:</strong>+380 (67) 67 67673</p>
-                            <p><strong>Concierge:</strong>+380 (67) 67 67674</p>
-                            <p><strong>Fax:</strong>+380 (67) 67 67675</p>
+                            <p><strong data-i18n="cont_rec">Reception:</strong>+380 (67) 67 67672</p>
+                            <p><strong data-i18n="cont_res">Reservations:</strong>+380 (67) 67 67673</p>
+                            <p><strong data-i18n="cont_con">Concierge:</strong>+380 (67) 67 67674</p>
+                            <p><strong data-i18n="cont_fax">Fax:</strong>+380 (67) 67 67675</p>
                         </div>
                     </div>
 
                     <!-- Card 3: Hours -->
-                    <div class="visit__card">
+                    <div class="visit__card reveal fade-up delay-3">
                         <div class="visit__card-header">
                             <div class="visit__card-icon">
                                 <img src="images/locations/clock-five-svgrepo-com.svg" alt="Hours">
                             </div>
-                            <h3 class="visit__card-title">Hours</h3>
+                            <h3 class="visit__card-title" data-i18n="card_hour_title">Hours</h3>
                         </div>
                         <div class="visit__card-content">
-                            <p><strong>Check-in:</strong> 3:00 PM</p>
-                            <p><strong>Check-out:</strong> 11:00 AM</p>
-                            <p><strong>Front Desk:</strong> 24/7</p>
-                            <p><strong>Concierge:</strong> 24/7</p>
+                            <p><strong data-i18n="hour_in">Check-in:</strong> 3:00 PM</p>
+                            <p><strong data-i18n="hour_out">Check-out:</strong> 11:00 AM</p>
+                            <p><strong data-i18n="hour_desk">Front Desk:</strong> 24/7</p>
+                            <p><strong data-i18n="hour_con">Concierge:</strong> 24/7</p>
                         </div>
                     </div>
                 </div>
-                <div class="visit__email-row">
+                <div class="visit__email-row reveal fade-up">
                     <div class="visit__email-aside">
                         <div class="visit__card-icon">
                             <img src="images/locations/contact-dm-email-svgrepo-com.svg" alt="Email">
                         </div>
-                        <h3 class="visit__card-title">Email</h3>
+                        <h3 class="visit__card-title" data-i18n="email_title">Email</h3>
                     </div>
                     
                     <div class="visit__email-body">
                         <div class="visit__email-col">
-                            <p class="hotel-name">General Inquiries</p>
+                            <p class="hotel-name" data-i18n="email_gen">General Inquiries</p>
                             <p><a href="mailto:info@grandvistahotel.com">info@grandvistahotel.com</a></p>
                         </div>
                         <div class="visit__email-col">
-                            <p class="hotel-name">Reservations</p>
+                            <p class="hotel-name"data-i18n="email_res">Reservations</p>
                             <p><a href="mailto:reservations@grandvistahotel.com">reservations@grandvistahotel.com</a></p>
                         </div>
                         <div class="visit__email-col">
-                            <p class="hotel-name">Events & Meetings</p>
+                            <p class="hotel-name" data-i18n="email_events">Events & Meetings</p>
                             <p><a href="mailto:events@grandvistahotel.com">events@grandvistahotel.com</a></p>
                         </div>
                     </div>
@@ -130,16 +138,16 @@
             </div>
         </section>
 
-        <section class="interactive-map">
+        <section class="interactive-map reveal">
             <div class="interactive-map__container">
                 
                 <div class="interactive-map__header">
-                    <h2 class="interactive-map__title">Interactive Map</h2>
-                    <p class="interactive-map__subtitle">Explore our prime location in the heart of the city</p>
+                    <h2 class="interactive-map__title" data-i18n="map_title">Interactive Map</h2>
+                    <p class="interactive-map__subtitle" data-i18n="map_subtitle">Explore our prime location in the heart of the city</p>
                     
                     <div class="map-search">
-                        <input type="text" id="cityInput" placeholder="Enter city name (e.g. Kyiv, New York)...">
-                        <button onclick="updateMap()">Search</button>
+                        <input type="text" id="cityInput"  data-i18n-placeholder="map_placeholder" placeholder="Enter city name (e.g. Kyiv, New York)...">
+                        <button onclick="updateMap()" id="searchMapBtn" data-i18n="map_btn">Search</button>
                     </div>
                 </div>
                 
@@ -159,42 +167,42 @@
 
         <section class="getting-here">
             <div class="getting-here__container">
-                <h2 class="getting-here__title">Getting Here</h2>
+                <h2 class="getting-here__title reveal fade-up"  data-i18n="get_here_title">Getting Here</h2>
                 
                 <div class="getting-here__grid">
-                    <div class="transport-card">
+                    <div class="transport-card reveal fade-left delay-1">
                         <div class="transport-card__header">
                             <div class="transport-card__icon">
                                 <img src="images/locations/airplane-svgrepo-com.svg" alt="Airport">
                             </div>
-                            <h3 class="transport-card__name">From Airport</h3>
+                            <h3 class="transport-card__name" data-i18n="trans_air_name">From Airport</h3>
                         </div>
-                        <p class="transport-card__text">
+                        <p class="transport-card__text" data-i18n="trans_air_text">
                             Take the Airport Express train to Downtown Station (25 minutes), then a 5-minute taxi ride to the hotel. Airport shuttle service available upon request.
                         </p>
                     </div>
 
-                    <div class="transport-card">
+                    <div class="transport-card reveal fade-up delay-2">
                         <div class="transport-card__header">
                             <div class="transport-card__icon">
                                 <img src="images/locations/public-transport-bus-svgrepo-com.svg" alt="Transit">
                             </div>
-                            <h3 class="transport-card__name">Public Transit</h3>
+                            <h3 class="transport-card__name" data-i18n="trans_pub_name">Public Transit</h3>
                         </div>
-                        <p class="transport-card__text">
+                        <p class="transport-card__text" data-i18n="trans_pub_text">
                             <strong>Subway:</strong> Lines 1, 2, 3 to Downtown Station (2-minute walk)<br>
                             <strong>Bus:</strong> Routes 14, 22, 45 stop directly in front
                         </p>
                     </div>
 
-                    <div class="transport-card">
+                    <div class="transport-card reveal fade-right delay-3">
                         <div class="transport-card__header">
                             <div class="transport-card__icon">
                                 <img src="images/locations/car-svgrepo-com.svg" alt="Parking">
                             </div>
-                            <h3 class="transport-card__name">Parking</h3>
+                            <h3 class="transport-card__name" data-i18n="trans_park_name">Parking</h3>
                         </div>
-                        <p class="transport-card__text">
+                        <p class="transport-card__text" data-i18n="trans_park_text">
                             Complimentary valet parking available for all guests. Secure underground self-parking also available. Electric vehicle charging stations on-site.
                         </p>
                     </div>
@@ -204,100 +212,99 @@
 
         <section class="attractions">
             <div class="attractions__container">
-                <h2 class="attractions__title">Nearby Attractions</h2>
+                <h2 class="attractions__title" data-i18n="attr_title">Nearby Attractions</h2>
                 
                 <div class="attractions__grid">
                     <div class="attraction-item">
                         <div class="attraction-item__icon-wrapper">
                             <img src="images/locations/shopping-card-svgrepo-com.svg" alt="Shopping" class="attraction-item__icon">
                         </div>
-                        <h3 class="attraction-item__name">Shopping District</h3>
-                        <p class="attraction-item__time">5-minute walk</p>
+                        <h3 class="attraction-item__name" data-i18n="attr_shop_name">Shopping District</h3>
+                        <p class="attraction-item__time" data-i18n="attr_shop_time">5-minute walk</p>
                     </div>
 
                     <div class="attraction-item">
                         <div class="attraction-item__icon-wrapper">
                             <img src="images/locations/theater-drama-svgrepo-com.svg" alt="Theater" class="attraction-item__icon">
                         </div>
-                        <h3 class="attraction-item__name">Theater District</h3>
-                        <p class="attraction-item__time">10-minute walk</p>
+                        <h3 class="attraction-item__name" data-i18n="attr_theat_name">Theater District</h3>
+                        <p class="attraction-item__time" data-i18n="attr_theat_time">10-minute walk</p>
                     </div>
 
                     <div class="attraction-item">
                         <div class="attraction-item__icon-wrapper">
                             <img src="images/locations/museum-svgrepo-com.svg" alt="Museum" class="attraction-item__icon">
                         </div>
-                        <h3 class="attraction-item__name">City Museum</h3>
-                        <p class="attraction-item__time">12-minute walk</p>
+                        <h3 class="attraction-item__name" data-i18n="attr_mus_name">City Museum</h3>
+                        <p class="attraction-item__time" data-i18n="attr_mus_time">12-minute walk</p>
                     </div>
 
                     <div class="attraction-item">
                         <div class="attraction-item__icon-wrapper">
                             <img src="images/locations/tree-2-svgrepo-com.svg" alt="Park" class="attraction-item__icon">
                         </div>
-                        <h3 class="attraction-item__name">Central Park</h3>
-                        <p class="attraction-item__time">15-minute walk</p>
+                        <h3 class="attraction-item__name" data-i18n="attr_park_name">Central Park</h3>
+                        <p class="attraction-item__time" data-i18n="attr_park_time">15-minute walk</p>
                     </div>
                 </div>
             </div>
         </section>
 
 
-        <footer class="footer">
-            <div class="footer__container">
-                <div class="footer__brand">
-                    <h3 class="footer__logo-text">Higlton</h3>
-                    <p class="footer__tagline">
-                        Where timeless elegance meets contemporary luxury. Experience exceptional hospitality in the world's most iconic destinations.
-                    </p>
+       <footer class="footer">
+                <div class="footer__container">
+                    <div class="footer__brand">
+                        <h6 class="footer__logo-text">Higlton</h6>
+                        <p class="footer__tagline" data-i18n="footer_tagline">
+                            Where timeless elegance meets <br> contemporary luxury. Experience <br> exceptional hospitality in the world's <br> most iconic destinations.
+                        </p>
+                    </div>
+
+                    <div class="footer__columns">
+                        <div class="footer__col">
+                            <h7 class="footer__title" data-i18n="footer_nav">Navigation</h7>
+                            <ul class="footer__list">
+                                <li><a href="index.html" data-i18n="footer_nav_about">About Higlton</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_suites">Our suites</a></li>
+                                <li><a href="locations.html" data-i18n="footer_nav_locations">Locations</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_exp">Experiences</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_dining">Dining</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_spa">Wellness and Spa</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer__col">
+                            <h4 class="footer__title" data-i18n="footer_services">Guest Services</h4>
+                            <ul class="footer__list">
+                            <li><a href="suites.html" data-i18n="footer_srv_room">24/7 Room Service</a></li>
+                            <li><a href="aboutus.html" data-i18n="footer_srv_biz">Business Center</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_events">Events & Meetings</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_parking">Valet Parking</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_transfer">Airport Transfer</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer__col">
+                            <h4 class="footer__title" data-i18n="footer_contact">Contact</h4>
+                            <ul class="footer__list"> <li><a href="mailto:info@higlton.com">info@higlton.com</a></li>
+                                <li><a href="tel:+380000000000">+380 (63) 676 76 76</a></li>
+                                <li><a href="/" data-i18n="footer_con_sity">📍 Kyiv, Ukraine</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="footer__columns">
-                    <div class="footer__col">
-                        <h4 class="footer__title">Navigation</h4>
-                        <ul class="footer__list">
-                            <li><a href="index.html">About Higlton</a></li>
-                            <li><a href="suites.html">Our suites</a></li>
-                            <li><a href="#">Locations</a></li>
-                            <li><a href="#">Experiences</a></li>
-                            <li><a href="#">Dining</a></li>
-                            <li><a href="#">Wellness and Spa</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer__col">
-                        <h4 class="footer__title">Guest Services</h4>
-                        <ul class="footer__list">
-                            <li><a href="#">24/7 Room Service</a></li>
-                            <li><a href="#">Business Center</a></li>
-                            <li><a href="#">Events & Meetings</a></li>
-                            <li><a href="#">Valet Parking</a></li>
-                            <li><a href="#">Airport Transfer</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer__col">
-                        <h4 class="footer__title">Contact</h4>
-                        <ul class="footer__list">
-                            <li><a href="mailto:info@higlton.com">info@higlton.com</a></li>
-                            <li><a href="tel:+380636767676">+380 (63) 676 76 76</a></li>
-                            <li>📍 Kyiv, Ukraine</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer__copyright-container">
                 <div class="footer__copyright">
-                    <p>&copy; 2026 Higlton Luxury Hotel. All rights reserved.</p>
-                    <ul class="footer__ens-list">
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms & Conditions</a></li>
-                        <li><a href="cookies.html">Cookie Settings</a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
+                        <p data-i18n="footer_rights">&copy; 2026 Higlton Luxury Hotel. All rights reserved.</p>
+                        <ul class="footer__ens-list">
+                                <li><a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a></li>
+                                <li><a href="terms.html" data-i18n="footer_terms">Terms & Conditions</a></li>
+                                <li><a href="cookies.html" data-i18n="footer_cookies">Cookie Settings</a></li>
+                            </ul>
+
+                    </div>
+            </footer>
         <script>
             function updateMap() {
                 const city = document.getElementById('cityInput').value;
@@ -319,5 +326,6 @@
                 }
             });
         </script>
+        <script src="lang.js"></script>
     </body>
 </html>

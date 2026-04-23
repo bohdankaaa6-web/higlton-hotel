@@ -715,7 +715,7 @@
 
                             <div id="emoji-keyboard" class="emoji-keyboard">
                                 <div class="keyboard-header">
-                                    <span>Select Emoji</span>
+                                    <span data-i18n="capy_select_emoji">Select Emoji</span>
                                     <button id="close-keyboard">&times;</button>
                                 </div>
                                 <div id="emoji-grid" class="keyboard-grid">
@@ -788,7 +788,7 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-              // --- 1. ФІЛЬТРАЦІЯ (MOOD CARDS) ---
+                // --- 1. ФІЛЬТРАЦІЯ (MOOD CARDS) ---
                 const moodCards = document.querySelectorAll('.mood__card');
                 const roomCards = document.querySelectorAll('.room-card');
                 const resetBtn = document.getElementById('reset-selection');
@@ -796,17 +796,10 @@
                 moodCards.forEach(card => {
                     card.addEventListener('click', () => {
                         const selectedMood = card.getAttribute('data-mood');
-
-                        // 1. Прибираємо виділення з усіх карток (АЛЕ НЕ ХОВАЄМО ЇХ)
-                        moodCards.forEach(c => {
-                            c.classList.remove('selected');
-                        });
-
-                        // 2. Виділяємо тільки ту, на яку клікнули
+                        moodCards.forEach(c => c.classList.remove('selected'));
                         card.classList.add('selected');
                         resetBtn.classList.add('show');
 
-                        // 3. Фільтруємо КІМНАТИ (нижні великі картки)
                         roomCards.forEach(room => {
                             const categories = room.getAttribute('data-category').split(', ');
                             room.style.display = categories.includes(selectedMood) ? '' : 'none';
@@ -814,63 +807,52 @@
                     });
                 });
 
-                // Кнопка "Clear selection"
-                resetBtn.addEventListener('click', () => {
-                    // Просто знімаємо виділення з усіх карток настрою
-                    moodCards.forEach(c => c.classList.remove('selected'));
-                    
-                    // Показуємо всі кімнати назад
-                    roomCards.forEach(room => room.style.display = ''); 
-                    
-                    // Ховаємо саму кнопку
-                    resetBtn.classList.remove('show');
-                });
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', () => {
+                        moodCards.forEach(c => c.classList.remove('selected'));
+                        roomCards.forEach(room => room.style.display = ''); 
+                        resetBtn.classList.remove('show');
+                    });
+                }
 
                 // --- 2. МОДАЛЬНІ ВІКНА ---
                 const modalDetails = document.getElementById('modal-details');
                 const modalBook = document.getElementById('modal-book');
                 const closeButtons = document.querySelectorAll('.close-modal');
-                const btnBookNowModal = document.querySelector('.btn-book-now'); // Кнопка броні ВСЕРЕДИНІ модалки
+                const btnBookNowModal = document.querySelector('.btn-book-now'); 
 
-                // Відкриття деталей (View Details)
                 document.querySelectorAll('.btn-details').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const card = e.target.closest('.room-card');
-                        
-                        // Заповнюємо базові дані (без жорсткого "per night")
                         document.getElementById('modal-title').innerText = card.querySelector('.room-card__title').innerText;
                         document.getElementById('modal-img').src = card.querySelector('.room-card__img').src;
                         document.getElementById('modal-price').innerText = card.querySelector('.price-value').innerText;
                         
-                        // Переклад локації та точна карта
+                        const roomDescription = card.querySelector('.room-card__description').innerText;
+                        document.querySelector('.modal-info__description').innerText = roomDescription;
+
                         const locationBadge = card.querySelector('.badge-location');
                         const modalLocationEl = document.getElementById('modal-location');
-                        
-                        // Копіюємо текст і передаємо ключ перекладу
                         modalLocationEl.innerText = locationBadge.innerText;
                         if (locationBadge.hasAttribute('data-i18n')) {
                             modalLocationEl.setAttribute('data-i18n', locationBadge.getAttribute('data-i18n'));
                         }
                         
-                        // Оновлення карти за допомогою точних англійських координат (data-map)
                         const mapIframe = document.getElementById('google-map');
                         if (mapIframe && locationBadge.hasAttribute('data-map')) {
                             const mapQuery = locationBadge.getAttribute('data-map');
                             mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
                         }
-                        
                         modalDetails.classList.add('active');
                     });
                 });
 
-                // Відкриття вікна бронювання
                 const openBooking = (roomName) => {
                     document.getElementById('book-room-name').innerText = roomName;
                     modalDetails.classList.remove('active');
                     modalBook.classList.add('active');
                 };
 
-                // Кліки на кнопки "Book Now" на самих картках
                 document.querySelectorAll('.btn-book').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const roomName = e.target.closest('.room-card').querySelector('.room-card__title').innerText;
@@ -878,7 +860,6 @@
                     });
                 });
 
-                // Клік на кнопку "Book Now" ВСЕРЕДИНІ модалки деталей
                 if (btnBookNowModal) {
                     btnBookNowModal.addEventListener('click', () => {
                         const currentRoomName = document.getElementById('modal-title').innerText;
@@ -886,7 +867,6 @@
                     });
                 }
 
-                // Закриття модалок по кліку на хрестик
                 closeButtons.forEach(btn => {
                     btn.addEventListener('click', () => {
                         modalDetails.classList.remove('active');
@@ -894,7 +874,6 @@
                     });
                 });
 
-                // Закриття модалок по кліку на темний фон навколо
                 window.onclick = (event) => {
                     if (event.target.classList.contains('modal')) {
                         modalDetails.classList.remove('active');
@@ -902,99 +881,80 @@
                     }
                 };
 
-                // --- 3. СИСТЕМА РЕЙТИНГУ (ЗІРОЧКИ) ---
+                // --- 3. СИСТЕМА РЕЙТИНГУ ---
                 document.querySelectorAll('.card__rating').forEach(block => {
                     const stars = block.querySelectorAll('.star');
-                    
                     stars.forEach(star => {
                         star.addEventListener('click', function() {
                             if (block.classList.contains('rated')) return;
-
                             const userRating = parseInt(this.getAttribute('data-value'));
+                            const card = this.closest('.room-card');
                             let currentAvg = parseFloat(block.getAttribute('data-avg')) || 0;
                             let currentCount = parseInt(block.getAttribute('data-count')) || 0;
-
                             let newCount = currentCount + 1;
                             let newAvg = ((currentAvg * currentCount) + userRating) / newCount;
-
                             block.setAttribute('data-avg', newAvg.toFixed(1));
                             block.setAttribute('data-count', newCount);
-
-                            const card = this.closest('.room-card');
                             if (card.querySelector('.avg-display')) card.querySelector('.avg-display').innerText = newAvg.toFixed(1);
                             if (card.querySelector('.rating-count')) card.querySelector('.rating-count').innerText = `(${newCount})`;
-
                             stars.forEach(s => {
                                 const val = parseInt(s.getAttribute('data-value'));
                                 s.style.color = (val <= userRating) ? "#ffcc00" : "#ccc";
                             });
-
                             block.classList.add('rated');
+                            const currentLang = localStorage.getItem('site_language') || 'en';
+                            alert(translations[currentLang]['rating_thanks']);
                         });
                     });
                 });
 
-                // --- 4. КАПІБАРА ПОШУК (EMOJI) ---
+                // --- 4. КАПІБАРА ПОШУК ---
                 const emojiInput = document.getElementById('emoji-input');
                 const keyboard = document.getElementById('emoji-keyboard');
                 const trigger = document.getElementById('trigger-keyboard');
                 const grid = document.getElementById('emoji-grid');
-                const closeBtnKeyboard = document.getElementById('close-keyboard');
                 const result = document.getElementById('country-suggestion');
-
-                // Масив ключів країн (мають збігатися з ключами в lang.js)
                 const countryKeys = ['ukraine', 'italy', 'japan', 'france', 'switzerland', 'thailand', 'greece', 'norway', 'egypt', 'brazil', 'portugal'];
 
-                function generateEmojis() {
-                    let emojiHtml = `<span class="keyboard-key backspace-key" id="emoji-backspace" title="Delete">⌫</span>`;
-                    const ranges = [[128512, 128567], [127744, 127800], [127801, 127870]];
+                if(grid) {
+                    let emojiHtml = `<span class="keyboard-key backspace-key" id="emoji-backspace">⌫</span>`;
+                    const ranges = [[128512, 128567], [127744, 127800]];
                     ranges.forEach(range => {
-                        for (let i = range[0]; i <= range[1]; i++) {
-                            emojiHtml += `<span class="keyboard-key">${String.fromCodePoint(i)}</span>`;
-                        }
+                        for (let i = range[0]; i <= range[1]; i++) emojiHtml += `<span class="keyboard-key">${String.fromCodePoint(i)}</span>`;
                     });
                     grid.innerHTML = emojiHtml;
-                }
-
-                if(grid) {
-                    generateEmojis();
 
                     trigger.addEventListener('click', () => keyboard.style.display = 'block');
-                    closeBtnKeyboard.onclick = (e) => { e.stopPropagation(); keyboard.style.display = 'none'; };
+                    document.getElementById('close-keyboard').onclick = (e) => { e.stopPropagation(); keyboard.style.display = 'none'; };
 
                     grid.addEventListener('click', (e) => {
                         if (e.target.id === 'emoji-backspace') {
-                            const currentVal = Array.from(emojiInput.value);
-                            currentVal.pop();
-                            emojiInput.value = currentVal.join('');
+                            const currentVal = Array.from(emojiInput.value); currentVal.pop(); emojiInput.value = currentVal.join('');
                             return;
                         }
                         if (e.target.classList.contains('keyboard-key')) {
                             emojiInput.value += e.target.innerText;
-                            
-                            // Визначаємо поточну мову з localStorage
                             const currentLang = localStorage.getItem('site_language') || 'en';
-                            
-                            // Вибираємо рандомний ключ країни
                             const randomKey = countryKeys[Math.floor(Math.random() * countryKeys.length)];
-                            
-                            // Отримуємо перекладений текст фрази та назву країни
-                            const resultPhrase = translations[currentLang]['capy_result_text'];
-                            const translatedCountry = translations[currentLang]['country_' + randomKey];
-
-                            // Виводимо фінальний результат
-                            result.innerHTML = `${resultPhrase} <strong>${translatedCountry}</strong>`;
-                        }
-                    });
-
-                    document.addEventListener('click', (e) => {
-                        if (!trigger.contains(e.target) && !keyboard.contains(e.target)) {
-                            keyboard.style.display = 'none';
+                            result.innerHTML = `${translations[currentLang]['capy_result_text']} <strong>${translations[currentLang]['country_' + randomKey]}</strong>`;
                         }
                     });
                 }
-                });
-                // --- 5. WISHLIST ФУНКЦІЯ (Має бути глобальною) ---
+
+                // --- 5. ФОРМА БРОНЮВАННЯ (Success Message) - ТЕПЕР ТУТ ---
+                const bookingForm = document.getElementById('booking-form');
+                if (bookingForm) {
+                    bookingForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const currentLang = localStorage.getItem('site_language') || 'en';
+                        const successMsg = currentLang === 'ua' ? "Бронювання успішне! Ми зв'яжемося з вами найближчим часом." : "Booking successful! We will contact you shortly.";
+                        alert(successMsg);
+                        modalBook.classList.remove('active');
+                    });
+                }
+            });
+
+            // --- 6. WISHLIST ФУНКЦІЯ (Глобально) ---
             function toggleWishlist(btn) {
                 btn.classList.toggle('active');
                 if(btn.classList.contains('active')) {
@@ -1002,7 +962,6 @@
                     setTimeout(() => btn.style.transform = 'scale(1.1)', 200);
                 }
             }
-
         </script>
      </body>
 </html>
