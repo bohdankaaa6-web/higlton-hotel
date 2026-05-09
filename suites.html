@@ -684,20 +684,20 @@
                 <form id="booking-form">
                     <div class="form-group">
                         <label data-i18n="modal_full_name">Full Name *</label>
-                        <input type="text" placeholder="John Doe" required>
+                        <input type="text" id="book-name" placeholder="John Doe" required>
                     </div>
                     <div class="form-group">
                         <label data-i18n="modal_email">Email *</label>
-                        <input type="email" placeholder="john@example.com" required>
+                        <input type="email" id="book-email" placeholder="john@example.com" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label data-i18n="modal_checkin">Check-in *</label>
-                            <input type="date" required>
+                            <input type="date" id="book-checkin" required>
                         </div>
                         <div class="form-group">
                             <label data-i18n="modal_checkout">Check-out *</label>
-                            <input type="date" required>
+                            <input type="date" id="book-checkout" required>
                         </div>
                     </div>
                     <button type="submit" class="btn-confirm" data-i18n="modal_confirm">Confirm Booking</button>
@@ -953,27 +953,67 @@
                     });
                 }
 
-                // --- 5. ФОРМА БРОНЮВАННЯ (Success Message) - ТЕПЕР ТУТ ---
+               // --- 5. ФОРМА БРОНЮВАННЯ (Збереження у LocalStorage) ---
                 const bookingForm = document.getElementById('booking-form');
                 if (bookingForm) {
                     bookingForm.addEventListener('submit', (e) => {
                         e.preventDefault();
+                        
+                        // Збираємо дані
+                        const roomName = document.getElementById('book-room-name').innerText;
+                        const guestName = document.getElementById('book-name').value;
+                        const checkinDate = document.getElementById('book-checkin').value;
+                        const checkoutDate = document.getElementById('book-checkout').value;
+
+                        const newBooking = {
+                            room: roomName,
+                            name: guestName,
+                            checkin: checkinDate,
+                            checkout: checkoutDate
+                        };
+
+                        // Зберігаємо в пам'ять
+                        let bookings = JSON.parse(localStorage.getItem('higlton_bookings')) ||[];
+                        bookings.push(newBooking);
+                        localStorage.setItem('higlton_bookings', JSON.stringify(bookings));
+
                         const currentLang = localStorage.getItem('site_language') || 'en';
-                        const successMsg = currentLang === 'ua' ? "Бронювання успішне! Ми зв'яжемося з вами найближчим часом." : "Booking successful! We will contact you shortly.";
+                        const successMsg = currentLang === 'ua' ? "Бронювання успішне! Перейдіть в Профіль, щоб переглянути." : "Booking successful! Go to Profile to view.";
                         alert(successMsg);
                         modalBook.classList.remove('active');
+                        bookingForm.reset();
                     });
                 }
-            });
 
-            // --- 6. WISHLIST ФУНКЦІЯ (Глобально) ---
+            }); 
+
+            // --- 6. WISHLIST ФУНКЦІЯ (Збереження у LocalStorage) ---
+            // Ця функція тепер ззовні, тому кнопки зможуть її побачити
             function toggleWishlist(btn) {
                 btn.classList.toggle('active');
+                
+                // Отримуємо дані про кімнату
+                const card = btn.closest('.room-card');
+                const title = card.querySelector('.room-card__title').innerText;
+                const price = card.querySelector('.price-value').innerText;
+                const imgSrc = card.querySelector('.room-card__img').src;
+
+                let wishlist = JSON.parse(localStorage.getItem('higlton_wishlist')) ||[];
+
                 if(btn.classList.contains('active')) {
+                    // Додаємо анімацію
                     btn.style.transform = 'scale(1.3)';
                     setTimeout(() => btn.style.transform = 'scale(1.1)', 200);
+                    
+                    if(!wishlist.find(item => item.title === title)) {
+                        wishlist.push({ title: title, price: price, img: imgSrc });
+                        localStorage.setItem('higlton_wishlist', JSON.stringify(wishlist));
+                    }
+                } else {
+                    wishlist = wishlist.filter(item => item.title !== title);
+                    localStorage.setItem('higlton_wishlist', JSON.stringify(wishlist));
                 }
-            }
+            } 
         </script>
-     </body>
+    </body>
 </html>

@@ -254,7 +254,20 @@ const translations = {
         "dev_1": "Bushma Daryna",
         "dev_2": "Zhuravel Bohdana",
         "dev_3": "Zaklikovsky Yevhen",
+
+
+
+        "prof_title": "My Account",
+        "prof_tab_book": "My Bookings",
+        "prof_tab_wish": "Wishlist",
+        "prof_tab_disc": "My Discounts",
+        "prof_logout": "Log Out",
+        "prof_disc_1_title": "Welcome Bonus",
+        "prof_disc_1_desc": "10% off your next booking",
+        "prof_disc_2_title": "Loyalty Member",
+        "prof_disc_2_desc": "Free Spa access included in all stays",
     },
+
 
     "ua": {
         // Навігація
@@ -507,6 +520,16 @@ const translations = {
         "dev_1": "Бушма Дарина",
         "dev_2": "Журавель Богдана",
         "dev_3": "Закліковський Євген",
+
+        "prof_title": "Особистий кабінет",
+        "prof_tab_book": "Мої бронювання",
+        "prof_tab_wish": "Вподобане",
+        "prof_tab_disc": "Мої знижки",
+        "prof_logout": "Вийти",
+        "prof_disc_1_title": "Бонус за реєстрацію",
+        "prof_disc_1_desc": "Знижка 10% на наступне бронювання",
+        "prof_disc_2_title": "Учасник програми лояльності",
+        "prof_disc_2_desc": "Безкоштовний доступ до Спа під час проживання",
     }
 };
 

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Higlton</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #FAFAFA">
+
+    <!-- ТУТ МАЄ БУТИ ВАШ СТАНДАРТНИЙ HEADER -->
+
+    <main class="profile-page" style="margin-top: 120px; padding-bottom: 80px;">
+        <div class="header__container">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 36px; color: var(--dark); margin-bottom: 30px;" data-i18n="prof_title">My Account</h1>
+            
+            <div class="profile-layout">
+                <!-- Бокове меню -->
+                <aside class="profile-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">👤</div>
+                        <h3 id="user-name-display">Guest</h3>
+                        <p id="user-email-display">guest@higlton.com</p>
+                        <button id="logout-btn" class="logout-link" data-i18n="prof_logout">Log Out</button>
+                    </div>
+                    <nav class="profile-nav">
+                        <button class="tab-btn active" data-tab="bookings" data-i18n="prof_tab_book">My Bookings</button>
+                        <button class="tab-btn" data-tab="wishlist" data-i18n="prof_tab_wish">Wishlist</button>
+                        <button class="tab-btn" data-tab="discounts" data-i18n="prof_tab_disc">My Discounts</button>
+                    </nav>
+                </aside>
+
+                <!-- Контент профілю -->
+                <div class="profile-content">
+                    
+                    <!-- Вкладка Бронювань -->
+                    <section id="bookings" class="tab-content active">
+                        <h2 data-i18n="prof_tab_book">My Bookings</h2>
+                        <div id="bookings-list" class="items-list">
+                            <!-- Сюди JS буде додавати бронювання -->
+                        </div>
+                    </section>
+
+                    <!-- Вкладка Вподобань -->
+                    <section id="wishlist" class="tab-content">
+                        <h2 data-i18n="prof_tab_wish">Wishlist</h2>
+                        <div id="wishlist-grid" class="rooms__grid" style="padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                            <!-- Сюди JS буде додавати вподобані кімнати -->
+                        </div>
+                    </section>
+
+                    <!-- Вкладка Знижок -->
+                    <section id="discounts" class="tab-content">
+                        <h2 data-i18n="prof_tab_disc">My Discounts</h2>
+                        <div class="discount-card">
+                            <div class="discount-icon">🎁</div>
+                            <div class="discount-info">
+                                <h3 data-i18n="prof_disc_1_title">Welcome Bonus</h3>
+                                <p data-i18n="prof_disc_1_desc">10% off your next booking</p>
+                            </div>
+                            <div class="discount-code">HIGLTON10</div>
+                        </div>
+                        <div id="loyal-discount" class="discount-card" style="display: none;">
+                            <div class="discount-icon">👑</div>
+                            <div class="discount-info">
+                                <h3 data-i18n="prof_disc_2_title">Loyalty Member</h3>
+                                <p data-i18n="prof_disc_2_desc">Free Spa access included in all stays</p>
+                            </div>
+                            <div class="discount-code">Active</div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ТУТ МАЄ БУТИ ВАШ СТАНДАРТНИЙ FOOTER -->
+
+    <script src="lang.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Перевірка чи юзер залогінений
+            const currentUser = JSON.parse(localStorage.getItem('higlton_user'));
+            if(!currentUser) {
+                alert("Please log in first.");
+                window.location.href = "getstarted.html";
+                return;
+            }
+            
+            // Встановлюємо ім'я
+            document.getElementById('user-name-display').innerText = currentUser.username;
+            document.getElementById('user-email-display').innerText = currentUser.email || "user@higlton.com";
+
+            // Логіка перемикання вкладок
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+                });
+            });
+
+            // Рендер бронювань
+            const bookingsList = document.getElementById('bookings-list');
+            const bookings = JSON.parse(localStorage.getItem('higlton_bookings')) ||[];
+            
+            if(bookings.length === 0) {
+                bookingsList.innerHTML = `<p style="color:var(--gray)">You don't have any bookings yet.</p>`;
+            } else {
+                bookingsList.innerHTML = bookings.reverse().map(b => `
+                    <div class="booking-item">
+                        <div class="book-info">
+                            <h4>${b.room}</h4>
+                            <p><strong>Check-in:</strong> ${b.checkin} | <strong>Check-out:</strong> ${b.checkout}</p>
+                            <p><strong>Guest Name:</strong> ${b.name}</p>
+                        </div>
+                        <span class="status-badge">Confirmed</span>
+                    </div>
+                `).join('');
+                // Відкриваємо бонус за лояльність, якщо є бронювання
+                document.getElementById('loyal-discount').style.display = 'flex';
+            }
+
+            // Рендер вподобань (Wishlist)
+            const wishlistGrid = document.getElementById('wishlist-grid');
+            const wishlist = JSON.parse(localStorage.getItem('higlton_wishlist')) ||[];
+
+            if(wishlist.length === 0) {
+                wishlistGrid.innerHTML = `<p style="color:var(--gray); grid-column: 1/-1;">Your wishlist is empty. Go explore our suites!</p>`;
+            } else {
+                wishlistGrid.innerHTML = wishlist.map(item => `
+                    <div class="room-card" style="flex: auto; scroll-snap-align: none;">
+                        <div class="room-card__image-container">
+                            <div class="badge-price"><span class="price-value">${item.price}</span></div>
+                            <img src="${item.img}" alt="Room" class="room-card__img">
+                        </div>
+                        <div class="room-card__body">
+                            <h4 class="room-card__title">${item.title}</h4>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Вихід
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('higlton_user');
+                window.location.href = "index.html";
+            });
+        });
+    </script>
+</body>
+</html>
