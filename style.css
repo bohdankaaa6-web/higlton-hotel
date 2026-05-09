@@ -2894,3 +2894,62 @@ main {
 .auth-capy-img:hover {
     transform: scale(1.1) rotate(5deg);
 }
+
+
+/* ========================================= */
+/* СТИЛІ ДЛЯ СТОРІНКИ ПОМИЛКИ 404 */
+
+
+.container_eror {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #FAFAFA; /* Світлий приємний фон */
+    font-family: 'DM Sans', sans-serif;
+    padding: 20px;
+}
+
+.container_eror h1 {
+    /* Робимо цифри величезними та адаптивними */
+    font-size: clamp(8rem, 15vw, 15rem); 
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    color: var(--blackgold); /* Ваш фірмовий золотий колір */
+    line-height: 1;
+    text-shadow: 4px 4px 15px rgba(212, 175, 55, 0.2); /* Легке золоте світіння */
+}
+
+.container_eror p {
+    font-size: 1.2rem;
+    color: var(--gray);
+    margin-top: 10px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.btn_eror {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    background-color: var(--dark); /* Темний фон кнопки */
+    color: white;
+    text-decoration: none;
+    border-radius: 10px; /* Заокруглення як у ваших інших кнопок */
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Тінь кнопки */
+}
+
+.btn_eror:hover {
+    background-color: var(--blackgold); /* Золотий при наведенні */
+    color: white;
+    transform: translateY(-5px); /* Ефект підняття */
+    box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3); /* Золота тінь */
+}

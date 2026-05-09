@@ -56,6 +56,7 @@ const translations = {
         "promise_2_desc": "Premier locations in the world's most iconic and vibrant cities.",
         "promise_3_title": "Personal Service",
         "promise_3_desc": "Tailored experiences crafted just for you by our dedicated staff.",
+
         
         // Секція Vibe
         "vibe_subtitle": "HERITAGE",
@@ -66,6 +67,7 @@ const translations = {
         "stat_2": "Guest Rating",
         "stat_3": "You will enjoy your trip",
         "vibe_link": "Discover Our Collection <span>&#10230;</span>",
+        "stat_4":"25 + countries",
 
         // Секція Begin Your Journey
         "journey_subtitle": "Begin Your Journey",
@@ -320,7 +322,7 @@ const translations = {
         "stat_2": "Оцінка гостей",
         "stat_3": "Вам сподобається подорож",
         "vibe_link": "Відкрийте нашу колекцію <span>&#10230;</span>",
-
+        "stat_4":"25 + країн",
         // Секція Begin Your Journey
         "journey_subtitle": "Почніть Свою Подорож",
         "journey_title": "Відчуйте вершину розкішної гостинності. Ваша історія чекає.",
