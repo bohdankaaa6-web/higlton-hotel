@@ -11,14 +11,15 @@
 
     <div class="success-page">
         <div class="success-container active">
-             <img src="images/capy-bath.gif" alt="Happy Capybara" class="success-capy">
+            <!-- Ваша гіфка з капібарою у ванні -->
+            <img src="images/capy-bath.gif" alt="Happy Capybara" class="success-capy">
             
             <h1 data-i18n="book_success_title">Booking Confirmed!</h1>
             <p class="success-desc" data-i18n="book_success_desc">Your luxury suite is waiting for you...</p>
             
             <a href="profile.html" class="btn-book-now success-btn" data-i18n="book_success_btn">View My Bookings</a>
             
-            <p id="redirect-text" class="redirect-notice" style="visibility: hidden;">
+            <p class="redirect-notice">
                 <span data-i18n="success_redirect_1">Redirecting in </span>
                 <span id="seconds" class="countdown">5</span>
                 <span data-i18n="success_redirect_2"> seconds...</span>
@@ -29,20 +30,18 @@
     <script src="lang.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Логіка відліку часу (Таймер)
             let timeLeft = 5;
             const countdownEl = document.getElementById('seconds');
             
             const timer = setInterval(() => {
                 timeLeft--;
-                countdownEl.innerText = timeLeft;
+                if (countdownEl) countdownEl.innerText = timeLeft;
                 
-                // Коли час вийшов, перенаправляємо на сторінку профілю
                 if (timeLeft <= 0) {
                     clearInterval(timer);
                     window.location.href = "profile.html";
                 }
-            }, 1000); // 1000 мілісекунд = 1 секунда
+            }, 1000);
         });
     </script>
 </body>

@@ -3277,3 +3277,32 @@ main {
     margin-bottom: 25px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
+
+
+
+
+/* Стиль для гіфки на сторінці успіху */
+.success-capy {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20%; /* Робимо її круглою */
+    margin: 0 auto 25px;
+    display: block;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: 4px solid white;
+    background-color: white;
+}
+
+/* Оновлений контейнер успіху (щоб все вирівняти) */
+.success-container {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    border-top: 6px solid var(--blackgold);
+}
