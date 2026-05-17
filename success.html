@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success | Higlton</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #FAFAFA">
+
+    <div class="success-page">
+        <div class="success-container reveal fade-up active">
+            
+            <!-- Повноцінне відео з Капібарою -->
+            <!-- Замініть 'images/capy-video.mp4' на назву вашого файлу -->
+            <video class="success-capy-video" autoplay controls loop playsinline>
+                <source src="images/capy-video.mp4" type="video/mp4">
+                Ваш браузер не підтримує відео.
+            </video>
+            
+            <h1 data-i18n="success_title">Registration Successful!</h1>
+            <p class="success-desc" data-i18n="success_desc">Your data has been successfully saved to the Higlton secure database. Welcome to our luxury community!</p>
+            
+            <a href="profile.html" class="btn-book-now success-btn" data-i18n="success_btn">Go to Profile</a>
+            
+            <!-- Розділений текст для перекладу із таймером -->
+            <p class="redirect-notice">
+                <span data-i18n="success_redirect_1">You will be automatically redirected to your profile in </span>
+                <span id="seconds" class="countdown">15</span>
+                <span data-i18n="success_redirect_2"> seconds...</span>
+            </p>
+
+        </div>
+    </div>
+
+    <script src="lang.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Логіка відліку часу (Таймер) - збільшено до 8 секунд заради відео
+            let timeLeft = 15;
+            const countdownEl = document.getElementById('seconds');
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownEl.innerText = timeLeft;
+                
+                // Коли час вийшов, перенаправляємо на сторінку профілю
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.href = "profile.html";
+                }
+            }, 1000); // 1000 мілісекунд = 1 секунда
+        });
+    </script>
+</body>
+</html>

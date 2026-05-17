@@ -266,7 +266,21 @@ const translations = {
         "prof_disc_1_desc": "10% off your next booking",
         "prof_disc_2_title": "Loyalty Member",
         "prof_disc_2_desc": "Free Spa access included in all stays",
+
+
+        "success_title": "Registration Successful!",
+        "success_desc": "Your data has been successfully saved to the Higlton secure database. Welcome to our luxury community!",
+        "success_btn": "Go to Profile",
+        "success_redirect_1": "You will be automatically redirected to your profile in ",
+        "success_redirect_2": " seconds..."
     },
+
+
+
+
+
+
+
 
 
     "ua": {
@@ -339,9 +353,6 @@ const translations = {
         // Секція Begin Your Journey
         "journey_subtitle": "Почніть Свою Подорож",
         "journey_title": "Відчуйте вершину розкішної гостинності. Ваша історія чекає.",
-
-
-
 
 
         // --- СТОРІНКА SUITES ---
@@ -530,6 +541,12 @@ const translations = {
         "prof_disc_1_desc": "Знижка 10% на наступне бронювання",
         "prof_disc_2_title": "Учасник програми лояльності",
         "prof_disc_2_desc": "Безкоштовний доступ до Спа під час проживання",
+
+        "success_title": "Реєстрація успішна!",
+        "success_desc": "Ваші дані успішно передані у базу даних Higlton. Вітаємо у світі розкоші:))",
+        "success_btn": "Перейти до профілю",
+        "success_redirect_1": "Вас буде автоматично перенаправлено до профілю через ",
+        "success_redirect_2": " секунд..."
     }
 };
 
