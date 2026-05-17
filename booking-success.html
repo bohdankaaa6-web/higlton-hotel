@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success | Higlton</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #FAFAFA">
+
+    <div class="success-page">
+        <div class="success-container active">
+            
+            <!-- Секція з подарунком -->
+            <div id="video-overlay" class="video-overlay">
+                <div class="gift-box">✈️</div>
+                <button id="start-experience" class="btn-book-now" data-i18n="book_success_gift_btn">🎁 Open Your Travel Surprise</button>
+            </div>
+
+            <!-- Відео (50% гучності встановлюється в JS) -->
+            <video id="capy-video" class="success-capy-video" style="display: none;" loop playsinline>
+                <source src="images/capy-video.mp4" type="video/mp4">
+            </video>
+            
+            <h1 data-i18n="book_success_title">Booking Confirmed!</h1>
+            <p class="success-desc" data-i18n="book_success_desc">Your luxury suite is waiting for you...</p>
+            
+            <a href="profile.html" class="btn-book-now success-btn" data-i18n="book_success_btn">View My Bookings</a>
+            
+            <p id="redirect-text" class="redirect-notice" style="visibility: hidden;">
+                <span data-i18n="success_redirect_1">Redirecting in </span>
+                <span id="seconds" class="countdown">15</span>
+                <span data-i18n="success_redirect_2"> seconds...</span>
+            </p>
+        </div>
+    </div>
+
+    <script src="lang.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('start-experience');
+            const video = document.getElementById('capy-video');
+            const overlay = document.getElementById('video-overlay');
+            const redirectText = document.getElementById('redirect-text');
+            const countdownEl = document.getElementById('seconds');
+
+            btn.addEventListener('click', () => {
+                video.volume = 0.5; // Встановлюємо 50% гучності
+                overlay.style.display = 'none';
+                video.style.display = 'block';
+                video.play();
+
+                redirectText.style.visibility = 'visible';
+                let timeLeft = 14;
+                
+                const timer = setInterval(() => {
+                    timeLeft--;
+                    countdownEl.innerText = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        window.location.href = "profile.html";
+                    }
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

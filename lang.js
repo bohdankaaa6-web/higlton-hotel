@@ -274,6 +274,17 @@ const translations = {
         "success_redirect_1": "You will be automatically redirected to your profile in ",
         "success_redirect_2": " seconds...",
         "success_gift_btn": "🎁 Open Your Welcome Gift",
+
+
+
+
+
+        "book_success_title": "Booking Confirmed!",
+        "book_success_desc": "Your luxury suite is waiting for you. We have saved your reservation details to your profile.",
+        "book_success_gift_btn": "🎁 Open Your Travel Surprise",
+        "book_success_btn": "View My Bookings",
+        "success_redirect_1": "Redirecting in ",
+        "success_redirect_2": " seconds...",
     },
 
 
@@ -549,6 +560,16 @@ const translations = {
         "success_redirect_1": "Вас буде автоматично перенаправлено до профілю через ",
         "success_redirect_2": " секунд...",
         "success_gift_btn": "🎁 Відкрити вітальний подарунок",
+
+
+
+
+        "book_success_title": "Бронювання підтверджено!",
+        "book_success_desc": "Ваш розкішний номер вже чекає на вас. Ми зберегли деталі бронювання у вашому профілі.",
+        "book_success_gift_btn": "🎁 Відкрити сюрприз для подорожі",
+        "book_success_btn": "Мої бронювання",
+        "success_redirect_1": "Вас буде перенаправлено через ",
+        "success_redirect_2": " секунд...",
     }
 };
 

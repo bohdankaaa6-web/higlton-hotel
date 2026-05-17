@@ -979,9 +979,9 @@
 
                         const currentLang = localStorage.getItem('site_language') || 'en';
                         const successMsg = currentLang === 'ua' ? "Бронювання успішне! Перейдіть в Профіль, щоб переглянути." : "Booking successful! Go to Profile to view.";
-                        alert(successMsg);
                         modalBook.classList.remove('active');
                         bookingForm.reset();
+                        window.location.href = "booking-success.html";
                     });
                 }
 
