@@ -2679,7 +2679,7 @@ main {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #f0f0f0; /* Або твій градієнт */
+    background: #f0f0f0; 
 }
 
 .auth-container {
@@ -2726,7 +2726,7 @@ main {
 
 .form-box.registration {
     visibility: hidden;
-    z-index: 1; /* Змініть з 2 на 1, щоб логіка була однаковою */
+    z-index: 1; 
 }
 
 .auth-container.active .form-box.registration {
@@ -2938,7 +2938,7 @@ main {
     background-color: var(--dark); /* Темний фон кнопки */
     color: white;
     text-decoration: none;
-    border-radius: 10px; /* Заокруглення як у ваших інших кнопок */
+    border-radius: 10px; /* Заокруглення як у інших кнопок */
     font-weight: 700;
     font-family: 'DM Sans', sans-serif;
     text-transform: uppercase;
