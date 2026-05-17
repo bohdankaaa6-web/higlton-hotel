@@ -11,17 +11,7 @@
 
     <div class="success-page">
         <div class="success-container active">
-            
-            <!-- Секція з подарунком -->
-            <div id="video-overlay" class="video-overlay">
-                <div class="gift-box">✈️</div>
-                <button id="start-experience" class="btn-book-now" data-i18n="book_success_gift_btn">🎁 Open Your Travel Surprise</button>
-            </div>
-
-            <!-- Відео (50% гучності встановлюється в JS) -->
-            <video id="capy-video" class="success-capy-video" style="display: none;" loop playsinline>
-                <source src="images/capy-video.mp4" type="video/mp4">
-            </video>
+             <img src="images/capy-bath.gif" alt="Happy Capybara" class="success-capy">
             
             <h1 data-i18n="book_success_title">Booking Confirmed!</h1>
             <p class="success-desc" data-i18n="book_success_desc">Your luxury suite is waiting for you...</p>
@@ -30,7 +20,7 @@
             
             <p id="redirect-text" class="redirect-notice" style="visibility: hidden;">
                 <span data-i18n="success_redirect_1">Redirecting in </span>
-                <span id="seconds" class="countdown">15</span>
+                <span id="seconds" class="countdown">5</span>
                 <span data-i18n="success_redirect_2"> seconds...</span>
             </p>
         </div>
@@ -39,30 +29,20 @@
     <script src="lang.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('start-experience');
-            const video = document.getElementById('capy-video');
-            const overlay = document.getElementById('video-overlay');
-            const redirectText = document.getElementById('redirect-text');
+            // Логіка відліку часу (Таймер)
+            let timeLeft = 5;
             const countdownEl = document.getElementById('seconds');
-
-            btn.addEventListener('click', () => {
-                video.volume = 0.5; // Встановлюємо 50% гучності
-                overlay.style.display = 'none';
-                video.style.display = 'block';
-                video.play();
-
-                redirectText.style.visibility = 'visible';
-                let timeLeft = 14;
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownEl.innerText = timeLeft;
                 
-                const timer = setInterval(() => {
-                    timeLeft--;
-                    countdownEl.innerText = timeLeft;
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        window.location.href = "profile.html";
-                    }
-                }, 1000);
-            });
+                // Коли час вийшов, перенаправляємо на сторінку профілю
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.href = "profile.html";
+                }
+            }, 1000); // 1000 мілісекунд = 1 секунда
         });
     </script>
 </body>
