@@ -1,289 +1,280 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Higlton</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="images/favicon.svg" type="image/svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght=0,9..40,100..1000;1,9..40,100..1000&family=Mulish:ital,wght=0,200..1000;1,200..1000&family=Oswald:wght=200..700&family=Playfair+Display:ital,wght=0,400..900;1,400..900&family=Playwrite+IE:wght=100..400&family=Special+Elite&display=swap" rel="stylesheet">
-</head>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <title> Higlton</title>
+        <link rel="stylesheet" href="style.css" >
+        <link rel="shortcut icon" href="images/favicon.svg" type="image/svg">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+IE:wght@100..400&family=Special+Elite&display=swap" rel="stylesheet">
 <body style="background-color: antiquewhite">
 
-<header class="header">
-    <div class="header__container">
-        <nav class="header__nav">
-            <img src="images/higlton.svg" alt="Logo" width="200">
-            <ul class="header__list">
-                <li class="header__list-item">
-                    <a class="header__list-link active" href="index.html">
-                        <img src="images/SVG, header/building-user-svgrepo-com.svg" alt="home" class="nav-icon">
-                        <span data-i18n="nav_home">Home</span>
-                    </a>
-                </li>
-                <li class="header__list-item">
-                    <a class="header__list-link" href="suites.html">
-                        <img src="images/SVG, header/bed-svgrepo-com.svg" alt="suites" class="nav-icon">
-                        <span data-i18n="nav_suites">Suites</span>
-                    </a>
-                </li>
-                <li class="header__list-item">
-                    <a class="header__list-link" href="locations.html">
-                        <img src="images/SVG, header/locations-route-svgrepo-com.svg" alt="locations" class="nav-icon">
-                        <span data-i18n="nav_locations">Locations</span>
-                    </a>
-                </li>
-                <li class="header__list-item">
-                    <a class="header__list-link" href="aboutus.html">
-                        <img src="images/SVG, header/capybara-svgrepo-com.svg" alt="about" class="nav-icon capy-style">
-                        <span data-i18n="nav_about">About us</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="header__actions">
-                <div class="lang-switcher">
-                    <span class="lang-btn active" data-lang="en">EN</span>
-                    <span class="lang-divider">|</span>
-                    <span class="lang-btn" data-lang="ua">UA</span>
-                </div>
-                <a class="header__button" id="nav-auth-btn" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
+        <header class="header">
+            <div class="header__container"> 
+                <nav class="header__nav">
+                    <img src="images/higlton.svg" alt="Logo" width="200">
+                    <ul class="header__list">
+                        <li class="header__list-item">
+                            <a class="header__list-link active" href="index.html">
+                                <img src="images/SVG, header/building-user-svgrepo-com.svg" alt="home" class="nav-icon">
+                                <span data-i18n="nav_home">Home</span>
+                            </a>
+                        </li>
+                        <li class="header__list-item">
+                            <a class="header__list-link" href="suites.html">
+                                <img src="images/SVG, header/bed-svgrepo-com.svg" alt="suites" class="nav-icon">
+                                <span data-i18n="nav_suites">Suites</span>
+                            </a>
+                        </li>
+                        <li class="header__list-item">
+                            <a class="header__list-link" href="locations.html">
+                                <img src="images/SVG, header/locations-route-svgrepo-com.svg" alt="locations" class="nav-icon">
+                                <span data-i18n="nav_locations">Locations</span>
+                            </a>
+                        </li>
+                        <li class="header__list-item">
+                            <a class="header__list-link" href="aboutus.html">
+                                <img src="images/SVG, header/capybara-svgrepo-com.svg" alt="about" class="nav-icon capy-style">
+                                <span data-i18n="nav_about">About us</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="header__actions">
+                        <div class="lang-switcher">
+                            <span class="lang-btn active" data-lang="en">EN</span>
+                            <span class="lang-divider">|</span>
+                            <span class="lang-btn" data-lang="ua">UA</span>
+                        </div>
+                        <a class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
+                    </div>
+                    
+                </nav>
             </div>
-        </nav>
-    </div>
-</header>
+        </header>
 
-<main>
-    <section class="hero">
-        <div class="hero__container">
-            <div class="hero__left">
-                <span class="hero__subtitle" data-i18n="hero_subtitle">WELCOME TO</span>
-                <h1 class="hero__title" data-i18n="hero_title">Higlton</h1>
-                <p class="hero__desc" data-i18n="hero_desc">Where does your next story begin?</p>
-                <p class="hero__desc-sub" data-i18n="hero_desc_sub">
-                    Discover exceptional moments in the world's most captivating destinations. Every stay, a new chapter of elegance.
-                </p>
-                <a href="suites.html" class="hero__btn-explore" data-i18n="hero_btn_explore">Explore Suites &rarr; </a>
-            </div>
+        <main>
+            <section class="hero">
+            <div class="hero__container">
+                <div class="hero__container">
 
-            <div class="hero__right">
-                <div class="booking-card">
-                    <h2 class="booking-card__title" data-i18n="book_title">Plan Your Stay</h2>
 
-                    <div class="booking-card__field">
-                        <label data-i18n="book_checkin">Check In</label>
-                        <div class="input-wrapper">
-                            <span class="icon">📅 </span>
-                            <input type="text" data-i18n-placeholder="book_input" class="date-input" placeholder="Select your date"
-                                   onfocus="this.type='date'"
-                                   onclick="if(this.showPicker) this.showPicker();"
-                                   onblur="if(!this.value) this.type='text'">
+                    <div class="hero__left">
+                        <span class="hero__subtitle" data-i18n="hero_subtitle">
+                            WELCOME TO
+                        </span>
+                        <h1 class="hero__title" data-i18n="hero_title">
+                            Higlton
+                        </h1>
+                        <p class="hero__desc" data-i18n="hero_desc">
+                            Where does your next story begin?
+                        </p>
+                        <p class="hero__desc-sub" data-i18n="hero_desc_sub">
+                            Discover exceptional moments in the world's most captivating destinations. Every stay, a new chapter of elegance.
+                        </p>
+                        <a href="suites.html" class="hero__btn-explore" data-i18n="hero_btn_explore">Explore Suites &rarr; </a>
+                    </div>
+
+
+                    <div class="hero__right">
+                        <div class="booking-card">
+                            <h2 class="booking-card__title" data-i18n="book_title">Plan Your Stay</h2>
+
+                            <div class="booking-card__field">
+                                <label data-i18n="book_checkin">Check In</label>
+                                <div class="input-wrapper">
+                                    <span class="icon">📅 </span>
+                                    <input type="text" data-i18n-placeholder="book_input" class="date-input" placeholder="Select your date" 
+                                        onfocus="this.type='date'" 
+                                        onclick="if(this.showPicker) this.showPicker();" 
+                                        onblur="if(!this.value) this.type='text'">
+                                </div>     
+                            </div>
+
+                            <div class="booking-card__field">
+                                <label data-i18n="book_checkout">Check Out</label>
+                                <div class="input-wrapper">
+                                    <span class="icon">📅 </span>
+                                    <input type="text" data-i18n-placeholder="book_input" class="date-input" placeholder="Select your date" 
+                                        onfocus="this.type='date'" 
+                                        onclick="if(this.showPicker) this.showPicker();" 
+                                        onblur="if(!this.value) this.type='text'">
+                                </div>
+                            </div>
+
+                            <div class="booking-card__field">
+                                <label data-i18n="book_guests">Guests</label>
+                                <div class="input-wrapper">
+                                    <span class="icon">👥</span>
+                                    <input type="number" value="2">
+                                </div>
+                            </div>
+
+                            <button class="booking-card__btn" data-i18n="book_btn">
+                                <span class="icon">🔎</span> Find Your Suite🪄
+                            </button>
                         </div>
                     </div>
+                </div>
+            </div>    
+            </section>
 
-                    <div class="booking-card__field">
-                        <label data-i18n="book_checkout">Check Out</label>
-                        <div class="input-wrapper">
-                            <span class="icon">📅 </span>
-                            <input type="text" data-i18n-placeholder="book_input" class="date-input" placeholder="Select your date"
-                                   onfocus="this.type='date'"
-                                   onclick="if(this.showPicker) this.showPicker();"
-                                   onblur="if(!this.value) this.type='text'">
+            <section class="experience">
+                <div class="experience__container">
+        
+                    <div class="experience__header reveal fade-up"> 
+                        <span class="experience__subtitle" data-i18n="exp_subtitle">EXPERIENCE</span>
+                        <h2 class="experience__title" data-i18n="exp_title">The Higlton Promise</h2>
+                        <p class="experience__text" data-i18n="exp_text"> At Higlton, we don't just provide a room; we curate an experience. Our commitment to excellence ensures that every stay is marked by unparalleled service and sophisticated comfort.
+                        </p>
+                    </div>
+
+                    <div class="experience__grid">
+                        <div class="promise-card reveal fade-up delay-1">
+                            <div class="promise-card__icon-box">
+                                <div class="promise-card__icon">👑</div>
+                            </div>
+                            <h3 class="promise-card__title" data-i18n="promise_1_title">Timeless Luxury</h3>
+                        <p class="promise-card__desc"  data-i18n="promise_1_desc">Experience unparalleled elegance in every corner of our suites.</p>
+                    </div>
+
+                    <div class="promise-card reveal fade-up delay-2">
+                        <div class="promise-card__icon-box">
+                            <div class="promise-card__icon">🏢</div>
+                        </div>
+                        <h3 class="promise-card__title" data-i18n="promise_2_title">Global Presence</h3>
+                        <p class="promise-card__desc" data-i18n="promise_2_desc">Premier locations in the world's most iconic and vibrant cities.</p>
+                    </div>
+
+                    <div class="promise-card reveal fade-up delay-3">
+                        <div class="promise-card__icon-box">
+                            <div class="promise-card__icon">✨</div>
+                        </div>
+                        <h3 class="promise-card__title" data-i18n="promise_3_title">Personal Service</h3>
+                        <p class="promise-card__desc" data-i18n="promise_3_desc">Tailored experiences crafted just for you by our dedicated staff.</p>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section class="vibe">
+                <div class="vibe__container">
+
+
+                    <div class="vibe__content reveal fade-left">
+                        <span class="vibe__subtitle" data-i18n="vibe_subtitle">HERITAGE</span>
+                        <h4 class="vibe__title" data-i18n="vibe_title">A Legacy of Excellence</h4>
+                        <p class="vibe__text1" data-i18n="vibe_text1">Since our inception, Higlton has been the epitome of refined hospitality and  timeless sophistication. Our unwavering commitment to exceptional service has established us as the preferred choice for discerning travelers worldwide.</p>
+                        <p class="vibe__text2" data-i18n="vibe_text2">Every suite, every amenity, every interaction is orchestrated to transcend expectations and create unforgettable memories.</p>
+                    
+                        <div class="vibe__stats">
+                            <div class="stat-item">
+                                <span class="stat-number">250+</span>
+                                <span class="stat-text" data-i18n="stat_1">Luxury Properties</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">4.9</span>
+                                <span class="stat-text" data-i18n="stat_2">Guest Rating</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-i18n="stat_4">25 + countries</span>
+                                <span class="stat-text" data-i18n="stat_3">You will enjoy your trip</span>
+                            </div>
+                        </div>
+
+                        <a href="/" class="vibe__link" data-i18n="vibe_link">Discover Our Colection<span>&#10230;</span></a>
+                    </div>
+
+                    
+                    <div class="vibe__images reveal fade-right">
+                         <div class="vibe-column">
+                        <img src="images/imageroom1.jpg" alt="Room 1" class="vibe-img">
+                        <img src="images/imageroom2.jpg" alt="Room 2" class="vibe-img">
+                        </div>
+                        <div class="vibe-column vibe-column--offset">
+                        <img src="images/imageroom3.jpg" alt="Room 3" class="vibe-img">
+                        <img src="images/imageroom4.jpg" alt="Room 4" class="vibe-img">
                         </div>
                     </div>
+                
+            </section>
 
-                    <div class="booking-card__field">
-                        <label data-i18n="book_guests">Guests</label>
-                        <div class="input-wrapper">
-                            <span class="icon">👥</span>
-                            <input type="number" value="2">
+
+            
+            <section class="begin-yrtrp">
+                <div class="begin-yrtrp__container">
+                    <div class="begin-yrtrp__content reveal fade-up">
+                        <span class="begin-yrtrp__subtitle" data-i18n="journey_subtitle">Begin Your Journey</span>
+                        <h5 class="begin-yrtrp__title" data-i18n="journey_title">Experience the pinnacle of luxury hospitality. Your story awaits.</h5>
+                        <a href="suites.html" class="hero__btn-explore" data-i18n="hero_btn_explore">Explore Suites &rarr; </a>
+                    </div>
+            
+
+                    <div class="begin-yrtrp__images">
+                        <img src="images/capy1.gif" alt="Luxury experience" class="journey-gif"/>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <footer class="footer">
+                <div class="footer__container">
+                    <div class="footer__brand">
+                        <h6 class="footer__logo-text">Higlton</h6>
+                        <p class="footer__tagline" data-i18n="footer_tagline">
+                            Where timeless elegance meets <br> contemporary luxury. Experience <br> exceptional hospitality in the world's <br> most iconic destinations.
+                        </p>
+                    </div>
+
+                    <div class="footer__columns">
+                        <div class="footer__col">
+                            <h7 class="footer__title" data-i18n="footer_nav">Navigation</h7>
+                            <ul class="footer__list">
+                                <li><a href="index.html" data-i18n="footer_nav_about">About Higlton</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_suites">Our suites</a></li>
+                                <li><a href="locations.html" data-i18n="footer_nav_locations">Locations</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_exp">Experiences</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_dining">Dining</a></li>
+                                <li><a href="suites.html" data-i18n="footer_nav_spa">Wellness and Spa</a></li>
+                            </ul>
                         </div>
-                    </div>
 
-                    <button class="booking-card__btn" data-i18n="book_btn">
-                        <span class="icon">🔎</span> Find Your Suite🪄
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+                        <div class="footer__col">
+                            <h4 class="footer__title" data-i18n="footer_services">Guest Services</h4>
+                            <ul class="footer__list">
+                            <li><a href="suites.html" data-i18n="footer_srv_room">24/7 Room Service</a></li>
+                            <li><a href="aboutus.html" data-i18n="footer_srv_biz">Business Center</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_events">Events & Meetings</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_parking">Valet Parking</a></li>
+                            <li><a href="locations.html" data-i18n="footer_srv_transfer">Airport Transfer</a></li>
+                            </ul>
+                        </div>
 
-    <section class="experience">
-        <div class="experience__container">
-            <div class="experience__header reveal fade-up">
-                <span class="experience__subtitle" data-i18n="exp_subtitle">EXPERIENCE</span>
-                <h2 class="experience__title" data-i18n="exp_title">The Higlton Promise</h2>
-                <p class="experience__text" data-i18n="exp_text">
-                    At Higlton, we don't just provide a room; we curate an experience. Our commitment to excellence ensures that every stay is marked by unparalleled service and sophisticated comfort.
-                </p>
-            </div>
+                        <div class="footer__col">
+                            <h4 class="footer__title" data-i18n="footer_contact">Contact</h4>
+                            <ul class="footer__list"> <li><a href="mailto:info@higlton.com">info@higlton.com</a></li>
+                                <li><a href="tel:+380000000000">+380 (63) 676 76 76</a></li>
+                                <li><a href="/" data-i18n="footer_con_sity">📍 Kyiv, Ukraine</a></li>
+                            </ul>
+                        </div>
 
-            <div class="experience__grid">
-                <div class="promise-card reveal fade-up delay-1">
-                    <div class="promise-card__icon-box">
-                        <div class="promise-card__icon">👑</div>
-                    </div>
-                    <h3 class="promise-card__title" data-i18n="promise_1_title">Timeless Luxury</h3>
-                    <p class="promise-card__desc" data-i18n="promise_1_desc">Experience unparalleled elegance in every corner of our suites.</p>
-                </div>
-
-                <div class="promise-card reveal fade-up delay-2">
-                    <div class="promise-card__icon-box">
-                        <div class="promise-card__icon">🏢</div>
-                    </div>
-                    <h3 class="promise-card__title" data-i18n="promise_2_title">Global Presence</h3>
-                    <p class="promise-card__desc" data-i18n="promise_2_desc">Premier locations in the world's most iconic and vibrant cities.</p>
-                </div>
-
-                <div class="promise-card reveal fade-up delay-3">
-                    <div class="promise-card__icon-box">
-                        <div class="promise-card__icon">✨</div>
-                    </div>
-                    <h3 class="promise-card__title" data-i18n="promise_3_title">Personal Service</h3>
-                    <p class="promise-card__desc" data-i18n="promise_3_desc">Tailored experiences crafted just for you by our dedicated staff.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="vibe">
-        <div class="vibe__container">
-            <div class="vibe__content reveal fade-left">
-                <span class="vibe__subtitle" data-i18n="vibe_subtitle">HERITAGE</span>
-                <h4 class="vibe__title" data-i18n="vibe_title">A Legacy of Excellence</h4>
-                <p class="vibe__text1" data-i18n="vibe_text1">Since our inception, Higlton has been the epitome of refined hospitality and timeless sophistication. Our unwavering commitment to exceptional service has established us as the preferred choice for discerning travelers worldwide.</p>
-                <p class="vibe__text2" data-i18n="vibe_text2">Every suite, every amenity, every interaction is orchestrated to transcend expectations and create unforgettable memories.</p>
-
-                <div class="vibe__stats">
-                    <div class="stat-item">
-                        <span class="stat-number">250+</span>
-                        <span class="stat-text" data-i18n="stat_1">Luxury Properties</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">4.9</span>
-                        <span class="stat-text" data-i18n="stat_2">Guest Rating</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-i18n="stat_4">25 + countries</span>
-                        <span class="stat-text" data-i18n="stat_3">You will enjoy your trip</span>
                     </div>
                 </div>
 
-                <a href="/" class="vibe__link" data-i18n="vibe_link">Discover Our Collection<span>&#10230;</span></a>
-            </div>
+                <div class="footer__copyright">
+                        <p data-i18n="footer_rights">&copy; 2026 Higlton Luxury Hotel. All rights reserved.</p>
+                        <ul class="footer__ens-list">
+                                <li><a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a></li>
+                                <li><a href="terms.html" data-i18n="footer_terms">Terms & Conditions</a></li>
+                                <li><a href="cookies.html" data-i18n="footer_cookies">Cookie Settings</a></li>
+                            </ul>
 
-            <div class="vibe__images reveal fade-right">
-                <div class="vibe-column">
-                    <img src="images/imageroom1.jpg" alt="Room 1" class="vibe-img">
-                    <img src="images/imageroom2.jpg" alt="Room 2" class="vibe-img">
-                </div>
-                <div class="vibe-column vibe-column--offset">
-                    <img src="images/imageroom3.jpg" alt="Room 3" class="vibe-img">
-                    <img src="images/imageroom4.jpg" alt="Room 4" class="vibe-img">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="begin-yrtrp">
-        <div class="begin-yrtrp__container">
-            <div class="begin-yrtrp__content reveal fade-up">
-                <span class="begin-yrtrp__subtitle" data-i18n="journey_subtitle">Begin Your Journey</span>
-                <h5 class="begin-yrtrp__title" data-i18n="journey_title">Experience the pinnacle of luxury hospitality. Your story awaits.</h5>
-                <a href="suites.html" class="hero__btn-explore" data-i18n="hero_btn_explore">Explore Suites &rarr; </a>
-            </div>
-
-            <div class="begin-yrtrp__images">
-                <img src="images/capy1.gif" alt="Luxury experience" class="journey-gif"/>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <footer class="footer">
-        <div class="footer__container">
-            <div class="footer__brand">
-                <h6 class="footer__logo-text">Higlton</h6>
-                <p class="footer__tagline" data-i18n="footer_tagline">
-                    Where timeless elegance meets <br> contemporary luxury. Experience <br> exceptional hospitality in the world's <br> most iconic destinations.
-                </p>
-            </div>
-
-            <div class="footer__columns">
-                <div class="footer__col">
-                    <h7 class="footer__title" data-i18n="footer_nav">Navigation</h7>
-                    <ul class="footer__list">
-                        <li><a href="index.html" data-i18n="footer_nav_about">About Higlton</a></li>
-                        <li><a href="suites.html" data-i18n="footer_nav_suites">Our suites</a></li>
-                        <li><a href="locations.html" data-i18n="footer_nav_locations">Locations</a></li>
-                        <li><a href="suites.html" data-i18n="footer_nav_exp">Experiences</a></li>
-                        <li><a href="suites.html" data-i18n="footer_nav_dining">Dining</a></li>
-                        <li><a href="suites.html" data-i18n="footer_nav_spa">Wellness and Spa</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer__col">
-                    <h4 class="footer__title" data-i18n="footer_services">Guest Services</h4>
-                    <ul class="footer__list">
-                        <li><a href="suites.html" data-i18n="footer_srv_room">24/7 Room Service</a></li>
-                        <li><a href="aboutus.html" data-i18n="footer_srv_biz">Business Center</a></li>
-                        <li><a href="locations.html" data-i18n="footer_srv_events">Events & Meetings</a></li>
-                        <li><a href="locations.html" data-i18n="footer_srv_parking">Valet Parking</a></li>
-                        <li><a href="locations.html" data-i18n="footer_srv_transfer">Airport Transfer</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer__col">
-                    <h4 class="footer__title" data-i18n="footer_contact">Contact</h4>
-                    <ul class="footer__list">
-                        <li><a href="mailto:info@higlton.com">info@higlton.com</a></li>
-                        <li><a href="tel:+380000000000">+380 (63) 676 76 76</a></li>
-                        <li><a href="/" data-i18n="footer_con_sity">📍 Kyiv, Ukraine</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer__copyright">
-            <p data-i18n="footer_rights">&copy; 2026 Higlton Luxury Hotel. All rights reserved.</p>
-            <ul class="footer__ens-list">
-                <li><a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a></li>
-                <li><a href="terms.html" data-i18n="footer_terms">Terms & Conditions</a></li>
-                <li><a href="cookies.html" data-i18n="footer_cookies">Cookie Settings</a></li>
-            </ul>
-        </div>
-    </footer>
-</main>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-            const authBtn = document.getElementById('nav-auth-btn');
-            const userDataString = localStorage.getItem('higlton_user');
-
-            console.log("Збережений рядок в браузері:", userDataString);
-
-            if (userDataString && authBtn) {
-                try {
-                    // Безпечно парсимо JSON-рядок в об'єкт
-                    const user = JSON.parse(userDataString);
-
-                    // Перевіряємо, чи в об'єкті є наше поле firstName
-                    if (user && user.firstName) {
-                        authBtn.textContent = user.firstName;
-                        authBtn.removeAttribute('data-i18n');
-                        authBtn.href = 'profile.html';
-                        authBtn.classList.add('user-logged-in');
-                    }
-                } catch (error) {
-                    console.error("Помилка під час читання даних користувача:", error);
-                }
-            }
-        }, 100);
-    });
-</script>
-<script src="lang.js"></script>
-</body>
+                    </div>
+            </footer>
+        </main>
+        <script src="lang.js"></script>
+    </body>
 </html>

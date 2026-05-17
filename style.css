@@ -3070,3 +3070,100 @@ main {
     font-weight: bold; 
     letter-spacing: 2px; 
 }
+
+/* ========================================= */
+/* СТИЛІ АДМІН-ПАНЕЛІ (PROFILE)              */
+/* ========================================= */
+
+/* Бейдж ролі користувача */
+.user-role-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
+    background: #e8f5e9;
+    color: #2ecc71;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Бейдж для Адміна (Золотий) */
+.user-role-badge.admin-badge {
+    background: rgba(212, 175, 55, 0.15); /* Золотий фон з прозорістю */
+    color: var(--blackgold);
+    border: 1px solid var(--blackgold);
+}
+
+/* Кнопка "Додати кімнату" для адміна */
+.btn-add-room {
+    background-color: var(--dark);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-add-room:hover {
+    background-color: var(--blackgold);
+}
+
+/* Картка бронювання для адміна */
+.admin-booking-card {
+    border-left: 5px solid var(--blue); /* Відрізняється від користувацької (золотої) */
+    align-items: flex-start;
+}
+
+.admin-ref {
+    font-family: monospace;
+    font-size: 14px;
+    color: var(--gray);
+    background: var(--bg-light);
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+/* Кнопки дій для адміна (Підтвердити / Скасувати) */
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-action {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-action.approve {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+}
+
+.btn-action.approve:hover {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-action.cancel {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+.btn-action.cancel:hover {
+    background-color: #e74c3c;
+    color: white;
+}

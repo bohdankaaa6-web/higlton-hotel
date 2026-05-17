@@ -11,7 +11,7 @@
 </head>
 <body style="background-color: #FAFAFA">
 
-    <!-- ТУТ МАЄ БУТИ ВАШ СТАНДАРТНИЙ HEADER -->
+   
 
     <main class="profile-page" style="margin-top: 120px; padding-bottom: 80px;">
         <div class="header__container">
@@ -24,36 +24,37 @@
                         <div class="user-avatar">👤</div>
                         <h3 id="user-name-display">Guest</h3>
                         <p id="user-email-display">guest@higlton.com</p>
+                        <!-- Новий бейдж для статусу -->
+                        <div id="user-role-badge" class="user-role-badge">Guest</div>
                         <button id="logout-btn" class="logout-link" data-i18n="prof_logout">Log Out</button>
                     </div>
                     <nav class="profile-nav">
-                        <button class="tab-btn active" data-tab="bookings" data-i18n="prof_tab_book">My Bookings</button>
-                        <button class="tab-btn" data-tab="wishlist" data-i18n="prof_tab_wish">Wishlist</button>
-                        <button class="tab-btn" data-tab="discounts" data-i18n="prof_tab_disc">My Discounts</button>
+                        <!-- Меню для звичайного користувача -->
+                        <button class="tab-btn user-only active" data-tab="bookings" data-i18n="prof_tab_book">My Bookings</button>
+                        <button class="tab-btn user-only" data-tab="wishlist" data-i18n="prof_tab_wish">Wishlist</button>
+                        <button class="tab-btn user-only" data-tab="discounts" data-i18n="prof_tab_disc">My Discounts</button>
+                        
+                        <!-- Меню для Адміністратора (приховане за замовчуванням) -->
+                        <button class="tab-btn admin-only" data-tab="all-bookings" style="display: none;">All Bookings</button>
+                        <button class="tab-btn admin-only" data-tab="manage-rooms" style="display: none;">Manage Rooms</button>
                     </nav>
                 </aside>
 
                 <!-- Контент профілю -->
                 <div class="profile-content">
                     
-                    <!-- Вкладка Бронювань -->
-                    <section id="bookings" class="tab-content active">
+                    <!-- Вкладки Користувача (залишаються як були) -->
+                    <section id="bookings" class="tab-content user-only active">
                         <h2 data-i18n="prof_tab_book">My Bookings</h2>
-                        <div id="bookings-list" class="items-list">
-                            <!-- Сюди JS буде додавати бронювання -->
-                        </div>
+                        <div id="bookings-list" class="items-list"></div>
                     </section>
 
-                    <!-- Вкладка Вподобань -->
-                    <section id="wishlist" class="tab-content">
+                    <section id="wishlist" class="tab-content user-only">
                         <h2 data-i18n="prof_tab_wish">Wishlist</h2>
-                        <div id="wishlist-grid" class="rooms__grid" style="padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                            <!-- Сюди JS буде додавати вподобані кімнати -->
-                        </div>
+                        <div id="wishlist-grid" class="rooms__grid" style="padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;"></div>
                     </section>
 
-                    <!-- Вкладка Знижок -->
-                    <section id="discounts" class="tab-content">
+                    <section id="discounts" class="tab-content user-only">
                         <h2 data-i18n="prof_tab_disc">My Discounts</h2>
                         <div class="discount-card">
                             <div class="discount-icon">🎁</div>
@@ -73,29 +74,80 @@
                         </div>
                     </section>
 
+                    <!-- Вкладки Адміністратора -->
+                    <section id="all-bookings" class="tab-content admin-only">
+                        <h2>Manage All Bookings</h2>
+                        <div id="admin-bookings-list" class="items-list">
+                            <!-- JS додасть всі бронювання -->
+                        </div>
+                    </section>
+
+                    <section id="manage-rooms" class="tab-content admin-only">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                            <h2 style="margin-bottom: 0;">Manage Rooms</h2>
+                            <button class="btn-add-room">+ Add Room</button>
+                        </div>
+                        <div id="admin-rooms-list" class="items-list">
+                            <p style="color:var(--gray)">Room management interface will be here...</p>
+                        </div>
+                    </section>
+
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- ТУТ МАЄ БУТИ ВАШ СТАНДАРТНИЙ FOOTER -->
 
     <script src="lang.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Перевірка чи юзер залогінений
+            // 1. Отримуємо юзера
             const currentUser = JSON.parse(localStorage.getItem('higlton_user'));
             if(!currentUser) {
                 alert("Please log in first.");
                 window.location.href = "getstarted.html";
                 return;
             }
+            
+            // Встановлюємо роль (якщо ролі немає, за замовчуванням - user)
+            const userRole = currentUser.role || 'user'; 
 
-            // Встановлюємо ім'я
-            document.getElementById('user-name-display').innerText = currentUser.firstName;
-            document.getElementById('user-email-display').innerText = currentUser.email;
+            // 2. Встановлюємо дані користувача
+            document.getElementById('user-name-display').innerText = currentUser.username || "Guest";
+            document.getElementById('user-email-display').innerText = currentUser.email || "user@higlton.com";
 
-            // Логіка перемикання вкладок
+            // Налаштування бейджа ролі
+            const roleBadge = document.getElementById('user-role-badge');
+            if (userRole === 'admin') {
+                roleBadge.innerText = 'Administrator';
+                roleBadge.classList.add('admin-badge');
+            } else {
+                roleBadge.innerText = 'Guest';
+            }
+
+            // 3. Логіка відображення вкладок залежно від ролі
+            if (userRole === 'admin') {
+                // Ховаємо елементи користувача
+                document.querySelectorAll('.user-only').forEach(el => el.style.display = 'none');
+                // Показуємо елементи адміна
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+                
+                // Змінюємо активну вкладку за замовчуванням для адміна
+                document.querySelector('.tab-btn[data-tab="bookings"]').classList.remove('active');
+                document.getElementById('bookings').classList.remove('active');
+                
+                document.querySelector('.tab-btn[data-tab="all-bookings"]').classList.add('active');
+                document.getElementById('all-bookings').classList.add('active');
+
+                // Рендер адмінських бронювань
+                renderAdminBookings();
+            } else {
+                // Звичайний користувач: рендер його бронювань та вішліста
+                renderUserBookings();
+                renderUserWishlist();
+            }
+
+            // 4. Універсальна логіка перемикання вкладок
             const tabs = document.querySelectorAll('.tab-btn');
             const contents = document.querySelectorAll('.tab-content');
 
@@ -108,54 +160,78 @@
                 });
             });
 
-            // Рендер бронювань
-            const bookingsList = document.getElementById('bookings-list');
-            const bookings = JSON.parse(localStorage.getItem('higlton_bookings')) ||[];
-            
-            if(bookings.length === 0) {
-                bookingsList.innerHTML = `<p style="color:var(--gray)">You don't have any bookings yet.</p>`;
-            } else {
-                bookingsList.innerHTML = bookings.reverse().map(b => `
-                    <div class="booking-item">
-                        <div class="book-info">
-                            <h4>${b.room}</h4>
-                            <p><strong>Check-in:</strong> ${b.checkin} | <strong>Check-out:</strong> ${b.checkout}</p>
-                            <p><strong>Guest Name:</strong> ${b.name}</p>
+            // 5. Вихід з акаунту
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('higlton_user');
+                window.location.href = "index.html";
+            });
+
+            // --- ФУНКЦІЇ РЕНДЕРУ ---
+
+            function renderUserBookings() {
+                const bookingsList = document.getElementById('bookings-list');
+                // Фільтруємо лише бронювання цього користувача (якщо у вас бронювання прив'язані до імені)
+                const allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
+                const myBookings = allBookings.filter(b => b.name === currentUser.username);
+                
+                if(myBookings.length === 0) {
+                    bookingsList.innerHTML = `<p style="color:var(--gray)">You don't have any bookings yet.</p>`;
+                } else {
+                    bookingsList.innerHTML = myBookings.reverse().map(b => `
+                        <div class="booking-item">
+                            <div class="book-info">
+                                <h4>${b.room || 'Suite'}</h4>
+                                <p><strong>Check-in:</strong> ${b.checkin} | <strong>Check-out:</strong> ${b.checkout}</p>
+                            </div>
+                            <span class="status-badge">Confirmed</span>
                         </div>
-                        <span class="status-badge">Confirmed</span>
-                    </div>
-                `).join('');
-                // Відкриваємо бонус за лояльність, якщо є бронювання
-                document.getElementById('loyal-discount').style.display = 'flex';
+                    `).join('');
+                    document.getElementById('loyal-discount').style.display = 'flex';
+                }
             }
 
-            // Рендер вподобань (Wishlist)
-            const wishlistGrid = document.getElementById('wishlist-grid');
-            const wishlist = JSON.parse(localStorage.getItem('higlton_wishlist')) ||[];
+            function renderUserWishlist() {
+                const wishlistGrid = document.getElementById('wishlist-grid');
+                const wishlist = JSON.parse(localStorage.getItem('higlton_wishlist')) || [];
 
-            if(wishlist.length === 0) {
-                wishlistGrid.innerHTML = `<p style="color:var(--gray); grid-column: 1/-1;">Your wishlist is empty. Go explore our suites!</p>`;
-            } else {
-                wishlistGrid.innerHTML = wishlist.map(item => `
-                    <div class="room-card" style="flex: auto; scroll-snap-align: none;">
-                        <div class="room-card__image-container">
-                            <div class="badge-price"><span class="price-value">${item.price}</span></div>
-                            <img src="${item.img}" alt="Room" class="room-card__img">
+                if(wishlist.length === 0) {
+                    wishlistGrid.innerHTML = `<p style="color:var(--gray); grid-column: 1/-1;">Your wishlist is empty. Go explore our suites!</p>`;
+                } else {
+                    wishlistGrid.innerHTML = wishlist.map(item => `
+                        <div class="room-card" style="flex: auto; scroll-snap-align: none;">
+                            <div class="room-card__image-container">
+                                <div class="badge-price"><span class="price-value">${item.price}</span></div>
+                                <img src="${item.img}" alt="Room" class="room-card__img">
+                            </div>
+                            <div class="room-card__body">
+                                <h4 class="room-card__title">${item.title}</h4>
+                            </div>
                         </div>
-                        <div class="room-card__body">
-                            <h4 class="room-card__title">${item.title}</h4>
-                        </div>
-                    </div>
-                `).join('');
+                    `).join('');
+                }
             }
 
-            // Вихід
-            if (document.getElementById('logout-btn')) {
-                document.getElementById('logout-btn').addEventListener('click', () => {
-                    localStorage.removeItem('higlton_user');
-                    localStorage.removeItem('username'); // Очищаємо обидва ключі для повної синхронізації з index.html
-                    window.location.href = "index.html";
-                });
+            function renderAdminBookings() {
+                const adminBookingsList = document.getElementById('admin-bookings-list');
+                const allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
+
+                if(allBookings.length === 0) {
+                    adminBookingsList.innerHTML = `<p style="color:var(--gray)">No bookings in the system yet.</p>`;
+                } else {
+                    adminBookingsList.innerHTML = allBookings.reverse().map((b, index) => `
+                        <div class="booking-item admin-booking-card">
+                            <div class="book-info">
+                                <h4>${b.room || 'Suite'} <span class="admin-ref">#REF-${1000 + index}</span></h4>
+                                <p><strong>Guest:</strong> ${b.name} | <strong>Contact:</strong> ${b.email || 'N/A'}</p>
+                                <p><strong>Dates:</strong> ${b.checkin} to ${b.checkout}</p>
+                            </div>
+                            <div class="admin-actions">
+                                <button class="btn-action approve">Approve</button>
+                                <button class="btn-action cancel">Cancel</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
             }
         });
     </script>

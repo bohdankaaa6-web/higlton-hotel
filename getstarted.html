@@ -11,7 +11,7 @@
     <div class="auth-page">
         <div class="auth-container" id="auth-container">
             <div class="form-box login">
-                <form id="loginForm">
+                <form action="#">
                     <h1>Login</h1>
                     <div class="input-box">
                         <input type="text" id="login-user" placeholder="Username" required>
@@ -34,18 +34,18 @@
             </div>
 
             <div class="form-box registration">
-                <form id="regForm">
+                <form action="#">
                     <h1>Registration</h1>
                     <div class="input-box">
-                        <input type="text" id="reg-firstName" placeholder="Username" required>
+                        <input type="text" placeholder="Username" required>
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="input-box">
-                        <input type="email" id="reg-email" placeholder="Email" required>
+                        <input type="email" placeholder="Email" required>
                         <i class="fa-solid fa-envelope"></i>
                     </div>
                     <div class="input-box">
-                        <input type="password" id="reg-password" placeholder="Password" required>
+                        <input type="password" placeholder="Password" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
                     <button type="submit" class="btn">Register</button>
@@ -79,94 +79,23 @@
         const authContainer = document.getElementById('auth-container');
         const registerBtn = document.querySelector('.registration-btn');
         const loginBtn = document.querySelector('.login-btn');
-
+        
         // Перемикання
         registerBtn.addEventListener('click', () => authContainer.classList.add("active"));
         loginBtn.addEventListener('click', () => authContainer.classList.remove("active"));
 
-        // ОБРОБКА РЕЄСТРАЦІЇ
-        document.getElementById('regForm').onsubmit = async (e) => {
-            e.preventDefault();
-
-            const clientData = {
-                firstName: document.getElementById('reg-firstName').value,
-                email: document.getElementById('reg-email').value,
-                password: document.getElementById('reg-password').value
-            };
-
-            try {
-                const response = await fetch('http://localhost:8081/api/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(clientData)
-                });
-
-                const resultMessage = await response.text();
-
-                if (response.ok) {
-                    alert('Успішно зареєстровано!');
-                    authContainer.classList.remove("active");
-                } else {
-                    alert(resultMessage || 'Помилка реєстрації. Спробуйте ще раз.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Не вдалося з’єднатися з сервером.');
-            }
-        };
-
-        // ОБРОБКА ЛОГІНУ
-        document.getElementById('loginForm').onsubmit = async (e) => {
-            e.preventDefault();
-
-            console.log("Клікнули увійти, відправляємо дані...");
-
-            const loginData = {
-                firstName: document.getElementById('login-user').value,
-                password: document.getElementById('login-pass').value
-            };
-
-            try {
-                const response = await fetch('http://localhost:8081/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(loginData)
-                });
-
-                if (response.ok) {
-                    const user = await response.json();
-
-                    // Записуємо JSON без зайвих коментарів, які викликали SyntaxError
-                    localStorage.setItem('higlton_user', JSON.stringify(user));
-
-                    alert(`Вітаємо, ${user.firstName}! Ви успішно увійшли.`);
-                    window.location.href = 'index.html';
-                } else {
-                    const errorText = await response.text();
-                    alert(errorText || 'Невірний username або пароль');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Не вдалося з’єднатися з сервером.');
-            }
-        };
-
-
         // Логіка капібари для пароля
         const passInput = document.getElementById('login-pass');
         const capyImg = document.querySelector('.toggle-panel:not([style*="display: none"]) .capy-img');
+        passInput.addEventListener('focus', () => {
+            capyImg.style.transform = 'scale(0.8) translateY(20px)';
+            capyImg.style.opacity = '0.5';
+        });
 
-        if (passInput && capyImg) { // Додав перевірку, щоб не було помилок в консолі
-            passInput.addEventListener('focus', () => {
-                capyImg.style.transform = 'scale(0.8) translateY(20px)';
-                capyImg.style.opacity = '0.5';
-            });
-
-            passInput.addEventListener('blur', () => {
-                capyImg.style.transform = 'scale(1) translateY(0)';
-                capyImg.style.opacity = '1';
-            });
-        }
+        passInput.addEventListener('blur', () => {
+            capyImg.style.transform = 'scale(1) translateY(0)';
+            capyImg.style.opacity = '1';
+        });
     </script>
     <script src="lang.js"></script>
 </body>
