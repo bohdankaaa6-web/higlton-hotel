@@ -272,7 +272,8 @@ const translations = {
         "success_desc": "Your data has been successfully saved to the Higlton secure database. Welcome to our luxury community!",
         "success_btn": "Go to Profile",
         "success_redirect_1": "You will be automatically redirected to your profile in ",
-        "success_redirect_2": " seconds..."
+        "success_redirect_2": " seconds...",
+        "success_gift_btn": "🎁 Open Your Welcome Gift",
     },
 
 
@@ -546,7 +547,8 @@ const translations = {
         "success_desc": "Ваші дані успішно передані у базу даних Higlton. Вітаємо у світі розкоші:))",
         "success_btn": "Перейти до профілю",
         "success_redirect_1": "Вас буде автоматично перенаправлено до профілю через ",
-        "success_redirect_2": " секунд..."
+        "success_redirect_2": " секунд...",
+        "success_gift_btn": "🎁 Відкрити вітальний подарунок",
     }
 };
 
