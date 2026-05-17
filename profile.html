@@ -90,10 +90,10 @@
                 window.location.href = "getstarted.html";
                 return;
             }
-            
+
             // Встановлюємо ім'я
-            document.getElementById('user-name-display').innerText = currentUser.username;
-            document.getElementById('user-email-display').innerText = currentUser.email || "user@higlton.com";
+            document.getElementById('user-name-display').innerText = currentUser.firstName;
+            document.getElementById('user-email-display').innerText = currentUser.email;
 
             // Логіка перемикання вкладок
             const tabs = document.querySelectorAll('.tab-btn');
@@ -150,10 +150,13 @@
             }
 
             // Вихід
-            document.getElementById('logout-btn').addEventListener('click', () => {
-                localStorage.removeItem('higlton_user');
-                window.location.href = "index.html";
-            });
+            if (document.getElementById('logout-btn')) {
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    localStorage.removeItem('higlton_user');
+                    localStorage.removeItem('username'); // Очищаємо обидва ключі для повної синхронізації з index.html
+                    window.location.href = "index.html";
+                });
+            }
         });
     </script>
 </body>

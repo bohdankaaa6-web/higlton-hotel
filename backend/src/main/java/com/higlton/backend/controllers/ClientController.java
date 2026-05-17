@@ -9,17 +9,23 @@ import java.util.List;
 @RequestMapping("/api/clients")
 @CrossOrigin(origins = "*")
 public class ClientController {
-    @Autowired private ClientRepository clientRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     @GetMapping
     public List<Client> getAll(@RequestParam(required = false) String sort) {
         if ("firstName".equals(sort)) return clientRepository.findAllByOrderByFirstNameAsc();
-        if ("lastName".equals(sort)) return clientRepository.findAllByOrderByLastNameAsc();
         return clientRepository.findAll();
     }
 
-    @PostMapping public Client create(@RequestBody Client c) { return clientRepository.save(c); }
-    @GetMapping("/search") public List<Client> search(@RequestParam String keyword) {
-        return clientRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(keyword, keyword);
+    @PostMapping
+    public Client create(@RequestBody Client c) {
+        return clientRepository.save(c);
+    }
+
+    @GetMapping("/search")
+    public List<Client> search(@RequestParam String keyword) {
+        // Міняємо старий метод на стандартний пошук за firstName:
+        return clientRepository.findByFirstNameContainingIgnoreCase(keyword);
     }
 }
