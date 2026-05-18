@@ -47,7 +47,7 @@
                             <span class="lang-divider">|</span>
                             <span class="lang-btn" data-lang="ua">UA</span>
                         </div>
-                        <a class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
+                        <a id="authBtn" class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
                     </div>
                     
                 </nav>
@@ -122,8 +122,8 @@
 
             <section class="experience">
                 <div class="experience__container">
-        
-                    <div class="experience__header reveal fade-up"> 
+
+                    <div class="experience__header reveal fade-up">
                         <span class="experience__subtitle" data-i18n="exp_subtitle">EXPERIENCE</span>
                         <h2 class="experience__title" data-i18n="exp_title">The Higlton Promise</h2>
                         <p class="experience__text" data-i18n="exp_text"> At Higlton, we don't just provide a room; we curate an experience. Our commitment to excellence ensures that every stay is marked by unparalleled service and sophisticated comfort.
@@ -133,10 +133,12 @@
                     <div class="experience__grid">
                         <div class="promise-card reveal fade-up delay-1">
                             <div class="promise-card__icon-box">
-                                <div class="promise-card__icon">👑</div>
+                                <div class="promise-card__icon">👑
+                                </div>
                             </div>
                             <h3 class="promise-card__title" data-i18n="promise_1_title">Timeless Luxury</h3>
                         <p class="promise-card__desc"  data-i18n="promise_1_desc">Experience unparalleled elegance in every corner of our suites.</p>
+                        </div>
                     </div>
 
                     <div class="promise-card reveal fade-up delay-2">
@@ -198,7 +200,7 @@
                         <img src="images/imageroom4.jpg" alt="Room 4" class="vibe-img">
                         </div>
                     </div>
-                
+                </div>
             </section>
 
 
@@ -275,6 +277,32 @@
                     </div>
             </footer>
         </main>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const authBtn = document.getElementById('authBtn');
+                const userDataString = localStorage.getItem('higlton_user');
+
+                console.log("Дані з пам'яті:", userDataString); // Має з'явитися в консолі!
+
+                if (userDataString && authBtn) {
+                    try {
+                        const user = JSON.parse(userDataString);
+                        if (user && user.firstName) {
+                            // Міняємо посилання та видаляємо атрибути перекладу
+                            authBtn.href = 'profile.html';
+                            authBtn.removeAttribute('data-i18n');
+
+                            // Вставляємо ім'я
+                            authBtn.innerHTML = '<span>' + user.firstName + '</span>';
+
+                            console.log("Кнопка змінена на:", user.firstName);
+                        }
+                    } catch (e) {
+                        console.error("Помилка читання даних:", e);
+                    }
+                }
+            });
+        </script>
         <script src="lang.js"></script>
     </body>
 </html>
