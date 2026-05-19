@@ -3348,93 +3348,23 @@ main {
 
 /* --- АДАПТИВНІСТЬ ДЛЯ СІТОК ТА СПИСКІВ --- */
 @media (max-width: 992px) {
-    /* Планшети: робимо по 2 колонки замість 3 */
     .experience__grid, 
     .visitus__grid, 
     .getting-here__grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
     .accommodations__grid {
-        grid-template-columns: repeat(3, 1fr); /* Було 6, робимо 3 */
+        grid-template-columns: repeat(3, 1fr);
     }
-
-    /* Футер */
     .footer__container {
         flex-direction: column;
         gap: 40px;
     }
-}
-
-@media (max-width: 768px) {
-    /* Смартфони: все в одну колонку */
-    .experience__grid, 
-    .visitus__grid, 
-    .getting-here__grid,
-    .details-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .accommodations__grid {
-        grid-template-columns: repeat(2, 1fr); /* Можна по 2 маленькі картки емоцій */
-    }
-
-    /* Секція Vibe: робимо один стовпчик */
-    .vibe__container {
-        flex-direction: column;
-        gap: 40px;
-    }
-    .vibe__images {
-        flex-direction: column; /* Малюнки один під одним */
-        align-items: center;
-    }
-    .vibe-column--offset {
-        margin-top: 0; /* Прибираємо відступ на мобільних */
-    }
-
-    /* Секція Begin Trip */
-    .begin-yrtrp__container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    /* Футер нижня частина */
-    .footer__copyright {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Дуже малі екрани */
-    .accommodations__grid {
-        grid-template-columns: 1fr; /* Навіть емоції в 1 колонку */
-    }
-}
-
-
-@media (max-width: 900px) {
-    .hero__container > .hero__container,
-    .hero__container {
-        flex-direction: column; /* Текст зверху, картка знизу */
-        text-align: center;
-        gap: 40px;
-        padding-top: 50px;
-    }
-
-    .hero__desc-sub {
-        font-size: 60px; /* Зменшуємо величезний текст 100px */
-    }
-}
-
-
-@media (max-width: 992px) {
     .header__nav {
         position: fixed;
         top: 0;
-        right: -100%; /* Ховаємо за правий край екрана */
-        width: 70%; /* Ширина меню на телефоні */
+        right: -100%;
+        width: 70%;
         height: 100vh;
         background-color: var(--bg-light);
         flex-direction: column;
@@ -3443,87 +3373,49 @@ main {
         gap: 30px;
         transition: right 0.3s ease;
         box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 2000;
     }
-
-    /* Клас, який додаватиме JS при кліку на іконку гамбургера */
     .header__nav.is-open {
         right: 0; 
     }
-
-    .header__list {
-        flex-direction: column;
-    }
-    
-    .header__actions {
-        flex-direction: column;
-    }
-
     .header__hamburger {
-        display: block; /* Показуємо кнопку на планшетах і телефонах */
+        display: block;
+    }
+    .header__list, .header__actions {
+        flex-direction: column;
     }
 }
 
-/* 1. Стиль для тексту (за замовчуванням видимий, але налаштований) */
-.mobile-text {
-    display: block;
-    margin-top: 25px;
-    font-family: "DM Sans", sans-serif;
-    font-size: 15px;
-    color: #696871; /* Твій сірий колір */
-    text-align: center;
-    width: 100%;
-}
-
-.mobile-text b {
-    color: #7494ec;
-    text-decoration: underline;
-    cursor: pointer;
-    padding: 5px;
-}
-
-/* 2. ХОВАЄМО ТЕКСТ ТІЛЬКИ НА ВЕЛИКИХ ЕКРАНАХ (ПК) */
-@media (min-width: 769px) {
-    .mobile-text {
-        display: none !important;
-    }
-}
-/* 3. НАЛАШТУВАННЯ ДЛЯ ТЕЛЕФОНІВ (Екрани 768px і менше) */
+/* --- ГОЛОВНІ НАЛАШТУВАННЯ ДЛЯ МОБІЛОК (768px і менше) --- */
 @media (max-width: 768px) {
     body {
-        font-size: 16px; 
+        font-size: 18px !important; /* Збільшуємо базовий текст */
     }
 
-    /* Заголовки та тексти секцій */
-    .experience__title, .vibe__title, .begin-yrtrp__subtitle, .visitus__title, .accommodations__title {
-        font-size: 28px !important;
-        line-height: 1.2;
-    }
-    .experience__text, .vibe__text1, .vibe__text2, .visitus__desc, .accommodations__desc {
-        font-size: 15px !important;
-        line-height: 1.6;
+    /* Заголовки */
+    .experience__title, .vibe__title, .begin-yrtrp__subtitle, .visitus__title, .accommodations__title, .hero__title {
+        font-size: 32px !important;
+        line-height: 1.2 !important;
     }
 
-    /* Футер та Картки */
-    .footer__logo-text { font-size: 22px; }
-    .footer__tagline { font-size: 14px; line-height: 1.5; }
-    .footer__title { font-size: 18px; margin-bottom: 15px; }
-    .footer__list li { font-size: 14px; }
-    .promise-card__title { font-size: 20px; }
-    .promise-card__desc { font-size: 14px; }
-    .begin-yrtrp__subtitle { font-size: 32px !important; }
+    /* Тексти */
+    .experience__text, .vibe__text1, .vibe__text2, .visitus__desc, .accommodations__desc, .hero__desc, .hero__desc-sub {
+        font-size: 17px !important;
+        line-height: 1.6 !important;
+    }
 
-    /* ================================================== */
-    /* ЛОГІКА ДЛЯ ФОРМИ ВХОДУ/РЕЄСТРАЦІЇ НА МОБІЛЬНОМУ    */
-    /* ================================================== */
+    .experience__grid, .visitus__grid, .getting-here__grid, .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ФОРМА ЛОГІНУ ТА РЕЄСТРАЦІЇ */
     .auth-container {
         width: 95% !important;
         height: auto !important;
-        min-height: 480px !important;
+        min-height: 520px !important;
         padding-bottom: 30px !important;
-    }
-
-    .toggle-box {
-        display: none !important; /* Ховаємо синю плашку */
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     .form-box {
@@ -3533,24 +3425,42 @@ main {
         padding: 30px 20px !important;
         visibility: visible !important;
         opacity: 1 !important;
+        transition: none !important; /* Вимикаємо анімації ПК */
     }
 
-    /* Коли контейнер звичайний (показуємо ЛОГІН, ховаємо РЕЄСТРАЦІЮ) */
+    /* ЛОГІКА ПЕРЕМИКАННЯ (щоб не бачити дві одночасно) */
     .auth-container:not(.active) .form-box.registration {
         display: none !important;
     }
-
-    /* Коли контейнер ACTIVE (ховаємо ЛОГІН, показуємо РЕЄСТРАЦІЮ) */
     .auth-container.active .form-box.login {
         display: none !important;
     }
     .auth-container.active .form-box.registration {
-        display: flex !important;
+        display: block !important;
     }
 
-    /* Показуємо текст перемикання */
+    .toggle-box {
+        display: none !important;
+    }
+
     .mobile-text {
         display: block !important;
+        margin-top: 20px;
+        font-size: 16px;
+        color: #696871;
+        text-align: center;
         visibility: visible !important;
+    }
+    
+    .mobile-text b {
+        color: #7494ec;
+        text-decoration: underline;
+    }
+}
+
+/* Приховуємо мобільний текст на комп'ютері */
+@media (min-width: 769px) {
+    .mobile-text {
+        display: none !important;
     }
 }
