@@ -40,11 +40,33 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 40px;
+}
+
+/* Новий контейнер-обгортка для шапки */
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Стилі для кнопки гамбургера */
+.header__hamburger {
+    display: none; /* За замовчуванням на ПК приховано */
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--dark);
+    z-index: 2000; /* Щоб кнопка була над меню, коли воно відкрите */
+    user-select: none;
+}
+
+/* Змінюємо вигляд кнопки при наведенні */
+.header__hamburger:hover {
+    color: var(--blackgold);
 }
 
 
-
-/* --- ФІКС НАВІГАЦІЇ: ПРИБИРАЄМО ТОЧКИ ТА ОЖИВЛЯЄМО КАПІБАРУ --- */
 
 .header__list {
     display: flex;
@@ -84,7 +106,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* --- СПЕЦІАЛЬНО ДЛЯ КАПІБАРИ (БЕЗ ФІЛЬТРІВ) --- */
+/* --- СПЕЦІАЛЬНО ДЛЯ КАПІБАРИ  --- */
 .nav-icon.capy-style {
     filter: none !important; /* ПРИБИРАЄ СІРИЙ КОЛІР */
     opacity: 1 !important;    /* ПРИБИРАЄ ПРОЗОРІСТЬ */
@@ -287,7 +309,8 @@ main {
     background-color: white; /* Фон картки */
     padding: 50px 40px;
     border-radius: 300px 300px 30px 300px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     flex-shrink: 0;
     box-shadow: 0 20px 50px rgba(0,0,0,0.2); /* Тінь, щоб картка "відірвалася" від фону */
     z-index: 10; /* Щоб була поверх фону */
@@ -2384,7 +2407,9 @@ main {
     padding: 80px 0;
     border-radius: 40px; /* Скруглення всієї великої плашки */
     margin: 40px 20px;
-    height: 500px;
+    height: auto;
+    min-height: 500px;
+    padding-bottom: 60px;
 }
 
 .getting-here__container {
@@ -2473,7 +2498,9 @@ main {
     border-radius: 40px;
     margin: 40px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-    height: 400px;
+    height: auto;
+    min-height: 400px;
+    padding-bottom: 60px;
 }
 
 .attractions__container {
@@ -2684,8 +2711,10 @@ main {
 
 .auth-container {
     position: relative;
-    width: 850px;
-    height: 550px;
+    width: 100%;
+    max-width: 850px;
+    height: auto;
+    min-height: 550px;
     background: #fff;
     border-radius: 30px;
     box-shadow: 0 0 30px rgba(0,0,0,0.1);
@@ -3305,4 +3334,151 @@ main {
     max-width: 500px;
     width: 100%;
     border-top: 6px solid var(--blackgold);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* --- АДАПТИВНІСТЬ ДЛЯ СІТОК ТА СПИСКІВ --- */
+@media (max-width: 992px) {
+    /* Планшети: робимо по 2 колонки замість 3 */
+    .experience__grid, 
+    .visitus__grid, 
+    .getting-here__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .accommodations__grid {
+        grid-template-columns: repeat(3, 1fr); /* Було 6, робимо 3 */
+    }
+
+    /* Футер */
+    .footer__container {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Смартфони: все в одну колонку */
+    .experience__grid, 
+    .visitus__grid, 
+    .getting-here__grid,
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .accommodations__grid {
+        grid-template-columns: repeat(2, 1fr); /* Можна по 2 маленькі картки емоцій */
+    }
+
+    /* Секція Vibe: робимо один стовпчик */
+    .vibe__container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .vibe__images {
+        flex-direction: column; /* Малюнки один під одним */
+        align-items: center;
+    }
+    .vibe-column--offset {
+        margin-top: 0; /* Прибираємо відступ на мобільних */
+    }
+
+    /* Секція Begin Trip */
+    .begin-yrtrp__container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* Футер нижня частина */
+    .footer__copyright {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Дуже малі екрани */
+    .accommodations__grid {
+        grid-template-columns: 1fr; /* Навіть емоції в 1 колонку */
+    }
+}
+
+
+@media (max-width: 900px) {
+    .hero__container > .hero__container,
+    .hero__container {
+        flex-direction: column; /* Текст зверху, картка знизу */
+        text-align: center;
+        gap: 40px;
+        padding-top: 50px;
+    }
+
+    .hero__desc-sub {
+        font-size: 60px; /* Зменшуємо величезний текст 100px */
+    }
+}
+
+
+@media (max-width: 992px) {
+    .header__nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Ховаємо за правий край екрана */
+        width: 70%; /* Ширина меню на телефоні */
+        height: 100vh;
+        background-color: var(--bg-light);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: right 0.3s ease;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    }
+
+    /* Клас, який додаватиме JS при кліку на іконку гамбургера */
+    .header__nav.is-open {
+        right: 0; 
+    }
+
+    .header__list {
+        flex-direction: column;
+    }
+    
+    .header__actions {
+        flex-direction: column;
+    }
+
+    .header__hamburger {
+        display: block; /* Показуємо кнопку на планшетах і телефонах */
+    }
+}
+
+@media (max-width: 768px) {
+    .auth-container {
+        height: auto;
+        padding-bottom: 20px;
+    }
+    /* Вимикаємо анімацію виїзду для смартфонів, робимо форми статичними */
+    .toggle-box {
+        display: none; 
+    }
+    .form-box {
+        position: relative;
+        width: 100%;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    .form-box.registration {
+        display: none; /* Показуємо або ховаємо через JS напряму */
+    }
 }

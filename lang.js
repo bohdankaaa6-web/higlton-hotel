@@ -660,3 +660,34 @@ const revealOnScroll = () => {
 
 // Запускаємо після повного завантаження
 window.addEventListener('load', revealOnScroll);
+
+// ==========================================
+// МОБІЛЬНЕ МЕНЮ (Гамбургер)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const headerNav = document.querySelector('.header__nav');
+
+    if (hamburgerBtn && headerNav) {
+        hamburgerBtn.addEventListener('click', () => {
+            // Додає або забирає клас 'is-open'
+            headerNav.classList.toggle('is-open');
+            
+            // Змінюємо іконку 
+            if (headerNav.classList.contains('is-open')) {
+                hamburgerBtn.innerHTML = '&times;'; // Хрестик
+            } else {
+                hamburgerBtn.innerHTML = '&#9776;'; // Значок ☰
+            }
+        });
+
+        // Закривати меню при кліку на будь-яке посилання 
+        const navLinks = document.querySelectorAll('.header__list-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                headerNav.classList.remove('is-open');
+                hamburgerBtn.innerHTML = '&#9776;';
+            });
+        });
+    }
+});

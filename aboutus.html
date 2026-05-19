@@ -13,12 +13,24 @@
         <body style="background-color: antiquewhite">
 
         <header class="header">
-            <div class="header__container"> 
-                <nav class="header__nav">
+            <!-- Додано клас header__wrapper для правильного вирівнювання -->
+            <div class="header__container header__wrapper"> 
+                
+                <!-- 1. Логотип (винесено за межі nav, щоб його завжди було видно) -->
+                <a href="index.html" class="logo-link">
                     <img src="images/higlton.svg" alt="Logo" width="200">
+                </a>
+
+                <!-- 2. Кнопка Гамбургер (буде видима лише на телефонах) -->
+                <div class="header__hamburger" id="hamburger-btn">
+                    ☰
+                </div>
+
+                <!-- 3. Навігація (ховається на телефонах) -->
+                <nav class="header__nav">
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <a class="header__list-link" href="index.html">
+                            <a class="header__list-link " href="index.html">
                                 <img src="images/SVG, header/building-user-svgrepo-com.svg" alt="home" class="nav-icon">
                                 <span data-i18n="nav_home">Home</span>
                             </a>
@@ -49,11 +61,11 @@
                             <span class="lang-divider">|</span>
                             <span class="lang-btn" data-lang="ua">UA</span>
                         </div>
-                        <a class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
+                        <a id="authBtn" class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
                     </div>
-                    
                 </nav>
             </div>
+
         </header>
 
         <section class="aboutus-hero">

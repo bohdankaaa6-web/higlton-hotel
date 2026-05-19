@@ -8,12 +8,24 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+IE:wght@100..400&family=Special+Elite&display=swap" rel="stylesheet">
-<body style="background-color: antiquewhite">
+    <body style="background-color: antiquewhite">
 
-        <header class="header">
-            <div class="header__container"> 
-                <nav class="header__nav">
+       <header class="header">
+            <!-- Додано клас header__wrapper для правильного вирівнювання -->
+            <div class="header__container header__wrapper"> 
+                
+                <!-- 1. Логотип (винесено за межі nav, щоб його завжди було видно) -->
+                <a href="index.html" class="logo-link">
                     <img src="images/higlton.svg" alt="Logo" width="200">
+                </a>
+
+                <!-- 2. Кнопка Гамбургер (буде видима лише на телефонах) -->
+                <div class="header__hamburger" id="hamburger-btn">
+                    ☰
+                </div>
+
+                <!-- 3. Навігація (ховається на телефонах) -->
+                <nav class="header__nav">
                     <ul class="header__list">
                         <li class="header__list-item">
                             <a class="header__list-link active" href="index.html">
@@ -49,10 +61,9 @@
                         </div>
                         <a id="authBtn" class="header__button" href="getstarted.html" data-i18n="nav_getstarted">Get Started</a>
                     </div>
-                    
                 </nav>
             </div>
-        </header>
+        </header> 
 
         <main>
             <section class="hero">
@@ -130,31 +141,35 @@
                         </p>
                     </div>
 
+                    
                     <div class="experience__grid">
+                        <!-- Картка 1 -->
                         <div class="promise-card reveal fade-up delay-1">
                             <div class="promise-card__icon-box">
-                                <div class="promise-card__icon">👑
-                                </div>
+                                <div class="promise-card__icon">👑</div>
                             </div>
                             <h3 class="promise-card__title" data-i18n="promise_1_title">Timeless Luxury</h3>
-                        <p class="promise-card__desc"  data-i18n="promise_1_desc">Experience unparalleled elegance in every corner of our suites.</p>
+                            <p class="promise-card__desc" data-i18n="promise_1_desc">Experience unparalleled elegance...</p>
                         </div>
-                    </div>
 
-                    <div class="promise-card reveal fade-up delay-2">
-                        <div class="promise-card__icon-box">
-                            <div class="promise-card__icon">🏢</div>
+                        <!-- Картка 2  -->
+                        <div class="promise-card reveal fade-up delay-2">
+                            <div class="promise-card__icon-box">
+                                <div class="promise-card__icon">🏢</div>
+                            </div>
+                            <h3 class="promise-card__title" data-i18n="promise_2_title">Global Presence</h3>
+                            <p class="promise-card__desc" data-i18n="promise_2_desc">Premier locations in the world's...</p>
                         </div>
-                        <h3 class="promise-card__title" data-i18n="promise_2_title">Global Presence</h3>
-                        <p class="promise-card__desc" data-i18n="promise_2_desc">Premier locations in the world's most iconic and vibrant cities.</p>
-                    </div>
 
-                    <div class="promise-card reveal fade-up delay-3">
-                        <div class="promise-card__icon-box">
-                            <div class="promise-card__icon">✨</div>
+                        <!-- Картка 3  -->
+                        <div class="promise-card reveal fade-up delay-3">
+                            <div class="promise-card__icon-box">
+                                <div class="promise-card__icon">✨</div>
+                            </div>
+                            <h3 class="promise-card__title" data-i18n="promise_3_title">Personal Service</h3>
+                            <p class="promise-card__desc" data-i18n="promise_3_desc">Tailored experiences crafted just for you...</p>
                         </div>
-                        <h3 class="promise-card__title" data-i18n="promise_3_title">Personal Service</h3>
-                        <p class="promise-card__desc" data-i18n="promise_3_desc">Tailored experiences crafted just for you by our dedicated staff.</p>
+
                     </div>
                 </div>
             </section>
