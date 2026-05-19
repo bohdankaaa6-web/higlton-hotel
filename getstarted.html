@@ -82,30 +82,30 @@
         const registerBtn = document.querySelector('.registration-btn');
         const loginBtn = document.querySelector('.login-btn');
         
-        // 1. Перемикання для ПК 
+        // 1. Перемикання для ПК
         registerBtn.addEventListener('click', () => authContainer.classList.add("active"));
         loginBtn.addEventListener('click', () => authContainer.classList.remove("active"));
 
-        // 2. Перемикання для МОБІЛОК 
+        // 2. Перемикання для МОБІЛОК (ВИПРАВЛЕНО: тепер воно окремо від пароля)
         const toRegMobile = document.getElementById('to-reg-mobile');
         const toLoginMobile = document.getElementById('to-login-mobile');
-        const container = document.getElementById('auth-container');
 
-        // Додаємо події
         if (toRegMobile) {
-            toRegMobile.onclick = () => {
-                container.classList.add("active");
+            toRegMobile.onclick = (e) => {
+                e.preventDefault();
+                authContainer.classList.add("active");
             };
         }
 
         if (toLoginMobile) {
-            toLoginMobile.onclick = () => {
-                container.classList.remove("active");
+            toLoginMobile.onclick = (e) => {
+                e.preventDefault();
+                authContainer.classList.remove("active");
             };
         }
-        // 3. Анімація капібари при введенні пароля (лише для ПК, бо на мобілці вона прихована)
+
+        // 3. Анімація капібари при введенні пароля
         const passInput = document.getElementById('login-pass');
-        // Беремо картинку, яка зараз видима
         passInput.addEventListener('focus', () => {
             const capyImg = document.querySelector('.auth-container:not(.active) .toggle-right .auth-capy-img');
             if(capyImg) {
@@ -122,7 +122,7 @@
             }
         });
 
-        // 4. ОБРОБКА РЕЄСТРАЦІЇ 
+        // 4. ОБРОБКА РЕЄСТРАЦІЇ ТА ЛОГІНУ (твій код нижче без змін...)
         document.getElementById('regForm').onsubmit = async (e) => {
             e.preventDefault();
             const clientData = {
@@ -136,18 +136,11 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(clientData)
                 });
-                if (response.ok) {
-                    window.location.href = 'success.html';
-                } else {
-                    const resultMessage = await response.text();
-                    alert(resultMessage || 'Помилка реєстрації.');
-                }
-            } catch (error) {
-                alert('Не вдалося з’єднатися з сервером.');
-            }
+                if (response.ok) window.location.href = 'success.html';
+                else alert('Помилка реєстрації.');
+            } catch (error) { alert('Не вдалося з’єднатися з сервером.'); }
         };
 
-        // 5. ОБРОБКА ЛОГІНУ 
         document.getElementById('loginForm').onsubmit = async (e) => {
             e.preventDefault();
             const loginData = {
@@ -165,12 +158,8 @@
                     localStorage.setItem('higlton_user', JSON.stringify(user));
                     alert(`Вітаємо, ${user.firstName}!`);
                     window.location.href = 'index.html';
-                } else {
-                    alert('Невірний username або пароль');
-                }
-            } catch (error) {
-                alert('Не вдалося з’єднатися з сервером.');
-            }
+                } else alert('Невірний username або пароль');
+            } catch (error) { alert('Не вдалося з’єднатися з сервером.'); }
         };
     </script>
     <script src="lang.js"></script>

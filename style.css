@@ -3463,58 +3463,47 @@ main {
     }
 }
 
-@media (max-width: 768px) {
-    .auth-container {
-        width: 95%; /* Щоб не прилипало до країв екрану */
-        height: auto !important;
-        min-height: 450px !important;
-        max-height: none !important;
-        padding-bottom: 30px;
-    }
+/* 1. Стиль для тексту (за замовчуванням видимий, але налаштований) */
+.mobile-text {
+    display: block;
+    margin-top: 25px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    color: #696871; /* Твій сірий колір */
+    text-align: center;
+    width: 100%;
+}
 
-    .form-box {
-        position: relative !important;
-        width: 100% !important;
-        right: 0 !important;
-        padding: 20px !important;
-        visibility: visible !important;
-        display: block !important;
-    }
+.mobile-text b {
+    color: #7494ec;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 5px;
+}
 
-    /* Ховаємо форму реєстрації, якщо не активний клас active */
-    .auth-container:not(.active) .form-box.registration {
-        display: none !important;
-    }
-
-    /* Ховаємо форму логіну, якщо активний клас active */
-    .auth-container.active .form-box.login {
-        display: none !important;
-    }
-
-    .toggle-box {
-        display: none !important;
-    }
-
-    /* ПОКАЗУЄМО ТЕКСТ НА МОБІЛЦІ */
+/* 2. ХОВАЄМО ТЕКСТ ТІЛЬКИ НА ВЕЛИКИХ ЕКРАНАХ (ПК) */
+@media (min-width: 769px) {
     .mobile-text {
-        display: block !important; /* !important переб'є display: none */
-        margin-top: 25px;
-        font-family: "DM Sans", sans-serif;
-        font-size: 15px;
-        color: var(--gray);
-        text-align: center;
-    }
-    
-    .mobile-text b {
-        color: #7494ec;
-        text-decoration: underline;
-        cursor: pointer;
-        padding: 5px;
+        display: none !important;
     }
 }
 
-/* Це правило для ПК — воно має бути ВИЩЕ за медіа-запит, 
-або просто залиш як є, але в медіа-запиті вище ми додали !important */
-.mobile-text {
-    display: none;
+/* 3. НАЛАШТУВАННЯ ДЛЯ ТЕЛЕФОНІВ */
+@media (max-width: 768px) {
+    .auth-container {
+        height: auto !important;
+        min-height: 500px !important;
+        padding-bottom: 40px !important; /* Щоб текст не прилипав до низу */
+    }
+    
+    .form-box {
+        position: relative !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .mobile-text {
+        display: block !important; /* Примусово показуємо */
+        visibility: visible !important;
+    }
 }
