@@ -3487,23 +3487,70 @@ main {
         display: none !important;
     }
 }
-
-/* 3. НАЛАШТУВАННЯ ДЛЯ ТЕЛЕФОНІВ */
+/* 3. НАЛАШТУВАННЯ ДЛЯ ТЕЛЕФОНІВ (Екрани 768px і менше) */
 @media (max-width: 768px) {
-    .auth-container {
-        height: auto !important;
-        min-height: 500px !important;
-        padding-bottom: 40px !important; /* Щоб текст не прилипав до низу */
+    body {
+        font-size: 16px; 
     }
-    
+
+    /* Заголовки та тексти секцій */
+    .experience__title, .vibe__title, .begin-yrtrp__subtitle, .visitus__title, .accommodations__title {
+        font-size: 28px !important;
+        line-height: 1.2;
+    }
+    .experience__text, .vibe__text1, .vibe__text2, .visitus__desc, .accommodations__desc {
+        font-size: 15px !important;
+        line-height: 1.6;
+    }
+
+    /* Футер та Картки */
+    .footer__logo-text { font-size: 22px; }
+    .footer__tagline { font-size: 14px; line-height: 1.5; }
+    .footer__title { font-size: 18px; margin-bottom: 15px; }
+    .footer__list li { font-size: 14px; }
+    .promise-card__title { font-size: 20px; }
+    .promise-card__desc { font-size: 14px; }
+    .begin-yrtrp__subtitle { font-size: 32px !important; }
+
+    /* ================================================== */
+    /* ЛОГІКА ДЛЯ ФОРМИ ВХОДУ/РЕЄСТРАЦІЇ НА МОБІЛЬНОМУ    */
+    /* ================================================== */
+    .auth-container {
+        width: 95% !important;
+        height: auto !important;
+        min-height: 480px !important;
+        padding-bottom: 30px !important;
+    }
+
+    .toggle-box {
+        display: none !important; /* Ховаємо синю плашку */
+    }
+
     .form-box {
         position: relative !important;
+        width: 100% !important;
+        right: 0 !important;
+        padding: 30px 20px !important;
         visibility: visible !important;
         opacity: 1 !important;
     }
 
+    /* Коли контейнер звичайний (показуємо ЛОГІН, ховаємо РЕЄСТРАЦІЮ) */
+    .auth-container:not(.active) .form-box.registration {
+        display: none !important;
+    }
+
+    /* Коли контейнер ACTIVE (ховаємо ЛОГІН, показуємо РЕЄСТРАЦІЮ) */
+    .auth-container.active .form-box.login {
+        display: none !important;
+    }
+    .auth-container.active .form-box.registration {
+        display: flex !important;
+    }
+
+    /* Показуємо текст перемикання */
     .mobile-text {
-        display: block !important; /* Примусово показуємо */
+        display: block !important;
         visibility: visible !important;
     }
 }
