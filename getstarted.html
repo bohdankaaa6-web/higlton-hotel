@@ -104,8 +104,8 @@
                 const resultMessage = await response.text();
 
                 if (response.ok) {
-                    alert('Успішно зареєстровано!');
-                    authContainer.classList.remove("active");
+                    // Якщо реєстрація успішна, одразу переходимо на сторінку успіху!
+                    window.location.href = 'success.html';
                 } else {
                     alert(resultMessage || 'Помилка реєстрації. Спробуйте ще раз.');
                 }
@@ -154,7 +154,7 @@
 
         // Логіка капібари для пароля
         const passInput = document.getElementById('login-pass');
-        const capyImg = document.querySelector('.toggle-panel:not([style*="display: none"]) .capy-img');
+        const capyImg = document.querySelector('.toggle-panel:not([style*="display: none"]) .auth-capy-img');
         passInput.addEventListener('focus', () => {
             capyImg.style.transform = 'scale(0.8) translateY(20px)';
             capyImg.style.opacity = '0.5';
