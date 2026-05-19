@@ -3465,53 +3465,56 @@ main {
 
 @media (max-width: 768px) {
     .auth-container {
-        height: auto;
-        min-height: 550px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .toggle-box {
-        display: none; /* Ховаємо велику синю панель */
+        width: 95%; /* Щоб не прилипало до країв екрану */
+        height: auto !important;
+        min-height: 450px !important;
+        max-height: none !important;
+        padding-bottom: 30px;
     }
 
     .form-box {
-        position: relative;
-        width: 100%;
+        position: relative !important;
+        width: 100% !important;
         right: 0 !important;
-        padding: 30px;
+        padding: 20px !important;
         visibility: visible !important;
+        display: block !important;
     }
 
-    /* Логіка перемикання: якщо контейнер НЕ активний — ховаємо реєстрацію */
-    .form-box.registration {
-        display: none;
+    /* Ховаємо форму реєстрації, якщо не активний клас active */
+    .auth-container:not(.active) .form-box.registration {
+        display: none !important;
     }
 
-    /* Якщо контейнер активний — ховаємо логін і показуємо реєстрацію */
+    /* Ховаємо форму логіну, якщо активний клас active */
     .auth-container.active .form-box.login {
-        display: none;
-    }
-    .auth-container.active .form-box.registration {
-        display: block;
+        display: none !important;
     }
 
-    /* Стиль для посилань перемикання на мобілці */
-    .mobile-text {
-        display: block;
-        margin-top: 20px;
-        font-family: "DM Sans", sans-serif;
-        font-size: 14px;
-        color: var(--gray);
+    .toggle-box {
+        display: none !important;
     }
+
+    /* ПОКАЗУЄМО ТЕКСТ НА МОБІЛЦІ */
+    .mobile-text {
+        display: block !important; /* !important переб'є display: none */
+        margin-top: 25px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--gray);
+        text-align: center;
+    }
+    
     .mobile-text b {
         color: #7494ec;
-        cursor: pointer;
         text-decoration: underline;
+        cursor: pointer;
+        padding: 5px;
     }
 }
 
-/* На ПК ховаємо ці мобільні підписи */
+/* Це правило для ПК — воно має бути ВИЩЕ за медіа-запит, 
+або просто залиш як є, але в медіа-запиті вище ми додали !important */
 .mobile-text {
     display: none;
 }

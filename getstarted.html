@@ -82,21 +82,27 @@
         const registerBtn = document.querySelector('.registration-btn');
         const loginBtn = document.querySelector('.login-btn');
         
-        // 1. Перемикання для ПК (синя плашка)
+        // 1. Перемикання для ПК 
         registerBtn.addEventListener('click', () => authContainer.classList.add("active"));
         loginBtn.addEventListener('click', () => authContainer.classList.remove("active"));
 
-        // 2. Перемикання для МОБІЛОК (текстові посилання)
+        // 2. Перемикання для МОБІЛОК 
         const toRegMobile = document.getElementById('to-reg-mobile');
         const toLoginMobile = document.getElementById('to-login-mobile');
+        const container = document.getElementById('auth-container');
 
+        // Додаємо події
         if (toRegMobile) {
-            toRegMobile.addEventListener('click', () => authContainer.classList.add("active"));
-        }
-        if (toLoginMobile) {
-            toLoginMobile.addEventListener('click', () => authContainer.classList.remove("active"));
+            toRegMobile.onclick = () => {
+                container.classList.add("active");
+            };
         }
 
+        if (toLoginMobile) {
+            toLoginMobile.onclick = () => {
+                container.classList.remove("active");
+            };
+        }
         // 3. Анімація капібари при введенні пароля (лише для ПК, бо на мобілці вона прихована)
         const passInput = document.getElementById('login-pass');
         // Беремо картинку, яка зараз видима
