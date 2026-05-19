@@ -3464,3 +3464,123 @@ main {
         display: none !important;
     }
 }
+
+
+/* ==========================================================================
+   МЕДІА-ЗАПИТ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ 
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* ----------------------------------------------------------------------
+       1. ФІКС ВЕЛИЧЕЗНОГО ТЕКСТУ 
+       ---------------------------------------------------------------------- */
+    body {
+        -webkit-text-size-adjust: 100% !important;
+        text-size-adjust: 100% !important;
+    }
+
+    /* ----------------------------------------------------------------------
+       2. ФІКС НАЙПЕРШОЇ СЕКЦІЇ (Hero)
+       ---------------------------------------------------------------------- */
+    /* Робимо головний контейнер гнучким по вертикалі, щоб помістився весь вміст */
+    .hero {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding-top: 120px !important; /* Робимо відступ, щоб фіксована шапка не перекривала текст */
+        padding-bottom: 50px !important;
+        display: block !important; /* Переводимо в блочний режим для безпечного потоку */
+    }
+
+    /* Перебудовуємо внутрішній контейнер у стовпчик (Текст зверху, картка знизу) */
+    .hero__container,
+    .hero__container .hero__container {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 35px !important;
+        padding-inline: 16px !important; /* Відступи від країв екрану телефону */
+    }
+
+    /* Скидаємо трансформацію зсуву, яка на ПК піднімала блок вгору */
+    .hero > .hero__container {
+        transform: translateY(0) !important;
+    }
+
+    /* Адаптуємо головний заголовок Higlton під розміри екрану, щоб текст не вилазив */
+    .hero__title {
+        font-size: clamp(40px, 12vw, 64px) !important; 
+        line-height: 1.1 !important;
+        margin-bottom: 20px !important;
+        word-wrap: break-word !important; /* Безпечне перенесення слів */
+    }
+
+    /* Зменшуємо розміри описів */
+    .hero__desc {
+        font-size: 22px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .hero__decs-sub, .hero__desc-sub {
+        font-size: 15px !important; /* На ПК було 100px — це руйнувало мобільну версію */
+        max-width: 100% !important;
+        margin-bottom: 25px !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Робимо картку бронювання гнучкою, щоб вона ставала на всю ширину екрану */
+    .booking-card {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 30px 20px !important; /* Зменшуємо внутрішні відступи */
+        border-radius: 40px !important; /* Робимо закруглення акуратнішим на мобільних */
+    }
+
+    /* ----------------------------------------------------------------------
+       3. ФІКС ФУТЕРА (Footer)
+       ---------------------------------------------------------------------- */
+    /* Перебудовуємо головну частину футера в один стовпчик */
+    .footer__container {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 40px !important;
+        padding-inline: 16px !important;
+    }
+
+    /* Текст бренду адаптуємо під центр або лівий край */
+    .footer__brand {
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    .footer__tagline {
+        margin-bottom: 30px !important; /* Зменшуємо гігантський відступ */
+    }
+
+    /* Головне вирішення проблеми обрізання 3-ї колонки: 
+       Перетворюємо сітку з трьох колонок в один вертикальний ряд */
+    .footer__columns {
+        flex-direction: column !important;
+        gap: 35px !important;
+        width: 100% !important;
+    }
+
+    /* Даємо заголовкам секцій у футері менший відступ */
+    .footer__title {
+        margin-bottom: 15px !important;
+    }
+
+    /* Адаптуємо нижню лінію копірайту */
+    .footer__copyright {
+        flex-direction: column-reverse !important; /* Посилання будуть над копірайтом */
+        gap: 20px !important;
+        margin-top: 40px !important;
+        text-align: center !important;
+    }
+
+    /* Робимо посилання умов (Cookies, Terms) зручними для кліку на телефоні */
+    .footer__ens-list {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+    }
+}
