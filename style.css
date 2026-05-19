@@ -3466,19 +3466,52 @@ main {
 @media (max-width: 768px) {
     .auth-container {
         height: auto;
-        padding-bottom: 20px;
+        min-height: 550px;
+        display: flex;
+        flex-direction: column;
     }
-    /* Вимикаємо анімацію виїзду для смартфонів, робимо форми статичними */
+
     .toggle-box {
-        display: none; 
+        display: none; /* Ховаємо велику синю панель */
     }
+
     .form-box {
         position: relative;
         width: 100%;
+        right: 0 !important;
+        padding: 30px;
         visibility: visible !important;
-        opacity: 1 !important;
     }
+
+    /* Логіка перемикання: якщо контейнер НЕ активний — ховаємо реєстрацію */
     .form-box.registration {
-        display: none; /* Показуємо або ховаємо через JS напряму */
+        display: none;
     }
+
+    /* Якщо контейнер активний — ховаємо логін і показуємо реєстрацію */
+    .auth-container.active .form-box.login {
+        display: none;
+    }
+    .auth-container.active .form-box.registration {
+        display: block;
+    }
+
+    /* Стиль для посилань перемикання на мобілці */
+    .mobile-text {
+        display: block;
+        margin-top: 20px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        color: var(--gray);
+    }
+    .mobile-text b {
+        color: #7494ec;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
+/* На ПК ховаємо ці мобільні підписи */
+.mobile-text {
+    display: none;
 }

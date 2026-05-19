@@ -30,6 +30,7 @@
                         <a href="#"><i class="fa-brands fa-github"></i></a>
                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     </div>
+                    <p class="mobile-text">Don't have an account? <b id="to-reg-mobile">Register</b></p>
                 </form>
             </div>
 
@@ -55,6 +56,7 @@
                         <a href="#"><i class="fa-brands fa-github"></i></a>
                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     </div>
+                    <p class="mobile-text">Already have an account? <b id="to-login-mobile">Login</b></p>
                 </form>
             </div>
 
@@ -80,90 +82,90 @@
         const registerBtn = document.querySelector('.registration-btn');
         const loginBtn = document.querySelector('.login-btn');
         
-        // Перемикання
+        // 1. Перемикання для ПК (синя плашка)
         registerBtn.addEventListener('click', () => authContainer.classList.add("active"));
         loginBtn.addEventListener('click', () => authContainer.classList.remove("active"));
 
-        // ОБРОБКА РЕЄСТРАЦІЇ
+        // 2. Перемикання для МОБІЛОК (текстові посилання)
+        const toRegMobile = document.getElementById('to-reg-mobile');
+        const toLoginMobile = document.getElementById('to-login-mobile');
+
+        if (toRegMobile) {
+            toRegMobile.addEventListener('click', () => authContainer.classList.add("active"));
+        }
+        if (toLoginMobile) {
+            toLoginMobile.addEventListener('click', () => authContainer.classList.remove("active"));
+        }
+
+        // 3. Анімація капібари при введенні пароля (лише для ПК, бо на мобілці вона прихована)
+        const passInput = document.getElementById('login-pass');
+        // Беремо картинку, яка зараз видима
+        passInput.addEventListener('focus', () => {
+            const capyImg = document.querySelector('.auth-container:not(.active) .toggle-right .auth-capy-img');
+            if(capyImg) {
+                capyImg.style.transform = 'scale(0.8) translateY(20px)';
+                capyImg.style.opacity = '0.5';
+            }
+        });
+
+        passInput.addEventListener('blur', () => {
+            const capyImg = document.querySelector('.auth-container:not(.active) .toggle-right .auth-capy-img');
+            if(capyImg) {
+                capyImg.style.transform = 'scale(1) translateY(0)';
+                capyImg.style.opacity = '1';
+            }
+        });
+
+        // 4. ОБРОБКА РЕЄСТРАЦІЇ 
         document.getElementById('regForm').onsubmit = async (e) => {
             e.preventDefault();
-
             const clientData = {
                 firstName: document.getElementById('reg-firstName').value,
                 email: document.getElementById('reg-email').value,
                 password: document.getElementById('reg-password').value
             };
-
             try {
                 const response = await fetch('http://localhost:8081/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(clientData)
                 });
-
-                const resultMessage = await response.text();
-
                 if (response.ok) {
-                    // Якщо реєстрація успішна, одразу переходимо на сторінку успіху!
                     window.location.href = 'success.html';
                 } else {
-                    alert(resultMessage || 'Помилка реєстрації. Спробуйте ще раз.');
+                    const resultMessage = await response.text();
+                    alert(resultMessage || 'Помилка реєстрації.');
                 }
             } catch (error) {
-                console.error('Error:', error);
                 alert('Не вдалося з’єднатися з сервером.');
             }
         };
 
-        // ОБРОБКА ЛОГІНУ
+        // 5. ОБРОБКА ЛОГІНУ 
         document.getElementById('loginForm').onsubmit = async (e) => {
             e.preventDefault();
-
-            console.log("Клікнули увійти, відправляємо дані...");
-
             const loginData = {
                 firstName: document.getElementById('login-user').value,
                 password: document.getElementById('login-pass').value
             };
-
             try {
                 const response = await fetch('http://localhost:8081/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(loginData)
                 });
-
                 if (response.ok) {
                     const user = await response.json();
-
-                    // Записуємо JSON без зайвих коментарів, які викликали SyntaxError
                     localStorage.setItem('higlton_user', JSON.stringify(user));
-
-                    alert(`Вітаємо, ${user.firstName}! Ви успішно увійшли.`);
+                    alert(`Вітаємо, ${user.firstName}!`);
                     window.location.href = 'index.html';
                 } else {
-                    const errorText = await response.text();
-                    alert(errorText || 'Невірний username або пароль');
+                    alert('Невірний username або пароль');
                 }
             } catch (error) {
-                console.error('Error:', error);
                 alert('Не вдалося з’єднатися з сервером.');
             }
         };
-
-
-        // Логіка капібари для пароля
-        const passInput = document.getElementById('login-pass');
-        const capyImg = document.querySelector('.toggle-panel:not([style*="display: none"]) .auth-capy-img');
-        passInput.addEventListener('focus', () => {
-            capyImg.style.transform = 'scale(0.8) translateY(20px)';
-            capyImg.style.opacity = '0.5';
-        });
-
-        passInput.addEventListener('blur', () => {
-            capyImg.style.transform = 'scale(1) translateY(0)';
-            capyImg.style.opacity = '1';
-        });
     </script>
     <script src="lang.js"></script>
 </body>
