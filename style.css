@@ -3521,7 +3521,81 @@ main {
         gap: 15px !important;
         padding: 0 !important;
     }
+
+
+    .auth-page {
+        padding: 20px;
+        align-items: flex-start; /* Щоб форма не "тікала" за екран зверху */
+        padding-top: 40px;
+    }
+
+    .auth-container {
+        width: 100% !important;
+        max-width: 400px !important; /* Робимо вузьку акуратну картку */
+        height: auto !important;
+        min-height: 450px !important;
+        display: block !important; /* Вимикаємо flex, щоб уникнути накладання */
+        overflow: visible !important; /* Дозволяємо контенту дихати */
+        border-radius: 20px !important;
+    }
+
+    /* ХОВАЄМО СИНЮ ПАНЕЛЬ ТА ВСІ ЇЇ ЕЛЕМЕНТИ ПРИМУСОВО */
+    .toggle-box, 
+    .toggle-panel, 
+    .toggle-box::before {
+        display: none !important;
+    }
+
+    .form-box {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        right: 0 !important;
+        left: 0 !important;
+        padding: 40px 25px !important; /* Гарні відступи всередині */
+        visibility: visible !important;
+        background: white !important;
+    }
+
+    /* Логіка відображення: показуємо лише одну форму за раз */
+    .auth-container:not(.active) .form-box.registration {
+        display: none !important;
+    }
+    .auth-container:not(.active) .form-box.login {
+        display: block !important;
+    }
+
+    .auth-container.active .form-box.login {
+        display: none !important;
+    }
+    .auth-container.active .form-box.registration {
+        display: block !important;
+    }
+
+    /* Робимо заголовки і кнопки компактнішими */
+    .form-box h1 {
+        font-size: 28px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .input-box {
+        margin: 20px 0 !important;
+    }
+
+    .mobile-text {
+        display: block !important; /* ПРИМУСОВО ПОКАЗУЄМО ПОСИЛАННЯ */
+        margin-top: 20px !important;
+        font-size: 14px !important;
+        color: var(--gray) !important;
+        text-align: center !important;
+    }
+
+    .mobile-text b {
+        color: #7494ec !important;
+        text-decoration: underline !important;
+    }
 }
+
 /* 3. Приховуємо мобільний текст на ПК */
 @media (min-width: 769px) {
     .mobile-text { display: none !important; }
