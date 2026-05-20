@@ -3389,113 +3389,86 @@ main {
    2. АДАПТИВНІСТЬ ДЛЯ СМАРТФОНІВ (max-width: 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* ЗАГАЛЬНІ НАЛАШТУВАННЯ ТЕКСТУ */
-    body {
-        font-size: 16px !important;
-        -webkit-text-size-adjust: 100%;
+    html, body {
+        width: 100% !important;
+        overflow-x: hidden !important;
+        -webkit-text-size-adjust: 100% !important;
     }
 
-    /* СЕКЦІЯ HERO (ГОЛОВНА) */
+    /* ФІКС HERO ДЛЯ ANDROID (прибираємо порожнечу справа) */
     .hero {
-        padding-top: 100px !important;
+        padding-top: 80px !important;
         height: auto !important;
-        min-height: 100vh;
+        min-height: 100vh !important;
+        background-image: linear-gradient(180deg, rgba(10, 20, 47, 0.8) 0%, rgba(10, 20, 47, 0.9) 100%), 
+                          url('images/photobackgroundslide1.jpg') !important;
     }
 
-    .hero__container, .hero__container .hero__container {
-        flex-direction: column !important;
-        text-align: center !important;
-        gap: 40px !important;
-    }
-
-    .hero__title {
-        font-size: 48px !important;
-        line-height: 1.1 !important;
-    }
-
-    .hero__desc-sub, .hero__decs-sub {
-        font-size: 16px !important; /* ВИПРАВЛЕНО: більше не 100px */
-        line-height: 1.5 !important;
-        max-width: 100% !important;
-    }
-
-    /* СІТКИ В ОДНУ КОЛОНКУ */
-    .experience__grid, .visitus__grid, .getting-here__grid, .accommodations__grid, .details-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* ЗАГОЛОВКИ СЕКЦІЙ */
-    .experience__title, .vibe__title, .begin-yrtrp__subtitle, .visitus__title, .accommodations__title {
-        font-size: 26px !important;
-    }
-
-    /* ФОРМА ВХОДУ ТА РЕЄСТРАЦІЇ (Get Started) */
-    .auth-container {
-        width: 92% !important;
-        height: auto !important;
-        min-height: 450px !important;
+    .hero__container, 
+    .hero__container .hero__container {
         display: flex !important;
         flex-direction: column !important;
-        padding-bottom: 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-inline: 15px !important;
+        gap: 35px !important;
+        transform: none !important;
     }
 
-    .toggle-box {
-        display: none !important; /* Ховаємо синю плашку */
+    .hero__title { font-size: 38px !important; text-align: center !important; }
+    .hero__desc, .hero__desc-sub, .hero__decs-sub { 
+        font-size: 16px !important; 
+        text-align: center !important;
     }
+
+    /* УСІ СІТКИ В ОДНУ КОЛОНКУ */
+    .experience__grid, .visitus__grid, .getting-here__grid, 
+    .accommodations__grid, .details-grid, .footer__columns {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        gap: 30px !important;
+    }
+
+    /* ФОРМА ВХОДУ ТА РЕЄСТРАЦІЇ */
+    .auth-container {
+        width: 95% !important;
+        height: auto !important;
+        min-height: 480px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding-bottom: 30px !important;
+    }
+
+    .toggle-box { display: none !important; }
 
     .form-box {
         position: relative !important;
         width: 100% !important;
         right: 0 !important;
-        padding: 30px 20px !important;
+        padding: 20px !important;
         visibility: visible !important;
-        opacity: 1 !important;
     }
 
-    /* ЛОГІКА ПЕРЕМИКАННЯ ФОРМ */
-    /* Якщо контейнер НЕ активний - показуємо тільки Login */
-    .auth-container:not(.active) .form-box.registration {
-        display: none !important;
-    }
-    .auth-container:not(.active) .form-box.login {
-        display: block !important;
-    }
-
-    /* Якщо контейнер АКТИВНИЙ (натиснули Register) - показуємо тільки Registration */
-    .auth-container.active .form-box.login {
-        display: none !important;
-    }
-    .auth-container.active .form-box.registration {
-        display: block !important;
-    }
+    /* Перемикання форм на мобільці */
+    .auth-container:not(.active) .form-box.registration { display: none !important; }
+    .auth-container:not(.active) .form-box.login { display: block !important; }
+    .auth-container.active .form-box.login { display: none !important; }
+    .auth-container.active .form-box.registration { display: block !important; }
 
     .mobile-text {
         display: block !important;
         margin-top: 20px;
         text-align: center;
-        font-size: 14px;
+        font-size: 15px;
         color: var(--gray);
     }
-
-    .mobile-text b {
-        color: #7494ec;
-        text-decoration: underline;
-    }
+    .mobile-text b { color: #7494ec; text-decoration: underline; }
 
     /* ФУТЕР */
-    .footer__container {
-        flex-direction: column !important;
-        gap: 30px !important;
-    }
-    .footer__columns {
-        flex-direction: column !important;
-        gap: 30px !important;
-    }
+    .footer__container { flex-direction: column !important; gap: 30px !important; }
 }
 
-/* Приховуємо мобільний текст на ПК */
+/* 3. Приховуємо мобільний текст на ПК */
 @media (min-width: 769px) {
-    .mobile-text {
-        display: none !important;
-    }
+    .mobile-text { display: none !important; }
 }
