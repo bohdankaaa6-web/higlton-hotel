@@ -3444,32 +3444,40 @@ main {
     
     .footer__container {
         flex-direction: column !important;
-        align-items: flex-start !important; /* Вирівнювання по лівому краю */
-        gap: 50px !important; /* Великий відступ між основними розділами */
-        padding-inline: 25px !important;
+        align-items: flex-start !important; /* Все рівняємо по лівому краю */
+        gap: 40px !important; /* Відступ між описом і початком списків */
+        padding-inline: 20px !important;
     }
 
-    /* Блок з логотипом та описом */
+    /* Блок Higlton + Текст під ним */
     .footer__brand {
         width: 100% !important;
-        text-align: left !important;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer__logo-text {
+        font-size: 26px !important;
+        margin-bottom: 0 !important;
     }
 
     .footer__tagline {
-        margin-bottom: 0 !important;
-        max-width: 100% !important;
+        font-size: 15px !important;
         line-height: 1.6 !important;
-    }
-    
-    /* Прибираємо примусові переноси рядків з HTML, щоб текст на мобільці не обривався */
-    .footer__tagline br {
-        display: none !important;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 100% !important;
     }
 
-    /* Контейнер для трьох колонок (Навігація, Послуги, Контакти) */
+    .footer__tagline br {
+        display: none !important; /* Прибираємо розриви рядків для гнучкості */
+    }
+
+    /* Контейнер, що тримає Навігацію, Послуги, Контакти */
     .footer__columns {
-        flex-direction: column !important; /* Одне під одним */
-        gap: 45px !important; /* Відступ між групами списків */
+        display: flex !important;
+        flex-direction: column !important; /* ПРИМУСОВО В СТОВПЧИК */
+        gap: 40px !important; /* Відстань між розділами (Навігація -> Послуги) */
         width: 100% !important;
     }
 
@@ -3478,20 +3486,27 @@ main {
     }
 
     .footer__title {
+        font-size: 18px !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         margin-bottom: 20px !important;
-        font-size: 20px !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.3); /* Легка золота лінія під заголовком */
-        padding-bottom: 10px;
+        color: var(--blackgold); /* Золотий колір для назв розділів */
         display: block;
     }
 
-    .footer__list li {
-        margin-bottom: 12px !important; /* Більше простору між пунктами для зручного кліку пальцем */
+    .footer__list {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; /* Текст списків тільки зліва */
+        gap: 12px !important;
     }
 
-    /* ========================================= */
-    /* ФІКС НИЖНЬОГО БЛОКУ (Копірайт і посилання) */
-    /* ========================================= */
+    /* Рендер контактів (щоб іконка і текст були поруч зліва) */
+    .footer__list li {
+        text-align: left !important;
+        width: 100%;
+    }
+
     
     .footer__copyright {
         display: flex !important;
