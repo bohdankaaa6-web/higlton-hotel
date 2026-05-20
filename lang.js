@@ -285,6 +285,9 @@ const translations = {
         "book_success_btn": "View My Bookings",
         "success_redirect_1": "Redirecting in ",
         "success_redirect_2": " seconds...",
+
+
+        "nav_back_home": "Back to Home",
     },
 
 
@@ -570,6 +573,8 @@ const translations = {
         "book_success_btn": "Мої бронювання",
         "success_redirect_1": "Вас буде перенаправлено через ",
         "success_redirect_2": " секунд...",
+
+        "nav_back_home": "На головну",
     }
 };
 
