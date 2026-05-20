@@ -3442,7 +3442,7 @@ main {
     /*  ФУТЕР ДЛЯ IPHONE  */
     /* ========================================= */
     
-       .footer__container {
+    .footer__container {
         flex-direction: column !important;
         align-items: flex-start !important; /* Вирівнювання по лівому краю */
         gap: 50px !important; /* Великий відступ між основними розділами */
