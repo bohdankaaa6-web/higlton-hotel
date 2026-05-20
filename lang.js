@@ -306,6 +306,51 @@ const translations = {
         "auth_mobile_reg": "Register",
         "auth_mobile_has_acc": "Already have an account?",
         "auth_mobile_login": "Login",
+
+
+        // Cookies Page
+        "cookies_h1": "Cookie Policy",
+        "cookies_intro": "This policy explains how <strong>Higlton</strong> uses cookies and similar technologies to recognize you when you visit our website.",
+        "cookies_q1": "1. What are Cookies?",
+        "cookies_a1": "Cookies are small data files that are placed on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and provide reporting information.",
+        "cookies_q2": "2. Why We Use Cookies",
+        "cookies_a2_intro": "We use cookies for several reasons:",
+        "cookies_li1": "<strong>Essential cookies:</strong> Necessary for the website to function (e.g., keeping you logged in).",
+        "cookies_li2": "<strong>Performance cookies:</strong> To analyze how visitors use the site (via Google Analytics).",
+        "cookies_li3": "<strong>Preference cookies:</strong> To remember your language or currency settings.",
+        "cookies_q3": "3. Types of Cookies We Use",
+        "cookies_table_type": "Type",
+        "cookies_table_purpose": "Purpose",
+        "cookies_row1_t": "Session Cookies",
+        "cookies_row1_d": "Used to manage your booking process. Expire when you close the browser.",
+        "cookies_row2_t": "Analytics",
+        "cookies_row2_d": "Help us understand traffic patterns and improve the UI/UX of Higlton.",
+        "cookies_row3_t": "Marketing",
+        "cookies_row3_d": "Used to show relevant offers based on your interests.",
+        "cookies_q4": "4. How Can You Control Cookies?",
+        "cookies_a4": "You have the right to decide whether to accept or reject cookies. You can set or amend your web browser controls to accept or refuse cookies. If you choose to reject cookies, you may still use our website, though some functionality may be restricted.",
+        "cookies_q5": "5. Updates to This Policy",
+        "cookies_a5": "We may update this Cookie Policy from time to time in order to reflect changes to the cookies we use for operational, legal, or regulatory reasons.",
+        "cookies_footer": "&copy; 2026 Higlton. Contact: support@higlton.com",
+
+        // Privacy Page
+        "priv_title": "Privacy Policy",
+        "priv_intro": "This Privacy Policy governs the manner in which our website collects, uses, maintains, and discloses information collected from users.",
+        "priv_sect1": "1. Information Collection",
+        "priv_sect1_li1": "<strong>Personal Data:</strong> Name, email address, phone number, and booking details.",
+        "priv_sect2": "2. How We Use Information",
+        "priv_sect2_text": "To provide and manage your bookings, process payments and prevent fraud.",
+        "refund_title": "Refund Policy",
+        "refund_sect1": "1. General Terms",
+        "refund_sect1_text": "If you need to cancel your booking, the following rules apply.",
+        "refund_full": "<strong>Full Refund:</strong> If cancelled at least 48 hours before arrival.",
+
+        // Terms Page
+        "terms_title": "Terms & Conditions",
+        "terms_update": "Last updated: April 2026",
+        "terms_welcome": "Welcome to <strong>Higlton</strong>. By using our services, you agree to these terms.",
+        "terms_use_h2": "1. Use of the Website",
+        "terms_use_li1": "You must be at least 18 years of age to make a booking.",
     },
 
 
@@ -612,6 +657,51 @@ const translations = {
         "auth_mobile_reg": "Реєстрація",
         "auth_mobile_has_acc": "Вже є акаунт?",
         "auth_mobile_login": "Увійти",
+
+
+        // Cookies Page
+        "cookies_h1": "Політика використання файлів Cookie",
+        "cookies_intro": "Ця політика пояснює, як <strong>Higlton</strong> використовує файли cookie та подібні технології, щоб впізнавати вас під час відвідування нашого сайту.",
+        "cookies_q1": "1. Що таке файли Cookie?",
+        "cookies_a1": "Файли cookie — це невеликі текстові файли, які розміщуються на вашому комп'ютері або мобільному пристрої. Вони широко використовуються для забезпечення роботи сайтів або підвищення ефективності їхньої роботи.",
+        "cookies_q2": "2. Чому ми використовуємо Cookie",
+        "cookies_a2_intro": "Ми використовуємо їх з кількох причин:",
+        "cookies_li1": "<strong>Обов'язкові:</strong> необхідні для технічної роботи сайту (наприклад, щоб ви залишалися в системі).",
+        "cookies_li2": "<strong>Продуктивність:</strong> допомагають зрозуміти, як користувачі взаємодіють із сайтом (через Google Analytics).",
+        "cookies_li3": "<strong>Налаштування:</strong> дозволяють запам'ятати обрану вами мову або валюту.",
+        "cookies_q3": "3. Типи файлів Cookie, які ми використовуємо",
+        "cookies_table_type": "Тип",
+        "cookies_table_purpose": "Мета",
+        "cookies_row1_t": "Сесійні Cookie",
+        "cookies_row1_d": "Використовуються для керування процесом бронювання. Видаляються після закриття браузера.",
+        "cookies_row2_t": "Аналітичні",
+        "cookies_row2_d": "Допомагають нам аналізувати трафік та покращувати зручність Higlton.",
+        "cookies_row3_t": "Маркетингові",
+        "cookies_row3_d": "Використовуються для показу персоналізованих пропозицій на основі ваших інтересів.",
+        "cookies_q4": "4. Як ви можете керувати Cookie?",
+        "cookies_a4": "Ви маєте право прийняти або відхилити файли cookie. Ви можете налаштувати параметри у своєму браузері. У разі відмови ви зможете користуватися сайтом, але деякі функції можуть бути обмежені.",
+        "cookies_q5": "5. Оновлення цієї політики",
+        "cookies_a5": "Ми можемо час від часу оновлювати цю Політику відповідно до змін у законодавстві або в наших операційних процесах.",
+        "cookies_footer": "&copy; 2026 Higlton. Контакти: support@higlton.com",
+
+        // Privacy Page
+        "priv_title": "Політика конфіденційності",
+        "priv_intro": "Ця Політика регулює спосіб, у який наш веб-сайт збирає, використовує та розкриває інформацію про користувачів.",
+        "priv_sect1": "1. Збір інформації",
+        "priv_sect1_li1": "<strong>Персональні дані:</strong> Ім'я, email, номер телефону та деталі бронювання.",
+        "priv_sect2": "2. Використання інформації",
+        "priv_sect2_text": "Для надання послуг бронювання, обробки платежів та запобігання шахрайству.",
+        "refund_title": "Політика повернення коштів",
+        "refund_sect1": "1. Загальні умови",
+        "refund_sect1_text": "Якщо вам потрібно скасувати бронювання, діють наступні правила.",
+        "refund_full": "<strong>Повне повернення:</strong> при скасуванні мінімум за 48 годин до заїзду.",
+
+        // Terms Page
+        "terms_title": "Правила та умови",
+        "terms_update": "Останнє оновлення: Квітень 2026",
+        "terms_welcome": "Ласкаво просимо до <strong>Higlton</strong>. Використовуючи наш сайт, ви погоджуєтеся з цими умовами.",
+        "terms_use_h2": "1. Використання сайту",
+        "terms_use_li1": "Вам має бути не менше 18 років, щоб здійснити бронювання.",
     }
 };
 
