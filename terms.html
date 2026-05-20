@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms & Conditions | Higlton</title>
     <style>
         body {
@@ -24,11 +23,11 @@
         h1 {
             color: #2c3e50;
             text-align: center;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #d4af37; /* Золотий акцент */
             padding-bottom: 15px;
         }
         h2 {
-            color: #2980b9;
+            color: #d4af37; /* Золотий акцент */
             margin-top: 30px;
         }
         ul {
@@ -38,10 +37,11 @@
             margin-bottom: 10px;
         }
         .highlight {
-            background-color: #fff3cd;
-            padding: 10px;
-            border-left: 4px solid #ffc107;
+            background-color: #fdfaf5;
+            padding: 15px;
+            border-left: 4px solid #d4af37;
             margin: 20px 0;
+            font-style: italic;
         }
         footer {
             margin-top: 40px;
@@ -49,51 +49,61 @@
             font-size: 0.9em;
             color: #95a5a6;
         }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Terms & Conditions</h1>
-    <p>Last updated: April 2026</p>
+    <a href="index.html" class="back-link" data-i18n="nav_back_home">← Back to Home</a>
 
-    <p>Welcome to <strong>Higlton</strong>. By accessing our website and using our booking services, you agree to comply with and be bound by the following terms and conditions.</p>
+    <h1 data-i18n="terms_h1">Terms & Conditions</h1>
+    <p><strong data-i18n="terms_update">Last updated: April 2026</strong></p>
 
-    <h2>1. Use of the Website</h2>
+    <p data-i18n="terms_welcome">Welcome to <strong>Higlton</strong>. By accessing our website and using our booking services, you agree to comply with and be bound by the following terms and conditions.</p>
+
+    <h2 data-i18n="terms_sect1_title">1. Use of the Website</h2>
     <ul>
-        <li>You must be at least 18 years of age to make a booking.</li>
-        <li>You agree to provide accurate and complete information during the reservation process.</li>
-        <li>Unauthorized use of this website may give rise to a claim for damages or be a criminal offense.</li>
+        <li data-i18n="terms_sect1_li1">You must be at least 18 years of age to make a booking.</li>
+        <li data-i18n="terms_sect1_li2">You agree to provide accurate and complete information during the reservation process.</li>
+        <li data-i18n="terms_sect1_li3">Unauthorized use of this website may give rise to a claim for damages or be a criminal offense.</li>
     </ul>
 
-    <h2>2. Booking & Payments</h2>
+    <h2 data-i18n="terms_sect2_title">2. Booking & Payments</h2>
     <ul>
-        <li>All bookings are subject to availability.</li>
-        <li>Prices shown are inclusive of taxes unless stated otherwise.</li>
-        <li>Full payment or a deposit may be required at the time of booking, depending on the selected rate.</li>
+        <li data-i18n="terms_sect2_li1">All bookings are subject to availability.</li>
+        <li data-i18n="terms_sect2_li2">Prices shown are inclusive of taxes unless stated otherwise.</li>
+        <li data-i18n="terms_sect2_li3">Full payment or a deposit may be required at the time of booking, depending on the selected rate.</li>
     </ul>
 
-    <h2>3. User Accounts</h2>
-    <p>If you create an account on our site, you are responsible for maintaining the confidentiality of your login credentials. We reserve the right to terminate accounts that violate our policies.</p>
+    <h2 data-i18n="terms_sect3_title">3. User Accounts</h2>
+    <p data-i18n="terms_sect3_p">If you create an account on our site, you are responsible for maintaining the confidentiality of your login credentials. We reserve the right to terminate accounts that violate our policies.</p>
 
-    <h2>4. Intellectual Property</h2>
-    <p>The content, layout, design, and graphics on this website are owned by or licensed to Higlton. Reproduction is prohibited without prior written consent.</p>
+    <h2 data-i18n="terms_sect4_title">4. Intellectual Property</h2>
+    <p data-i18n="terms_sect4_p">The content, layout, design, and graphics on this website are owned by or licensed to Higlton. Reproduction is prohibited without prior written consent.</p>
 
-    <h2>5. Limitation of Liability</h2>
-    <div class="highlight">
+    <h2 data-i18n="terms_sect5_title">5. Limitation of Liability</h2>
+    <div class="highlight" data-i18n="terms_sect5_highlight">
         Higlton shall not be liable for any indirect, incidental, or consequential damages arising out of the use or inability to use our booking services.
     </div>
 
-    <h2>6. Governing Law</h2>
-    <p>These terms are governed by and construed in accordance with the laws of Ukraine. Any disputes will be subject to the exclusive jurisdiction of the local courts.</p>
+    <h2 data-i18n="terms_sect6_title">6. Governing Law</h2>
+    <p data-i18n="terms_sect6_p">These terms are governed by and construed in accordance with the laws of Ukraine. Any disputes will be subject to the exclusive jurisdiction of the local courts.</p>
 
-    <h2>7. Changes to Terms</h2>
-    <p>We reserve the right to modify these terms at any time. Your continued use of the site signifies your acceptance of any updated terms.</p>
+    <h2 data-i18n="terms_sect7_title">7. Changes to Terms</h2>
+    <p data-i18n="terms_sect7_p">We reserve the right to modify these terms at any time. Your continued use of the site signifies your acceptance of any updated terms.</p>
 
     <footer>
-        <p>&copy; 2026 Higlton. For questions, contact: support@higlton.com</p>
+        <p data-i18n="terms_footer">&copy; 2026 Higlton. For questions, contact: support@higlton.com</p>
     </footer>
 </div>
+
 <script src="lang.js"></script>
 </body>
 </html>
