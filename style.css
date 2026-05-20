@@ -3349,116 +3349,180 @@ main {
 /* ==========================================================================
    1. АДАПТИВНІСТЬ ДЛЯ ПЛАНШЕТІВ (max-width: 992px)
    ========================================================================== */
-
 @media (max-width: 992px) {
-    /* Розблоковуємо ширину для планшетів */
-    .header__container, .hero__container {
-        max-width: 100% !important;
-        width: 100% !important;
-        padding-inline: 20px !important;
-    }
-    
     .header__nav {
         position: fixed;
         top: 0;
         right: -100%;
         width: 280px;
         height: 100vh;
-        background-color: #fff;
+        background-color: white;
         flex-direction: column;
+        justify-content: flex-start;
         padding: 80px 20px;
-        z-index: 3000;
+        gap: 30px;
         transition: 0.4s ease;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 2000;
     }
-    .header__nav.is-open { right: 0; }
-    .header__hamburger { display: block !important; }
-    .header__list, .header__actions { flex-direction: column; }
+
+    .header__nav.is-open {
+        right: 0; 
+    }
+
+    .header__hamburger {
+        display: block;
+    }
+
+    .header__list, .header__actions {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .experience__grid, .visitus__grid, .getting-here__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
+/* ==========================================================================
+   2. АДАПТИВНІСТЬ ДЛЯ СМАРТФОНІВ (max-width: 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
-    /* 1. ПРИМУСОВА ШИРИНА (для Android та iPhone) */
     html, body {
-        width: 100vw !important;
+        width: 100% !important;
         overflow-x: hidden !important;
-        position: relative;
+        -webkit-text-size-adjust: 100% !important;
     }
 
-    /* 2. ВИПРАВЛЕННЯ HERO (прибираємо вузьку колонку) */
+    /* ФІКС HERO ДЛЯ ANDROID (прибираємо порожнечу справа) */
     .hero {
+        padding-top: 80px !important;
         height: auto !important;
         min-height: 100vh !important;
-        padding-block: 100px 50px !important;
+        background-image: linear-gradient(180deg, rgba(10, 20, 47, 0.8) 0%, rgba(10, 20, 47, 0.9) 100%), 
+                          url('images/photobackgroundslide1.jpg') !important;
     }
 
-    /* Це виправить вкладені контейнери */
     .hero__container, 
     .hero__container .hero__container {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        gap: 40px !important;
-    }
-
-    .hero__left, .hero__right {
-        width: 100% !important;
         padding-inline: 15px !important;
+        gap: 35px !important;
+        transform: none !important;
     }
 
-    .hero__title {
-        font-size: 42px !important;
+    .hero__title { font-size: 38px !important; text-align: center !important; }
+    .hero__desc, .hero__desc-sub, .hero__decs-sub { 
+        font-size: 16px !important; 
         text-align: center !important;
     }
 
-    .hero__desc-sub, .hero__decs-sub {
-        font-size: 16px !important;
-        max-width: 100% !important;
-        text-align: center !important;
+    /* УСІ СІТКИ В ОДНУ КОЛОНКУ */
+    .experience__grid, .visitus__grid, .getting-here__grid, 
+    .accommodations__grid, .details-grid, .footer__columns {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        gap: 30px !important;
     }
 
-    /* 3. ВИПРАВЛЕННЯ ФУТЕРА (повний розбір на деталі) */
-    .footer__container {
+    /* ФОРМА ВХОДУ ТА РЕЄСТРАЦІЇ */
+    .auth-container {
+        width: 95% !important;
+        height: auto !important;
+        min-height: 480px !important;
+        display: flex !important;
         flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 40px !important;
+        padding-bottom: 30px !important;
+    }
+
+    .toggle-box { display: none !important; }
+
+    .form-box {
+        position: relative !important;
+        width: 100% !important;
+        right: 0 !important;
+        padding: 20px !important;
+        visibility: visible !important;
+    }
+
+    /* Перемикання форм на мобільці */
+    .auth-container:not(.active) .form-box.registration { display: none !important; }
+    .auth-container:not(.active) .form-box.login { display: block !important; }
+    .auth-container.active .form-box.login { display: none !important; }
+    .auth-container.active .form-box.registration { display: block !important; }
+
+    .mobile-text {
+        display: block !important;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 15px;
+        color: var(--gray);
+    }
+    .mobile-text b { color: #7494ec; text-decoration: underline; }
+
+
+    
+    .footer__container {
+        padding-inline: 20px !important;
     }
 
     .footer__columns {
         display: flex !important;
-        flex-direction: column !important;
-        gap: 35px !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important; /* Дозволяє блокам переноситись на новий рядок */
+        justify-content: space-between !important;
+        gap: 30px 0 !important; /* Відступ між рядками 30px */
         width: 100% !important;
     }
 
+    /* Перші дві колонки (Навігація і Послуги) робимо по 45%, щоб стали поруч */
+    .footer__col:nth-child(1),
+    .footer__col:nth-child(2) {
+        width: 48% !important;
+    }
+
+    /* Третя колонка (Контакти) на всю ширину і центруємо текст */
+    .footer__col:nth-child(3) {
+        width: 100% !important;
+        text-align: center !important;
+        margin-top: 10px !important;
+    }
+
+    /* Центруємо список контактів (іконки та текст) */
+    .footer__col:nth-child(3) .footer__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* ========================================= */
+    /* ФІКС НИЖНЬОГО БЛОКУ (Копірайт і посилання) */
+    /* ========================================= */
+    
     .footer__copyright {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 20px !important;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 25px !important;
+        display: flex !important;
+        flex-direction: column-reverse !important; /* Посилання будуть над копірайтом */
+        align-items: center !important;
+        text-align: center !important;
+        gap: 25px !important;
+        padding-top: 30px !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
 
+    /* Посилання (Політика, Умови) ставимо в стовпчик по центру */
     .footer__ens-list {
+        display: flex !important;
         flex-direction: column !important;
-        align-items: flex-start !important;
+        align-items: center !important;
         gap: 15px !important;
+        padding: 0 !important;
     }
-
-    /* 4. СІТКИ (Grid) */
-    .experience__grid, .visitus__grid, .getting-here__grid, .accommodations__grid {
-        grid-template-columns: 1fr !important;
-        width: 100% !important;
-    }
-
-    /* 5. ФОРМА LOGIN (виправлення накладання) */
-    .auth-container {
-        flex-direction: column !important;
-        height: auto !important;
-        min-height: 500px !important;
-    }
-    .form-box.registration { display: none !important; }
-    .active .form-box.registration { display: block !important; }
-    .active .form-box.login { display: none !important; }
+}
+/* 3. Приховуємо мобільний текст на ПК */
+@media (min-width: 769px) {
+    .mobile-text { display: none !important; }
 }
