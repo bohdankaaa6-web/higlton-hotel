@@ -3464,8 +3464,38 @@ main {
     }
     .mobile-text b { color: #7494ec; text-decoration: underline; }
 
-    /* ФУТЕР */
-    .footer__container { flex-direction: column !important; gap: 30px !important; }
+
+/* --- ФІКС ФУТЕРА ДЛЯ IPHONE --- */
+    .footer__container {
+        flex-direction: column !important; /* Головні блоки (Навігація, Послуги) у стовпчик */
+        gap: 40px !important;
+        padding-inline: 20px !important;
+    }
+
+    .footer__columns {
+        flex-direction: column !important; /* Самі списки посилань у стовпчик */
+        gap: 30px !important;
+        width: 100% !important;
+    }
+
+    .footer__copyright {
+        flex-direction: column !important; /* Копірайт та нижні посилання один під одним */
+        align-items: flex-start !important; /* Вирівнюємо по лівому краю */
+        gap: 20px !important;
+        padding-top: 20px !important;
+        text-align: left !important;
+    }
+
+    .footer__ens-list {
+        flex-direction: column !important; /* Політика, Умови, Кукі у стовпчик */
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+    .footer__tagline {
+        max-width: 100% !important;
+        font-size: 15px !important;
+    }
 }
 
 /* 3. Приховуємо мобільний текст на ПК */
