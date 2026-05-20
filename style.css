@@ -3439,40 +3439,54 @@ main {
     }
 
     /* ========================================= */
-    /* ФІКС ФУТЕРА ДЛЯ IPHONE (2 колонки + 1 по центру) */
+    /*  ФУТЕР ДЛЯ IPHONE  */
     /* ========================================= */
     
-    .footer__container {
-        padding-inline: 20px !important;
+       .footer__container {
+        flex-direction: column !important;
+        align-items: flex-start !important; /* Вирівнювання по лівому краю */
+        gap: 50px !important; /* Великий відступ між основними розділами */
+        padding-inline: 25px !important;
     }
 
+    /* Блок з логотипом та описом */
+    .footer__brand {
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    .footer__tagline {
+        margin-bottom: 0 !important;
+        max-width: 100% !important;
+        line-height: 1.6 !important;
+    }
+    
+    /* Прибираємо примусові переноси рядків з HTML, щоб текст на мобільці не обривався */
+    .footer__tagline br {
+        display: none !important;
+    }
+
+    /* Контейнер для трьох колонок (Навігація, Послуги, Контакти) */
     .footer__columns {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important; /* Дозволяє блокам переноситись на новий рядок */
-        justify-content: space-between !important;
-        gap: 30px 0 !important; /* Відступ між рядками 30px */
+        flex-direction: column !important; /* Одне під одним */
+        gap: 45px !important; /* Відступ між групами списків */
         width: 100% !important;
     }
 
-    /* Перші дві колонки (Навігація і Послуги) робимо по 45%, щоб стали поруч */
-    .footer__col:nth-child(1),
-    .footer__col:nth-child(2) {
-        width: 48% !important;
-    }
-
-    /* Третя колонка (Контакти) на всю ширину і центруємо текст */
-    .footer__col:nth-child(3) {
+    .footer__col {
         width: 100% !important;
-        text-align: center !important;
-        margin-top: 10px !important;
     }
 
-    /* Центруємо список контактів (іконки та текст) */
-    .footer__col:nth-child(3) .footer__list {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .footer__title {
+        margin-bottom: 20px !important;
+        font-size: 20px !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3); /* Легка золота лінія під заголовком */
+        padding-bottom: 10px;
+        display: block;
+    }
+
+    .footer__list li {
+        margin-bottom: 12px !important; /* Більше простору між пунктами для зручного кліку пальцем */
     }
 
     /* ========================================= */
