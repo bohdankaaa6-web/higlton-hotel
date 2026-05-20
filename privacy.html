@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legal Information | Higlton</title>
+    <title>Privacy & Refund Policy | Higlton</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,14 +20,16 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        h1, h2 {
+        h1 {
             color: #2c3e50;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            border-left: 5px solid #d4af37;
+            padding-left: 15px;
+            margin-bottom: 30px;
         }
         h3 {
-            color: #34495e;
+            color: #d4af37;
             margin-top: 25px;
+            font-size: 1.4rem;
         }
         ul {
             padding-left: 20px;
@@ -36,71 +37,85 @@
         li {
             margin-bottom: 10px;
         }
+        hr {
+            margin: 50px 0;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
         footer {
             margin-top: 40px;
             text-align: center;
             font-size: 0.9em;
             color: #7f8c8d;
         }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <a href="index.html" class="back-link" data-i18n="nav_back_home">← Back to Home</a>
+
     <section>
-        <h1>Privacy Policy</h1>
-        <p>This Privacy Policy governs the manner in which our website collects, uses, maintains, and discloses information collected from users. We are committed to ensuring that your privacy is protected.</p>
+        <h1 data-i18n="priv_h1">Privacy Policy</h1>
+        <p data-i18n="priv_intro">This Privacy Policy governs the manner in which our website collects, uses, maintains, and discloses information collected from users. We are committed to ensuring that your privacy is protected.</p>
 
-        <h3>1. Information Collection</h3>
+        <h3 data-i18n="priv_sect1_title">1. Information Collection</h3>
         <ul>
-            <li><strong>Personal Data:</strong> Name, email address, phone number, and booking details provided during registration.</li>
-            <li><strong>Technical Data:</strong> IP address, browser type, device information, and session duration.</li>
-            <li><strong>Financial Info:</strong> Payments are processed via secure third-party gateways. We do not store your card details on our servers.</li>
+            <li data-i18n="priv_sect1_li1"><strong>Personal Data:</strong> Name, email address, phone number, and booking details provided during registration.</li>
+            <li data-i18n="priv_sect1_li2"><strong>Technical Data:</strong> IP address, browser type, device information, and session duration.</li>
+            <li data-i18n="priv_sect1_li3"><strong>Financial Info:</strong> Payments are processed via secure third-party gateways. We do not store your card details on our servers.</li>
         </ul>
 
-        <h3>2. How We Use Collected Information</h3>
-        <p>We may use the information for the following purposes:</p>
+        <h3 data-i18n="priv_sect2_title">2. How We Use Collected Information</h3>
+        <p data-i18n="priv_sect2_intro">We may use the information for the following purposes:</p>
         <ul>
-            <li>To provide and manage your bookings.</li>
-            <li>To process payments and prevent fraud.</li>
-            <li>To improve customer service and website functionality.</li>
-            <li>To send periodic emails regarding your orders or updates (with your consent).</li>
+            <li data-i18n="priv_sect2_li1">To provide and manage your bookings.</li>
+            <li data-i18n="priv_sect2_li2">To process payments and prevent fraud.</li>
+            <li data-i18n="priv_sect2_li3">To improve customer service and website functionality.</li>
+            <li data-i18n="priv_sect2_li4">To send periodic emails regarding your orders or updates (with your consent).</li>
         </ul>
 
-        <h3>3. Cookies and Analytics</h3>
-        <p>We use cookies to enhance user experience, remember your preferences, and analyze traffic via Google Analytics.</p>
+        <h3 data-i18n="cookies_q2">3. Cookies and Analytics</h3>
+        <p data-i18n="priv_sect3_text">We use cookies to enhance user experience, remember your preferences, and analyze traffic via Google Analytics.</p>
 
-        <h3>4. Data Protection & GDPR</h3>
-        <p>We implement SSL encryption and security best practices. If you are a resident of the EEA, you have the right to access, correct, or request the deletion of your personal data.</p>
+        <h3 data-i18n="priv_sect4_title">4. Data Protection & GDPR</h3>
+        <p data-i18n="priv_sect4_text">We implement SSL encryption and security best practices. If you are a resident of the EEA, you have the right to access, correct, or request the deletion of your personal data.</p>
     </section>
 
-    <hr style="margin: 50px 0;">
+    <hr>
 
     <section>
-        <h1>Refund Policy</h1>
+        <h1 data-i18n="ref_h1">Refund Policy</h1>
         
-        <h3>1. General Terms</h3>
-        <p>We strive to provide excellent service. If you need to cancel your booking, the following rules apply.</p>
+        <h3 data-i18n="ref_sect1_title">1. General Terms</h3>
+        <p data-i18n="ref_sect1_text">We strive to provide excellent service. If you need to cancel your booking, the following rules apply.</p>
 
-        <h3>2. Cancellation Timeline</h3>
+        <h3 data-i18n="ref_sect2_title">2. Cancellation Timeline</h3>
         <ul>
-            <li><strong>Full Refund:</strong> If cancelled at least 48 hours before the scheduled arrival.</li>
-            <li><strong>Partial Refund:</strong> Cancellations made within 24-48 hours may incur a fee (e.g., the cost of the first night).</li>
-            <li><strong>No Refund:</strong> For "No-shows" or cancellations made on the day of arrival.</li>
+            <li data-i18n="ref_sect2_li1"><strong>Full Refund:</strong> If cancelled at least 48 hours before the scheduled arrival.</li>
+            <li data-i18n="ref_sect2_li2"><strong>Partial Refund:</strong> Cancellations made within 24-48 hours may incur a fee (e.g., the cost of the first night).</li>
+            <li data-i18n="ref_sect2_li3"><strong>No Refund:</strong> For "No-shows" or cancellations made on the day of arrival.</li>
         </ul>
 
-        <h3>3. Refund Process</h3>
-        <p>To request a refund, please contact us via email with your booking number. Requests are processed within 3-5 business days.</p>
+        <h3 data-i18n="ref_sect3_title">3. Refund Process</h3>
+        <p data-i18n="ref_sect3_text">To request a refund, please contact us via email with your booking number. Requests are processed within 3-5 business days.</p>
 
-        <h3>4. Transaction Fees</h3>
-        <p>Please note that banking or payment system commissions are non-refundable.</p>
+        <h3 data-i18n="ref_sect4_title">4. Transaction Fees</h3>
+        <p data-i18n="ref_sect4_text">Please note that banking or payment system commissions are non-refundable.</p>
     </section>
 
     <footer>
-        <p>&copy; 2026 Higlton Hotel Booking. All rights reserved.</p>
-        <p>Contact us: support@higlton.com</p>
+        <p data-i18n="priv_footer">© 2026 Higlton Hotel Booking. All rights reserved. Contact: support@higlton.com</p>
     </footer>
 </div>
+
 <script src="lang.js"></script>
 </body>
 </html>
