@@ -288,6 +288,24 @@ const translations = {
 
 
         "nav_back_home": "Back to Home",
+
+        "auth_login_title": "Login",
+        "auth_reg_title": "Registration",
+        "auth_username_ph": "Username",
+        "auth_password_ph": "Password",
+        "auth_email_ph": "Email",
+        "auth_forgot": "Forgot Password?",
+        "auth_login_btn": "Login",
+        "auth_reg_btn": "Register",
+        "auth_social_text": "or login with social platforms",
+        "auth_toggle_hello": "Hello, Welcome!",
+        "auth_toggle_no_acc": "Don't have an account?",
+        "auth_toggle_back": "Welcome Back!",
+        "auth_toggle_has_acc": "Already have an account?",
+        "auth_mobile_no_acc": "Don't have an account?",
+        "auth_mobile_reg": "Register",
+        "auth_mobile_has_acc": "Already have an account?",
+        "auth_mobile_login": "Login",
     },
 
 
@@ -575,6 +593,25 @@ const translations = {
         "success_redirect_2": " секунд...",
 
         "nav_back_home": "На головну",
+
+
+        "auth_login_title": "Вхід",
+        "auth_reg_title": "Реєстрація",
+        "auth_username_ph": "Ім'я користувача",
+        "auth_password_ph": "Пароль",
+        "auth_email_ph": "Електронна пошта",
+        "auth_forgot": "Забули пароль?",
+        "auth_login_btn": "Увійти",
+        "auth_reg_btn": "Зареєструватися",
+        "auth_social_text": "або увійдіть через соцмережі",
+        "auth_toggle_hello": "Вітаємо!",
+        "auth_toggle_no_acc": "Немає акаунту?",
+        "auth_toggle_back": "З поверненням!",
+        "auth_toggle_has_acc": "Вже є акаунт?",
+        "auth_mobile_no_acc": "Немає акаунту?",
+        "auth_mobile_reg": "Реєстрація",
+        "auth_mobile_has_acc": "Вже є акаунт?",
+        "auth_mobile_login": "Увійти",
     }
 };
 
@@ -647,12 +684,9 @@ const revealOnScroll = () => {
                 // Додаємо клас active
                 entry.target.classList.add('active');
                 
-                // Якщо ми хочемо, щоб картки знову зникали, коли виходять з екрана 
-                // (це робить ефект постійним при гортанні вправо-вліво), 
-                // тоді НЕ пишіть observer.unobserve(entry.target);
+            
             } else {
-                // Опціонально: видаляємо клас, щоб анімація повторювалась при кожному гортанні
-                // entry.target.classList.remove('active');
+                
             }
         });
     }, {
