@@ -189,7 +189,7 @@ const translations = {
         "country_egypt": "Egypt",
         "country_brazil": "Brazil",
         "country_portugal": "Portugal",
-
+        "modal_book_title_prefix": "Book",
         
         "rating_thanks": "Thank you! Your rating has been added.",
         "capy_select_emoji": "Select Emoji",
@@ -582,7 +582,7 @@ const translations = {
         "country_portugal": "Португалію",
         "rating_thanks": "Дякуємо! Вашу оцінку додано.",
         "capy_select_emoji": "Оберіть емоджі",
-
+        "modal_book_title_prefix": "Забронювати",
 
 
         // --- СТОРІНКА LOCATIONS ---
