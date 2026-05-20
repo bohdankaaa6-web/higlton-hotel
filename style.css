@@ -3389,10 +3389,15 @@ main {
    2. АДАПТИВНІСТЬ ДЛЯ СМАРТФОНІВ (max-width: 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* ЗАГАЛЬНІ НАЛАШТУВАННЯ ТЕКСТУ */
+    /* Глобальні налаштування для Android та iOS */
+    html, body {
+        width: 100% !important;
+        overflow-x: hidden !important; /* Прибирає білу полосу справа */
+        -webkit-text-size-adjust: 100%;
+    }
+
     body {
         font-size: 16px !important;
-        -webkit-text-size-adjust: 100%;
     }
 
     /* СЕКЦІЯ HERO (ГОЛОВНА) */
@@ -3405,23 +3410,27 @@ main {
     .hero__container, .hero__container .hero__container {
         flex-direction: column !important;
         text-align: center !important;
+        width: 100% !important;
+        padding-inline: 15px !important;
         gap: 40px !important;
+        transform: none !important;
     }
 
     .hero__title {
-        font-size: 48px !important;
+        font-size: 40px !important; /* Більше не величезний */
         line-height: 1.1 !important;
     }
 
     .hero__desc-sub, .hero__decs-sub {
-        font-size: 16px !important; /* ВИПРАВЛЕНО: більше не 100px */
-        line-height: 1.5 !important;
+        font-size: 16px !important; /* Більше не 100px */
         max-width: 100% !important;
     }
 
-    /* СІТКИ В ОДНУ КОЛОНКУ */
-    .experience__grid, .visitus__grid, .getting-here__grid, .accommodations__grid, .details-grid {
+    /* УСІ СІТКИ В ОДНУ КОЛОНКУ */
+    .experience__grid, .visitus__grid, .getting-here__grid, 
+    .accommodations__grid, .details-grid, .footer__columns {
         grid-template-columns: 1fr !important;
+        gap: 30px !important;
     }
 
     /* ЗАГОЛОВКИ СЕКЦІЙ */
@@ -3429,60 +3438,8 @@ main {
         font-size: 26px !important;
     }
 
-    /* ФОРМА ВХОДУ ТА РЕЄСТРАЦІЇ (Get Started) */
-    .auth-container {
-        width: 92% !important;
-        height: auto !important;
-        min-height: 450px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        padding-bottom: 20px !important;
-    }
-
-    .toggle-box {
-        display: none !important; /* Ховаємо синю плашку */
-    }
-
-    .form-box {
-        position: relative !important;
-        width: 100% !important;
-        right: 0 !important;
-        padding: 30px 20px !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    /* ЛОГІКА ПЕРЕМИКАННЯ ФОРМ */
-    /* Якщо контейнер НЕ активний - показуємо тільки Login */
-    .auth-container:not(.active) .form-box.registration {
-        display: none !important;
-    }
-    .auth-container:not(.active) .form-box.login {
-        display: block !important;
-    }
-
-    /* Якщо контейнер АКТИВНИЙ (натиснули Register) - показуємо тільки Registration */
-    .auth-container.active .form-box.login {
-        display: none !important;
-    }
-    .auth-container.active .form-box.registration {
-        display: block !important;
-    }
-
-    .mobile-text {
-        display: block !important;
-        margin-top: 20px;
-        text-align: center;
-        font-size: 14px;
-        color: var(--gray);
-    }
-
-    .mobile-text b {
-        color: #7494ec;
-        text-decoration: underline;
-    }
-
-   .footer__columns {
+    /* ФУТЕР (Схема 2 в ряд + 1 знизу) */
+    .footer__columns {
         display: flex !important;
         flex-wrap: wrap !important;
         justify-content: space-between !important;
@@ -3508,12 +3465,49 @@ main {
         align-items: center;
         gap: 10px;
     }
-
 }
 
-/* Приховуємо мобільний текст на ПК */
-@media (min-width: 769px) {
-    .mobile-text {
-        display: none !important;
+/* ==========================================================================
+   3. ФІКС ФОРМИ ВХОДУ (GET STARTED)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .auth-container {
+        width: 95% !important;
+        height: auto !important;
+        min-height: 480px !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
+
+    .toggle-box {
+        display: none !important; /* Прибираємо синю панель, що накладається */
+    }
+
+    .form-box {
+        position: relative !important;
+        width: 100% !important;
+        right: 0 !important;
+        padding: 40px 20px !important;
+        visibility: visible !important;
+    }
+
+    /* Показуємо лише ту форму, яка потрібна (Логін або Реєстрація) */
+    .auth-container:not(.active) .form-box.registration { display: none !important; }
+    .auth-container.active .form-box.login { display: none !important; }
+    .auth-container.active .form-box.registration { display: block !important; }
+
+    /* Посилання для перемикання на мобільці */
+    .mobile-text {
+        display: block !important;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--gray);
+    }
+    .mobile-text b { color: #7494ec; text-decoration: underline; }
+}
+
+/* Приховуємо мобільне посилання на ПК */
+.mobile-text {
+    display: none;
 }
