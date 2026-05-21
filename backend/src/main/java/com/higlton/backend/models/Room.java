@@ -2,7 +2,6 @@ package com.higlton.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 /**
  * Модель номера готелю.
  *
@@ -33,6 +32,14 @@ public class Room {
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
+    /**
+     * Настрій/атмосфера номера.
+     * Зовнішній ключ на таблицю {@code MOOD}.
+     */
+    @ManyToOne
+    @JoinColumn(name = "mood_id")
+    private Mood mood;
 
     /** Назва або тип номера (наприклад: "Стандарт", "Люкс", "Сімейний"). */
     private String title;
