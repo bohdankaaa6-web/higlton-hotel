@@ -304,8 +304,6 @@
                 const authBtn = document.getElementById('authBtn');
                 const userDataString = localStorage.getItem('higlton_user');
 
-                console.log("Дані з пам'яті:", userDataString); // Має з'явитися в консолі!
-
                 if (userDataString && authBtn) {
                     try {
                         const user = JSON.parse(userDataString);
@@ -316,8 +314,6 @@
 
                             // Вставляємо ім'я
                             authBtn.innerHTML = '<span>' + user.firstName + '</span>';
-
-                            console.log("Кнопка змінена на:", user.firstName);
                         }
                     } catch (e) {
                         console.error("Помилка читання даних:", e);
