@@ -326,5 +326,19 @@
             });
         </script>
         <script src="lang.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchBtn = document.querySelector('.booking-card__btn');
+                const guestsInput = document.querySelector('.booking-card__field input[type="number"]');
+
+                if (searchBtn && guestsInput) {
+                    searchBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const guests = guestsInput.value || 1;
+                        window.location.href = `suites.html?minGuests=${guests}`;
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

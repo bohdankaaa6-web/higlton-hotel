@@ -241,5 +241,139 @@
             }
         });
     </script>
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const API_URL = "http://localhost:8081/api/rooms";
+
+        window.deleteRoom = async function(id) {
+            if (!confirm("Are you sure you want to delete this room?")) return;
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (response.ok) {
+                    loadManageRooms();
+                } else {
+                    alert("Failed to delete room.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Connection error.");
+            }
+        };
+
+        async function loadManageRooms() {
+            try {
+                const response = await fetch(API_URL);
+                const rooms = await response.json();
+                
+                const section = Array.from(document.querySelectorAll('h2, h3')).find(el => el.textContent.includes('Manage Rooms'));
+                if (!section) return;
+
+                let listContainer = document.getElementById('admin-rooms-list');
+                if (!listContainer) {
+                    listContainer = document.createElement('div');
+                    listContainer.id = 'admin-rooms-list';
+                    listContainer.style.marginTop = '20px';
+                    section.parentElement.appendChild(listContainer);
+                    
+                    const placeholder = Array.from(document.querySelectorAll('p')).find(p => p.textContent.includes('interface will be here'));
+                    if (placeholder) placeholder.remove();
+                }
+
+                listContainer.innerHTML = rooms.map(room => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; margin-bottom: 15px; border-radius: 12px; border-left: 6px solid #bead8e; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div>
+                            <strong style="font-size: 18px; color: #333;">${room.title}</strong>
+                            <p style="margin: 5px 0 0; color: #bead8e; font-weight: bold;">$${room.pricePerNight} / Night</p>
+                            <p style="margin: 2px 0 0; color: #777; font-size: 14px;">Capacity: ${room.capacity} | ID: ${room.id}</p>
+                        </div>
+                        <button onclick="deleteRoom(${room.id})" style="background: #ff4d4d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">Delete Room</button>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error("Error loading rooms:", error);
+            }
+        }
+
+        const addRoomBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().includes('add room'));
+        
+        if (addRoomBtn) {
+            addRoomBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const roomTitle = prompt("Enter room name:", "Luxury Suite");
+                if (!roomTitle) return; 
+                const roomPrice = prompt("Enter price per night ($):", "250");
+                if (!roomPrice) return;
+
+                const roomData = { 
+                    hotel: { id: 1 }, mood: { id: 1 },
+                    title: roomTitle,
+                    pricePerNight: parseFloat(roomPrice),
+                    capacity: 2, bedType: "King Size", areaM2: 45.0,
+                    imageUrl: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800"
+                };
+
+                const res = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(roomData)
+                });
+
+                if (res.ok) {
+                    loadManageRooms(); 
+                }
+            });
+        }
+
+        const savedStatuses = JSON.parse(localStorage.getItem('bookingStatuses')) || {};
+        const approveBtns = Array.from(document.querySelectorAll('button')).filter(b => b.textContent.trim().toLowerCase().includes('approve'));
+        const cancelBtns = Array.from(document.querySelectorAll('button')).filter(b => b.textContent.trim().toLowerCase().includes('cancel'));
+
+        function getRowIndex(btn) {
+            const row = btn.closest('tr') || btn.closest('.card') || btn.parentElement.parentElement;
+            return row ? row.innerText.substring(0, 20).replace(/\s/g, '') : Math.random().toString();
+        }
+
+        approveBtns.forEach(btn => {
+            const rowId = 'row_' + getRowIndex(btn);
+            if (savedStatuses[rowId] === 'approved') {
+                btn.style.backgroundColor = '#4CAF50'; btn.style.color = '#fff';
+                btn.textContent = 'Approved'; btn.disabled = true;
+            }
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                btn.style.backgroundColor = '#4CAF50'; btn.style.color = '#fff';
+                btn.textContent = 'Approved'; btn.disabled = true;
+                savedStatuses[rowId] = 'approved';
+                localStorage.setItem('bookingStatuses', JSON.stringify(savedStatuses));
+            });
+        });
+
+        cancelBtns.forEach(btn => {
+            const rowId = 'row_' + getRowIndex(btn);
+            const row = btn.closest('tr') || btn.closest('div[style*="border"]') || btn.parentElement.parentElement;
+            if (savedStatuses[rowId] === 'cancelled' && row) row.style.display = 'none';
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm("Cancel this booking?")) {
+                    if (row) row.style.display = 'none';
+                    savedStatuses[rowId] = 'cancelled';
+                    localStorage.setItem('bookingStatuses', JSON.stringify(savedStatuses));
+                }
+            });
+        });
+
+        loadManageRooms();
+    });
+    </script>
+
 </body>
 </html>
