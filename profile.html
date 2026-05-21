@@ -111,7 +111,7 @@
 
             // Функція безпечного отримання перекладу (запобігає появі "undefined")
             function getTranslation(key, defaultText) {
-                if (window.translations && translations[currentLang] && translations[currentLang][key]) {
+                if (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang][key]) {
                     return translations[currentLang][key];
                 }
                 return defaultText || key;
@@ -125,6 +125,23 @@
             }
             
             const userRole = (currentUser.role || 'user').toLowerCase(); 
+
+            // Автоматична міграція: додаємо ID та статус старим замовленням у локальній базі, якщо їх немає
+            let allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
+            let needsMigration = false;
+            allBookings.forEach((b, index) => {
+                if (!b.id) {
+                    b.id = 'book_' + Date.now() + '_' + index + '_' + Math.floor(Math.random() * 100);
+                    needsMigration = true;
+                }
+                if (!b.status) {
+                    b.status = 'pending';
+                    needsMigration = true;
+                }
+            });
+            if (needsMigration) {
+                localStorage.setItem('higlton_bookings', JSON.stringify(allBookings));
+            }
 
             // 2. Встановлюємо дані користувача
             document.getElementById('user-name-display').innerText = currentUser.firstName || "Guest";
@@ -173,26 +190,66 @@
                 window.location.href = "index.html";
             });
 
+            // --- Глобальна функція оновлення статусу замовлення ---
+            window.updateBookingStatus = function(bookingId, newStatus) {
+                let bookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
+                bookings = bookings.map(b => {
+                    if (b.id === bookingId) {
+                        b.status = newStatus;
+                    }
+                    return b;
+                });
+                localStorage.setItem('higlton_bookings', JSON.stringify(bookings));
+                renderAdminBookings();
+            };
+
             // --- ФУНКЦІЇ РЕНДЕРУ З ПЕРЕКЛАДОМ ---
 
             function renderUserBookings() {
                 const bookingsList = document.getElementById('bookings-list');
-                const allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
-                const myBookings = allBookings.filter(b => b.name === currentUser.username || b.name === currentUser.firstName);
+                const bookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
+                const myBookings = bookings.filter(b => 
+                    (b.username && b.username === currentUser.username) || 
+                    b.name === currentUser.username || 
+                    b.name === currentUser.firstName
+                );
                 
                 if(myBookings.length === 0) {
                     bookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_no_bookings', "You don't have any bookings yet.")}</p>`;
                 } else {
-                    bookingsList.innerHTML = myBookings.reverse().map(b => `
-                        <div class="booking-item">
-                            <div class="book-info">
-                                <h4>${b.room || 'Suite'}</h4>
-                                <p><strong>${getTranslation('prof_checkin', 'Check-in')}:</strong> ${b.checkin} | <strong>${getTranslation('prof_checkout', 'Check-out')}:</strong> ${b.checkout}</p>
+                    bookingsList.innerHTML = myBookings.reverse().map(b => {
+                        const status = b.status || 'pending';
+                        let statusText = '';
+                        let badgeClass = '';
+
+                        if (status === 'approved') {
+                            statusText = getTranslation('prof_status_confirmed', 'Confirmed');
+                            badgeClass = 'status-approved';
+                        } else if (status === 'cancelled') {
+                            statusText = getTranslation('prof_status_cancelled', 'Cancelled');
+                            badgeClass = 'status-cancelled';
+                        } else {
+                            statusText = getTranslation('prof_status_pending', 'Pending');
+                            badgeClass = 'status-pending';
+                        }
+
+                        return `
+                            <div class="booking-item">
+                                <div class="book-info">
+                                    <h4>${b.room || 'Suite'}</h4>
+                                    <p><strong>${getTranslation('prof_checkin', 'Check-in')}:</strong> ${b.checkin} | <strong>${getTranslation('prof_checkout', 'Check-out')}:</strong> ${b.checkout}</p>
+                                </div>
+                                <span class="status-badge ${badgeClass}">${statusText}</span>
                             </div>
-                            <span class="status-badge">${getTranslation('prof_status_confirmed', 'Confirmed')}</span>
-                        </div>
-                    `).join('');
-                    document.getElementById('loyal-discount').style.display = 'flex';
+                        `;
+                    }).join('');
+                    
+                    const hasApproved = myBookings.some(b => b.status === 'approved');
+                    if (hasApproved) {
+                        document.getElementById('loyal-discount').style.display = 'flex';
+                    } else {
+                        document.getElementById('loyal-discount').style.display = 'none';
+                    }
                 }
             }
 
@@ -219,24 +276,35 @@
 
             function renderAdminBookings() {
                 const adminBookingsList = document.getElementById('admin-bookings-list');
-                const allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
+                const bookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
 
-                if(allBookings.length === 0) {
+                if(bookings.length === 0) {
                     adminBookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_admin_no_bookings', 'No bookings in the system yet.')}</p>`;
                 } else {
-                    adminBookingsList.innerHTML = allBookings.reverse().map((b, index) => `
-                        <div class="booking-item admin-booking-card">
-                            <div class="book-info">
-                                <h4>${b.room || 'Suite'} <span class="admin-ref">#REF-${1000 + index}</span></h4>
-                                <p><strong>${getTranslation('prof_admin_guest', 'Guest')}:</strong> ${b.name} | <strong>${getTranslation('prof_admin_contact', 'Contact')}:</strong> ${b.email || 'N/A'}</p>
-                                <p><strong>${getTranslation('prof_admin_dates', 'Dates')}:</strong> ${b.checkin} to ${b.checkout}</p>
+                    adminBookingsList.innerHTML = bookings.reverse().map((b, index) => {
+                        const status = b.status || 'pending';
+                        let statusText = status === 'approved' ? 'Approved' : (status === 'cancelled' ? 'Cancelled' : 'Pending');
+                        let statusColor = status === 'approved' ? '#059669' : (status === 'cancelled' ? '#dc2626' : '#d97706');
+
+                        return `
+                            <div class="booking-item admin-booking-card" style="border-left: 6px solid ${statusColor};">
+                                <div class="book-info">
+                                    <h4>${b.room || 'Suite'} <span class="admin-ref">#REF-${1000 + index}</span></h4>
+                                    <p><strong>${getTranslation('prof_admin_guest', 'Guest')}:</strong> ${b.name} | <strong>${getTranslation('prof_admin_contact', 'Contact')}:</strong> ${b.email || 'N/A'}</p>
+                                    <p><strong>${getTranslation('prof_admin_dates', 'Dates')}:</strong> ${b.checkin} to ${b.checkout}</p>
+                                    <p><strong>Status:</strong> <span style="color: ${statusColor}; font-weight: bold;">${statusText}</span></p>
+                                </div>
+                                <div class="admin-actions">
+                                    ${status === 'pending' ? `
+                                        <button class="btn-action approve" onclick="updateBookingStatus('${b.id}', 'approved')" style="background-color: #4CAF50; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-right: 8px;">Approve</button>
+                                        <button class="btn-action cancel" onclick="updateBookingStatus('${b.id}', 'cancelled')" style="background-color: #f44336; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold;">Cancel</button>
+                                    ` : `
+                                        <span style="font-weight: bold; color: ${statusColor}">${statusText}</span>
+                                    `}
+                                </div>
                             </div>
-                            <div class="admin-actions">
-                                <button class="btn-action approve">Approve</button>
-                                <button class="btn-action cancel">Cancel</button>
-                            </div>
-                        </div>
-                    `).join('');
+                        `;
+                    }).join('');
                 }
             }
         });
@@ -332,47 +400,10 @@
             });
         }
 
-        const savedStatuses = JSON.parse(localStorage.getItem('bookingStatuses')) || {};
-        const approveBtns = Array.from(document.querySelectorAll('button')).filter(b => b.textContent.trim().toLowerCase().includes('approve'));
-        const cancelBtns = Array.from(document.querySelectorAll('button')).filter(b => b.textContent.trim().toLowerCase().includes('cancel'));
-
-        function getRowIndex(btn) {
-            const row = btn.closest('tr') || btn.closest('.card') || btn.parentElement.parentElement;
-            return row ? row.innerText.substring(0, 20).replace(/\s/g, '') : Math.random().toString();
-        }
-
-        approveBtns.forEach(btn => {
-            const rowId = 'row_' + getRowIndex(btn);
-            if (savedStatuses[rowId] === 'approved') {
-                btn.style.backgroundColor = '#4CAF50'; btn.style.color = '#fff';
-                btn.textContent = 'Approved'; btn.disabled = true;
-            }
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                btn.style.backgroundColor = '#4CAF50'; btn.style.color = '#fff';
-                btn.textContent = 'Approved'; btn.disabled = true;
-                savedStatuses[rowId] = 'approved';
-                localStorage.setItem('bookingStatuses', JSON.stringify(savedStatuses));
-            });
-        });
-
-        cancelBtns.forEach(btn => {
-            const rowId = 'row_' + getRowIndex(btn);
-            const row = btn.closest('tr') || btn.closest('div[style*="border"]') || btn.parentElement.parentElement;
-            if (savedStatuses[rowId] === 'cancelled' && row) row.style.display = 'none';
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (confirm("Cancel this booking?")) {
-                    if (row) row.style.display = 'none';
-                    savedStatuses[rowId] = 'cancelled';
-                    localStorage.setItem('bookingStatuses', JSON.stringify(savedStatuses));
-                }
-            });
-        });
-
         loadManageRooms();
     });
     </script>
+
 
 </body>
 </html>

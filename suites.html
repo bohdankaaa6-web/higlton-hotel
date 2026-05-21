@@ -877,8 +877,22 @@
                     });
                 });
 
+                
+                // Автоматично заповнюємо ім'я та email, якщо користувач авторизований
                 const openBooking = (roomName) => {
                     document.getElementById('book-room-name').innerText = roomName;
+                    
+                    // Автоматично заповнюємо ім'я та email, якщо користувач авторизований
+                    const currentUser = JSON.parse(localStorage.getItem('higlton_user'));
+                    if (currentUser) {
+                        if (currentUser.firstName) {
+                            document.getElementById('book-name').value = currentUser.firstName;
+                        }
+                        if (currentUser.email) {
+                            document.getElementById('book-email').value = currentUser.email;
+                        }
+                    }
+
                     modalDetails.classList.remove('active');
                     modalBook.classList.add('active');
                 };
