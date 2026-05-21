@@ -873,15 +873,27 @@
                             const mapQuery = locationBadge.getAttribute('data-map');
                             mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
                         }
+
+                        // Зберігаємо ID кімнати для подальшого бронювання
+                        const roomId = card.getAttribute('data-room-id');
+                        if (roomId) {
+                            localStorage.setItem('selectedRoomId', roomId);
+                        }
+
                         modalDetails.classList.add('active');
                     });
                 });
 
                 
                 // Автоматично заповнюємо ім'я та email, якщо користувач авторизований
-                const openBooking = (roomName) => {
+                const openBooking = (roomName, roomId) => {
                     document.getElementById('book-room-name').innerText = roomName;
-                    
+
+                    // Зберігаємо ID кімнати для відправки на бекенд
+                    if (roomId) {
+                        localStorage.setItem('selectedRoomId', roomId);
+                    }
+
                     // Автоматично заповнюємо ім'я та email, якщо користувач авторизований
                     const currentUser = JSON.parse(localStorage.getItem('higlton_user'));
                     if (currentUser) {
@@ -899,15 +911,18 @@
 
                 document.querySelectorAll('.btn-book').forEach(btn => {
                     btn.addEventListener('click', (e) => {
-                        const roomName = e.target.closest('.room-card').querySelector('.room-card__title').innerText;
-                        openBooking(roomName);
+                        const card = e.target.closest('.room-card');
+                        const roomName = card.querySelector('.room-card__title').innerText;
+                        const roomId = card.getAttribute('data-room-id') || null;
+                        openBooking(roomName, roomId);
                     });
                 });
 
                 if (btnBookNowModal) {
                     btnBookNowModal.addEventListener('click', () => {
                         const currentRoomName = document.getElementById('modal-title').innerText;
-                        openBooking(currentRoomName);
+                        // ID already saved when details modal was opened
+                        openBooking(currentRoomName, localStorage.getItem('selectedRoomId'));
                     });
                 }
 
@@ -985,35 +1000,66 @@
                     });
                 }
 
-               // --- 5. ФОРМА БРОНЮВАННЯ (Збереження у LocalStorage) ---
+               // --- 5. ФОРМА БРОНЮВАННЯ (Збереження у базу даних через API) ---
                 const bookingForm = document.getElementById('booking-form');
                 if (bookingForm) {
-                    bookingForm.addEventListener('submit', (e) => {
+                    bookingForm.addEventListener('submit', async (e) => {
                         e.preventDefault();
-                        
-                        // Збираємо дані
-                        const roomName = document.getElementById('book-room-name').innerText;
-                        const guestName = document.getElementById('book-name').value;
+
+                        const currentUser = JSON.parse(localStorage.getItem('higlton_user'));
+                        if (!currentUser || !currentUser.id) {
+                            alert('Please log in to make a booking.');
+                            window.location.href = 'getstarted.html';
+                            return;
+                        }
+
+                        // Отримуємо ID кімнати, збереженого при відкритті модального вікна
+                        const roomId = parseInt(localStorage.getItem('selectedRoomId'));
+                        if (!roomId) {
+                            alert('Could not identify the selected room. Please try again.');
+                            return;
+                        }
+
                         const checkinDate = document.getElementById('book-checkin').value;
                         const checkoutDate = document.getElementById('book-checkout').value;
+                        const comment = document.getElementById('book-name').value; // ім'я як коментар
 
-                        const newBooking = {
-                            room: roomName,
-                            name: guestName,
-                            checkin: checkinDate,
-                            checkout: checkoutDate
+                        const bookingPayload = {
+                            client: { id: currentUser.id },
+                            room: { id: roomId },
+                            checkIn: checkinDate,
+                            checkOut: checkoutDate,
+                            comment: comment
                         };
 
-                        // Зберігаємо в пам'ять
-                        let bookings = JSON.parse(localStorage.getItem('higlton_bookings')) ||[];
-                        bookings.push(newBooking);
-                        localStorage.setItem('higlton_bookings', JSON.stringify(bookings));
+                        const submitBtn = bookingForm.querySelector('button[type="submit"]');
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Booking...';
 
-                        const currentLang = localStorage.getItem('site_language') || 'en';
-                        const successMsg = currentLang === 'ua' ? "Бронювання успішне! Перейдіть в Профіль, щоб переглянути." : "Booking successful! Go to Profile to view.";
-                        modalBook.classList.remove('active');
-                        bookingForm.reset();
-                        window.location.href = "booking-success.html";
+                        try {
+                            const response = await fetch('http://localhost:8081/api/bookings', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(bookingPayload)
+                            });
+
+                            if (response.ok) {
+                                modalBook.classList.remove('active');
+                                bookingForm.reset();
+                                localStorage.removeItem('selectedRoomId');
+                                window.location.href = 'booking-success.html';
+                            } else {
+                                const errText = await response.text();
+                                alert('Booking failed: ' + errText);
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = 'Confirm Booking';
+                            }
+                        } catch (error) {
+                            console.error('Booking error:', error);
+                            alert('Connection error. Make sure the backend server is running.');
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Confirm Booking';
+                        }
                     });
                 }
 
@@ -1051,42 +1097,36 @@
         <script>
             const API_URL = "http://localhost:8081/api/rooms";
 
-            async function loadRooms() {
+            // Завантажуємо кімнати з бази та призначаємо data-room-id статичним карткам
+            async function assignRoomIds() {
                 try {
                     const response = await fetch(API_URL);
+                    if (!response.ok) return;
                     const rooms = await response.json();
-                    const container = document.getElementById('rooms-container');
-                    container.innerHTML = "";
+                    if (!rooms.length) return;
 
-                    rooms.forEach(room => {
-                        const card = document.createElement('div');
-                        card.className = 'room-card';
-                        card.innerHTML = `
-                            <img src="${room.imageUrl || 'https://via.placeholder.com/300x200'}" alt="${room.title}">
-                            <div class="room-info">
-                                <h3>${room.title}</h3>
-                                <p class="price">$${room.pricePerNight} / Night</p>
-                                <p style="font-size: 14px; color: #555;">
-                                    Capacity: ${room.capacity} guests<br>
-                                    Size: ${room.areaM2 || 0} m²<br>
-                                    Bed: ${room.bedType || 'Standard'}
-                                </p>
-                                <button class="book-btn" onclick="selectRoom(${room.id})">Book Now</button>
-                            </div>
-                        `;
-                        container.appendChild(card);
+                    // Отримуємо всі статичні картки кімнат
+                    const cards = document.querySelectorAll('.room-card.reveal.room-reveal');
+
+                    cards.forEach((card, index) => {
+                        // Призначаємо ID по порядку, циклічно якщо карток більше ніж кімнат у БД
+                        const room = rooms[index % rooms.length];
+                        card.setAttribute('data-room-id', room.id);
+
+                        // Оновлюємо ціну на картці з реальної БД
+                        const priceEl = card.querySelector('.price-value');
+                        if (priceEl) {
+                            priceEl.textContent = '$' + room.pricePerNight;
+                        }
                     });
+
+                    console.log(`Assigned room IDs to ${cards.length} cards from ${rooms.length} DB rooms.`);
                 } catch (error) {
-                    console.error(error);
+                    console.warn('Could not assign room IDs from API:', error);
                 }
             }
 
-            function selectRoom(id) {
-                localStorage.setItem('selectedRoomId', id);
-                window.location.href = 'getstarted.html';
-            }
-
-            document.addEventListener('DOMContentLoaded', loadRooms);
+            document.addEventListener('DOMContentLoaded', assignRoomIds);
         </script>
 
     </body>

@@ -124,24 +124,7 @@
                 return;
             }
             
-            const userRole = (currentUser.role || 'user').toLowerCase(); 
-
-            // Автоматична міграція: додаємо ID та статус старим замовленням у локальній базі, якщо їх немає
-            let allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
-            let needsMigration = false;
-            allBookings.forEach((b, index) => {
-                if (!b.id) {
-                    b.id = 'book_' + Date.now() + '_' + index + '_' + Math.floor(Math.random() * 100);
-                    needsMigration = true;
-                }
-                if (!b.status) {
-                    b.status = 'pending';
-                    needsMigration = true;
-                }
-            });
-            if (needsMigration) {
-                localStorage.setItem('higlton_bookings', JSON.stringify(allBookings));
-            }
+            const userRole = (currentUser.role || 'user').toLowerCase();
 
             // 2. Встановлюємо дані користувача
             document.getElementById('user-name-display').innerText = currentUser.firstName || "Guest";
@@ -190,67 +173,77 @@
                 window.location.href = "index.html";
             });
 
-            // --- Глобальна функція оновлення статусу замовлення ---
+            // --- Глобальна функція оновлення статусу замовлення через API ---
             window.updateBookingStatus = function(bookingId, newStatus) {
-                let bookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
-                bookings = bookings.map(b => {
-                    if (b.id === bookingId) {
-                        b.status = newStatus;
-                    }
-                    return b;
+                fetch(`http://localhost:8081/api/bookings/${bookingId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: newStatus, checkIn: null, checkOut: null }) // сервер оновить тільки status
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error('Update failed');
+                    renderAdminBookings();
+                })
+                .catch(err => {
+                    console.error('Status update error:', err);
+                    alert('Failed to update booking status. Please try again.');
                 });
-                localStorage.setItem('higlton_bookings', JSON.stringify(bookings));
-                renderAdminBookings();
             };
 
             // --- ФУНКЦІЇ РЕНДЕРУ З ПЕРЕКЛАДОМ ---
 
             function renderUserBookings() {
                 const bookingsList = document.getElementById('bookings-list');
-                const bookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
-                const myBookings = bookings.filter(b => 
-                    (b.username && b.username === currentUser.username) || 
-                    b.name === currentUser.username || 
-                    b.name === currentUser.firstName
-                );
-                
-                if(myBookings.length === 0) {
-                    bookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_no_bookings', "You don't have any bookings yet.")}</p>`;
-                } else {
-                    bookingsList.innerHTML = myBookings.reverse().map(b => {
-                        const status = b.status || 'pending';
-                        let statusText = '';
-                        let badgeClass = '';
+                bookingsList.innerHTML = `<p style="color:var(--gray)">Loading bookings...</p>`;
 
-                        if (status === 'approved') {
-                            statusText = getTranslation('prof_status_confirmed', 'Confirmed');
-                            badgeClass = 'status-approved';
-                        } else if (status === 'cancelled') {
-                            statusText = getTranslation('prof_status_cancelled', 'Cancelled');
-                            badgeClass = 'status-cancelled';
-                        } else {
-                            statusText = getTranslation('prof_status_pending', 'Pending');
-                            badgeClass = 'status-pending';
+                fetch('http://localhost:8081/api/bookings')
+                    .then(res => res.json())
+                    .then(allBookings => {
+                        const myBookings = allBookings.filter(b =>
+                            b.client && b.client.id === currentUser.id
+                        );
+
+                        if (myBookings.length === 0) {
+                            bookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_no_bookings', "You don't have any bookings yet.")}</p>`;
+                            return;
                         }
 
-                        return `
-                            <div class="booking-item">
-                                <div class="book-info">
-                                    <h4>${b.room || 'Suite'}</h4>
-                                    <p><strong>${getTranslation('prof_checkin', 'Check-in')}:</strong> ${b.checkin} | <strong>${getTranslation('prof_checkout', 'Check-out')}:</strong> ${b.checkout}</p>
+                        bookingsList.innerHTML = myBookings.reverse().map(b => {
+                            const status = (b.status || 'PENDING').toUpperCase();
+                            let statusText, badgeClass;
+
+                            if (status === 'CONFIRMED') {
+                                statusText = getTranslation('prof_status_confirmed', 'Confirmed');
+                                badgeClass = 'status-approved';
+                            } else if (status === 'CANCELLED') {
+                                statusText = getTranslation('prof_status_cancelled', 'Cancelled');
+                                badgeClass = 'status-cancelled';
+                            } else {
+                                statusText = getTranslation('prof_status_pending', 'Pending');
+                                badgeClass = 'status-pending';
+                            }
+
+                            const roomTitle = b.room ? (b.room.title || 'Room #' + b.room.id) : 'Suite';
+                            const totalPrice = b.totalPrice ? ` | <strong>Total:</strong> $${b.totalPrice}` : '';
+
+                            return `
+                                <div class="booking-item">
+                                    <div class="book-info">
+                                        <h4>${roomTitle}</h4>
+                                        <p><strong>${getTranslation('prof_checkin', 'Check-in')}:</strong> ${b.checkIn} | <strong>${getTranslation('prof_checkout', 'Check-out')}:</strong> ${b.checkOut}${totalPrice}</p>
+                                    </div>
+                                    <span class="status-badge ${badgeClass}">${statusText}</span>
                                 </div>
-                                <span class="status-badge ${badgeClass}">${statusText}</span>
-                            </div>
-                        `;
-                    }).join('');
-                    
-                    const hasApproved = myBookings.some(b => b.status === 'approved');
-                    if (hasApproved) {
-                        document.getElementById('loyal-discount').style.display = 'flex';
-                    } else {
-                        document.getElementById('loyal-discount').style.display = 'none';
-                    }
-                }
+                            `;
+                        }).join('');
+
+                        const hasConfirmed = myBookings.some(b => (b.status || '').toUpperCase() === 'CONFIRMED');
+                        document.getElementById('loyal-discount').style.display = hasConfirmed ? 'flex' : 'none';
+                    })
+                    .catch(err => {
+                        console.error('Failed to load user bookings:', err);
+                        bookingsList.innerHTML = `<p style="color: #dc2626;">⚠ Could not load bookings. Make sure the backend is running.</p>`;
+                    });
             }
 
             function renderUserWishlist() {
@@ -276,36 +269,56 @@
 
             function renderAdminBookings() {
                 const adminBookingsList = document.getElementById('admin-bookings-list');
-                const bookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
+                adminBookingsList.innerHTML = `<p style="color:var(--gray)">Loading bookings...</p>`;
 
-                if(bookings.length === 0) {
-                    adminBookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_admin_no_bookings', 'No bookings in the system yet.')}</p>`;
-                } else {
-                    adminBookingsList.innerHTML = bookings.reverse().map((b, index) => {
-                        const status = b.status || 'pending';
-                        let statusText = status === 'approved' ? 'Approved' : (status === 'cancelled' ? 'Cancelled' : 'Pending');
-                        let statusColor = status === 'approved' ? '#059669' : (status === 'cancelled' ? '#dc2626' : '#d97706');
+                fetch('http://localhost:8081/api/bookings')
+                    .then(res => res.json())
+                    .then(bookings => {
+                        if (bookings.length === 0) {
+                            adminBookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_admin_no_bookings', 'No bookings in the system yet.')}</p>`;
+                            return;
+                        }
 
-                        return `
-                            <div class="booking-item admin-booking-card" style="border-left: 6px solid ${statusColor};">
-                                <div class="book-info">
-                                    <h4>${b.room || 'Suite'} <span class="admin-ref">#REF-${1000 + index}</span></h4>
-                                    <p><strong>${getTranslation('prof_admin_guest', 'Guest')}:</strong> ${b.name} | <strong>${getTranslation('prof_admin_contact', 'Contact')}:</strong> ${b.email || 'N/A'}</p>
-                                    <p><strong>${getTranslation('prof_admin_dates', 'Dates')}:</strong> ${b.checkin} to ${b.checkout}</p>
-                                    <p><strong>Status:</strong> <span style="color: ${statusColor}; font-weight: bold;">${statusText}</span></p>
+                        adminBookingsList.innerHTML = bookings.reverse().map((b, index) => {
+                            const status = (b.status || 'PENDING').toUpperCase();
+                            let statusText = status === 'CONFIRMED' ? 'Confirmed' : (status === 'CANCELLED' ? 'Cancelled' : 'Pending');
+                            let statusColor = status === 'CONFIRMED' ? '#059669' : (status === 'CANCELLED' ? '#dc2626' : '#d97706');
+
+                            const guestName = b.client ? (b.client.firstName || 'N/A') : 'N/A';
+                            const guestEmail = b.client ? (b.client.email || 'N/A') : 'N/A';
+                            const roomTitle = b.room ? (b.room.title || 'Room #' + b.room.id) : 'N/A';
+                            const checkIn = b.checkIn || 'N/A';
+                            const checkOut = b.checkOut || 'N/A';
+                            const totalPrice = b.totalPrice ? `$${b.totalPrice}` : 'N/A';
+
+                            return `
+                                <div class="booking-item admin-booking-card" style="border-left: 6px solid ${statusColor};">
+                                    <div class="book-info">
+                                        <h4>${roomTitle} <span class="admin-ref">#${b.id}</span></h4>
+                                        <p><strong>${getTranslation('prof_admin_guest', 'Guest')}:</strong> ${guestName} | <strong>${getTranslation('prof_admin_contact', 'Contact')}:</strong> ${guestEmail}</p>
+                                        <p><strong>${getTranslation('prof_admin_dates', 'Dates')}:</strong> ${checkIn} → ${checkOut} | <strong>Total:</strong> ${totalPrice}</p>
+                                        <p><strong>Status:</strong> <span style="color: ${statusColor}; font-weight: bold;">${statusText}</span></p>
+                                        ${b.comment ? `<p><strong>Comment:</strong> ${b.comment}</p>` : ''}
+                                    </div>
+                                    <div class="admin-actions" style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+                                        ${status !== 'CONFIRMED' ? `
+                                            <button onclick="updateBookingStatus(${b.id}, 'CONFIRMED')" style="background-color: #4CAF50; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">✓ Approve</button>
+                                        ` : ''}
+                                        ${status !== 'CANCELLED' ? `
+                                            <button onclick="updateBookingStatus(${b.id}, 'CANCELLED')" style="background-color: #f44336; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">✕ Cancel</button>
+                                        ` : ''}
+                                        ${status !== 'PENDING' ? `
+                                            <button onclick="updateBookingStatus(${b.id}, 'PENDING')" style="background-color: #d97706; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">↺ Pending</button>
+                                        ` : ''}
+                                    </div>
                                 </div>
-                                <div class="admin-actions">
-                                    ${status === 'pending' ? `
-                                        <button class="btn-action approve" onclick="updateBookingStatus('${b.id}', 'approved')" style="background-color: #4CAF50; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-right: 8px;">Approve</button>
-                                        <button class="btn-action cancel" onclick="updateBookingStatus('${b.id}', 'cancelled')" style="background-color: #f44336; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold;">Cancel</button>
-                                    ` : `
-                                        <span style="font-weight: bold; color: ${statusColor}">${statusText}</span>
-                                    `}
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
-                }
+                            `;
+                        }).join('');
+                    })
+                    .catch(err => {
+                        console.error('Failed to load bookings:', err);
+                        adminBookingsList.innerHTML = `<p style="color: #dc2626;">⚠ Could not load bookings. Make sure the backend is running on port 8081.</p>`;
+                    });
             }
         });
     </script>
@@ -335,70 +348,166 @@
             }
         };
 
-        async function loadManageRooms() {
+        window.loadManageRooms = async function() {
+            const listContainer = document.getElementById('admin-rooms-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = `<p style="color:var(--gray)">Loading rooms...</p>`;
+
             try {
                 const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Failed to fetch rooms');
                 const rooms = await response.json();
-                
-                const section = Array.from(document.querySelectorAll('h2, h3')).find(el => el.textContent.includes('Manage Rooms'));
-                if (!section) return;
 
-                let listContainer = document.getElementById('admin-rooms-list');
-                if (!listContainer) {
-                    listContainer = document.createElement('div');
-                    listContainer.id = 'admin-rooms-list';
-                    listContainer.style.marginTop = '20px';
-                    section.parentElement.appendChild(listContainer);
-                    
-                    const placeholder = Array.from(document.querySelectorAll('p')).find(p => p.textContent.includes('interface will be here'));
-                    if (placeholder) placeholder.remove();
+                if (rooms.length === 0) {
+                    listContainer.innerHTML = `<p style="color:var(--gray)">No rooms found. Add one using the button above.</p>`;
+                    return;
                 }
 
                 listContainer.innerHTML = rooms.map(room => `
                     <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; margin-bottom: 15px; border-radius: 12px; border-left: 6px solid #bead8e; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                        <div>
-                            <strong style="font-size: 18px; color: #333;">${room.title}</strong>
-                            <p style="margin: 5px 0 0; color: #bead8e; font-weight: bold;">$${room.pricePerNight} / Night</p>
-                            <p style="margin: 2px 0 0; color: #777; font-size: 14px;">Capacity: ${room.capacity} | ID: ${room.id}</p>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            ${room.imageUrl ? `<img src="${room.imageUrl}" alt="${room.title}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px;">` : ''}
+                            <div>
+                                <strong style="font-size: 18px; color: #333;">${room.title}</strong>
+                                <p style="margin: 5px 0 0; color: #bead8e; font-weight: bold;">$${room.pricePerNight} / Night</p>
+                                <p style="margin: 2px 0 0; color: #777; font-size: 14px;">Capacity: ${room.capacity} guests | ${room.bedType || ''} | ${room.areaM2 || 0} m² | ID: ${room.id}</p>
+                            </div>
                         </div>
-                        <button onclick="deleteRoom(${room.id})" style="background: #ff4d4d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">Delete Room</button>
+                        <button onclick="deleteRoom(${room.id})" style="background: #ff4d4d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">Delete</button>
                     </div>
                 `).join('');
 
             } catch (error) {
                 console.error("Error loading rooms:", error);
+                listContainer.innerHTML = `<p style="color: #dc2626;">⚠ Could not load rooms. Make sure the backend is running on port 8081.</p>`;
             }
-        }
+        };
 
-        const addRoomBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().includes('add room'));
+        // Add Room — показуємо форму замість prompt
+        const addRoomBtn = document.querySelector('.btn-add-room');
         
         if (addRoomBtn) {
-            addRoomBtn.addEventListener('click', async (e) => {
+            addRoomBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const roomTitle = prompt("Enter room name:", "Luxury Suite");
-                if (!roomTitle) return; 
-                const roomPrice = prompt("Enter price per night ($):", "250");
-                if (!roomPrice) return;
 
-                const roomData = { 
-                    hotel: { id: 1 }, mood: { id: 1 },
-                    title: roomTitle,
-                    pricePerNight: parseFloat(roomPrice),
-                    capacity: 2, bedType: "King Size", areaM2: 45.0,
-                    imageUrl: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800"
-                };
+                // Якщо форма вже відкрита — закриваємо
+                const existing = document.getElementById('add-room-form-inline');
+                if (existing) { existing.remove(); return; }
 
-                const res = await fetch(API_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(roomData)
+                const formHtml = `
+                    <div id="add-room-form-inline" style="background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 6px solid #bead8e;">
+                        <h3 style="margin: 0 0 16px; color: #333;">Add New Room</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Room Title *</label>
+                                <input id="new-room-title" type="text" placeholder="e.g. Luxury Suite" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
+                            </div>
+                            <div>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Price per Night ($) *</label>
+                                <input id="new-room-price" type="number" placeholder="250" min="1" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
+                            </div>
+                            <div>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Capacity (guests)</label>
+                                <input id="new-room-capacity" type="number" placeholder="2" min="1" value="2" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
+                            </div>
+                            <div>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Bed Type</label>
+                                <input id="new-room-bed" type="text" placeholder="King Size" value="King Size" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
+                            </div>
+                            <div>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Area (m²)</label>
+                                <input id="new-room-area" type="number" placeholder="45" min="1" value="45" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
+                            </div>
+                            <div>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Image URL</label>
+                                <input id="new-room-image" type="text" placeholder="https://..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 16px;">
+                            <button id="save-new-room-btn" style="background: #bead8e; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px;">Save Room</button>
+                            <button id="cancel-new-room-btn" style="background: #eee; color: #555; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 15px;">Cancel</button>
+                        </div>
+                        <p id="room-save-error" style="color: #dc2626; margin: 8px 0 0; display: none;"></p>
+                    </div>
+                `;
+
+                const listContainer = document.getElementById('admin-rooms-list');
+                listContainer.insertAdjacentHTML('beforebegin', formHtml);
+
+                document.getElementById('cancel-new-room-btn').addEventListener('click', () => {
+                    document.getElementById('add-room-form-inline').remove();
                 });
 
-                if (res.ok) {
-                    loadManageRooms(); 
-                }
+                document.getElementById('save-new-room-btn').addEventListener('click', async () => {
+                    const title = document.getElementById('new-room-title').value.trim();
+                    const price = parseFloat(document.getElementById('new-room-price').value);
+                    const capacity = parseInt(document.getElementById('new-room-capacity').value) || 2;
+                    const bedType = document.getElementById('new-room-bed').value.trim() || 'King Size';
+                    const areaM2 = parseFloat(document.getElementById('new-room-area').value) || 45;
+                    const imageUrl = document.getElementById('new-room-image').value.trim() ||
+                        'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800';
+                    const errorEl = document.getElementById('room-save-error');
+
+                    if (!title || isNaN(price) || price <= 0) {
+                        errorEl.textContent = 'Please fill in Room Title and Price.';
+                        errorEl.style.display = 'block';
+                        return;
+                    }
+
+                    const saveBtn = document.getElementById('save-new-room-btn');
+                    saveBtn.disabled = true;
+                    saveBtn.textContent = 'Saving...';
+
+                    const roomData = {
+                        hotel: { id: 1 },
+                        mood: { id: 1 },
+                        title,
+                        pricePerNight: price,
+                        capacity,
+                        bedType,
+                        areaM2,
+                        imageUrl
+                    };
+
+                    try {
+                        const res = await fetch(API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(roomData)
+                        });
+
+                        if (res.ok) {
+                            document.getElementById('add-room-form-inline').remove();
+                            loadManageRooms();
+                        } else {
+                            const errText = await res.text();
+                            errorEl.textContent = 'Error: ' + errText;
+                            errorEl.style.display = 'block';
+                            saveBtn.disabled = false;
+                            saveBtn.textContent = 'Save Room';
+                        }
+                    } catch (error) {
+                        console.error('Error saving room:', error);
+                        errorEl.textContent = 'Connection error. Make sure the backend is running.';
+                        errorEl.style.display = 'block';
+                        saveBtn.disabled = false;
+                        saveBtn.textContent = 'Save Room';
+                    }
+                });
             });
         }
+
+        // Завантажуємо кімнати при відкритті вкладки Manage Rooms
+        document.querySelectorAll('.tab-btn').forEach(tab => {
+            tab.addEventListener('click', () => {
+                if (tab.getAttribute('data-tab') === 'manage-rooms') {
+                    loadManageRooms();
+                }
+                if (tab.getAttribute('data-tab') === 'all-bookings') {
+                    renderAdminBookings();
+                }
+            });
+        });
 
         loadManageRooms();
     });
