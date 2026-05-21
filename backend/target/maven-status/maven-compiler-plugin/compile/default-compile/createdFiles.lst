@@ -13,6 +13,7 @@ com\higlton\backend\controllers\ClientController.class
 com\higlton\backend\repositories\BookingRepository.class
 com\higlton\backend\controllers\MoodController.class
 com\higlton\backend\BackendApplication.class
+com\higlton\backend\controllers\ForgotPasswordController.class
 com\higlton\backend\repositories\RoomRepository.class
 com\higlton\backend\controllers\ReviewController.class
 com\higlton\backend\models\Review.class

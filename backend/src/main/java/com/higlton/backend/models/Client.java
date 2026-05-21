@@ -53,4 +53,12 @@ public class Client {
      * За замовчуванням встановлюється {@code "USER"}.
      */
     private String role = "USER"; // "ADMIN" або "USER"
+
+    /** Токен для відновлення пароля */
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
+    /** Час закінчення дії токена */
+    @Column(name = "reset_password_expires")
+    private java.time.LocalDateTime resetPasswordExpires;
 }

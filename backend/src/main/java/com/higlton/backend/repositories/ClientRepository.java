@@ -42,6 +42,14 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     Optional<Client> findByEmail(String email);
 
     /**
+     * Знаходить клієнта за його токеном відновлення пароля.
+     *
+     * @param token токен для відновлення
+     * @return {@link Optional} з клієнтом, або порожній якщо токен недійсний
+     */
+    Optional<Client> findByResetPasswordToken(String token);
+
+    /**
      * Знаходить клієнта за його іменем (використовується як Username при вході).
      *
      * @param firstName ім'я клієнта

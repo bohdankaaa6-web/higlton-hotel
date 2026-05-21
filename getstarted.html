@@ -28,7 +28,7 @@
                         <input type="password" id="login-pass" data-i18n-placeholder="auth_password_ph" placeholder="Password" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
-                    <div class="forgot-link"><a href="#" data-i18n="auth_forgot">Forgot Password?</a></div>
+                    <div class="forgot-link"> <a href="#" id="forgot-pass-link" data-i18n="auth_forgot">Forgot Password?</a></div>
                     <button type="submit" class="btn" data-i18n="auth_login_btn">Login</button>
                     <p data-i18n="auth_social_text">or login with social platforms</p>
                     <div class="social-icons">
@@ -87,6 +87,28 @@
                     <button class="btn login-btn" data-i18n="auth_login_btn">Login</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="forgotPasswordModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: #2d2d44; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 400px; text-align: left; position: relative;">
+
+        <span id="closeModalBtn" style="position: absolute; top: 15px; right: 20px; color: #a0a0c0; cursor: pointer; font-size: 20px;">
+            <i class="fa-solid fa-xmark"></i>
+        </span>
+
+            <h3 style="color: #fff; margin-bottom: 10px; font-size: 20px;">Відновлення пароля</h3>
+            <p style="font-size: 13px; color: #a0a0c0; margin-bottom: 20px;">Код надіслано! Перевірте пошту, скопіюйте його та введіть нижче:</p>
+
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="recoveryCode" placeholder="5-значний код" required style="width: 100%; padding: 12px; background: #3b3b54; border: 1px solid #4e4e70; color: white; border-radius: 6px; box-sizing: border-box; font-size: 15px;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <input type="password" id="recoveryNewPassword" placeholder="Новий пароль" required style="width: 100%; padding: 12px; background: #3b3b54; border: 1px solid #4e4e70; color: white; border-radius: 6px; box-sizing: border-box; font-size: 15px;">
+            </div>
+            <button type="button" id="submitNewPasswordBtn" style="width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s;">
+                Підтвердити зміну
+            </button>
         </div>
     </div>
 
@@ -224,6 +246,80 @@
                 alert("Цей метод входу зараз знаходиться на перевірці у Meta Developers. Будь ласка, скористайтеся Google або звичайною реєстрацією.");
             };
         });
+
+        // ОБРОБКА ВІДНОВЛЕННЯ ПАРОЛЯ (ЧЕРЕЗ МОДАЛЬНЕ ВІКНО)
+        let userEmailForRecovery = "";
+
+        document.getElementById('forgot-pass-link').onclick = async (e) => {
+            e.preventDefault();
+
+            const email = prompt("Введіть ваш Email для відновлення пароля:");
+            if (!email) return;
+
+            userEmailForRecovery = email;
+
+            try {
+                const response = await fetch('http://localhost:8081/api/auth/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmailForRecovery })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message);
+                    // Показуємо модальне вікно по центру екрана
+                    document.getElementById('forgotPasswordModal').style.display = 'flex';
+                } else {
+                    alert(data.error || "Щось пішло не так.");
+                }
+            } catch (error) {
+                alert("Не вдалося з’єднатися з сервером.");
+            }
+        };
+
+        // Логіка для закриття модального вікна при кліку на хрестик
+        document.getElementById('closeModalBtn').onclick = () => {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+        };
+
+        // Підтвердження коду та пароля
+        document.getElementById('submitNewPasswordBtn').onclick = async () => {
+            const code = document.getElementById('recoveryCode').value;
+            const newPassword = document.getElementById('recoveryNewPassword').value;
+
+            if (!code || !newPassword) {
+                alert("Будь ласка, заповніть всі поля!");
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:8081/api/auth/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: userEmailForRecovery,
+                        code: code,
+                        newPassword: newPassword
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message);
+                    // Ховаємо модалку та очищаємо її поля
+                    document.getElementById('forgotPasswordModal').style.display = 'none';
+                    document.getElementById('recoveryCode').value = "";
+                    document.getElementById('recoveryNewPassword').value = "";
+                } else {
+                    alert(data.error || "Помилка при зміні пароля.");
+                }
+            } catch (error) {
+                alert("Помилка зв'язку з сервером при збереженні пароля.");
+            }
+        };
     </script>
     <script src="lang.js"></script>
 </body>
