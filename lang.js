@@ -891,29 +891,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// ==========================================
-// ПЕРЕВІРКА АВТОРИЗАЦІЇ ДЛЯ ВСІХ СТОРІНОК
-// ==========================================
-function checkAuth() {
-    const authBtn = document.getElementById('authBtn');
-    const userDataString = localStorage.getItem('higlton_user');
-
-    if (userDataString && authBtn) {
-        try {
-            const user = JSON.parse(userDataString);
-            if (user && user.firstName) {
-                // Міняємо посилання на профіль
-                authBtn.href = 'profile.html';
-                // Прибираємо атрибут перекладу, щоб він не затирав ім'я
-                authBtn.removeAttribute('data-i18n');
-                // Вставляємо ім'я користувача
-                authBtn.innerHTML = `<span>${user.firstName}</span>`;
-            }
-        } catch (e) {
-            console.error("Помилка авторизації:", e);
-        }
-    }
-}
-
-// Запускаємо перевірку відразу після завантаження кожної сторінки
-document.addEventListener("DOMContentLoaded", checkAuth);
