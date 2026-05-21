@@ -385,6 +385,17 @@ const translations = {
         "terms_sect7_title": "7. Changes to Terms",
         "terms_sect7_p": "We reserve the right to modify these terms at any time. Your continued use of the site signifies your acceptance of any updated terms.",
         "terms_footer": "&copy; 2026 Higlton. For questions, contact: support@higlton.com",
+
+
+        "prof_no_bookings": "You don't have any bookings yet.",
+        "prof_empty_wishlist": "Your wishlist is empty. Go explore our suites!",
+        "prof_checkin": "Check-in",
+        "prof_checkout": "Check-out",
+        "prof_status_confirmed": "Confirmed",
+        "prof_admin_no_bookings": "No bookings in the system yet.",
+        "prof_admin_guest": "Guest",
+        "prof_admin_contact": "Contact",
+        "prof_admin_dates": "Dates",
     },
 
 
@@ -770,6 +781,19 @@ const translations = {
         "terms_sect7_title": "7. Зміни в умовах",
         "terms_sect7_p": "Ми залишаємо за собою право змінювати ці умови в будь-який час. Продовження використання сайту означає ваше прийняття оновлених умов.",
         "terms_footer": "&copy; 2026 Higlton. З питань звертайтеся: support@higlton.com",
+
+
+
+
+        "prof_no_bookings": "У вас ще немає жодних бронювань.",
+        "prof_empty_wishlist": "Ваш список обраного порожній. Час обрати номер!",
+        "prof_checkin": "Заїзд",
+        "prof_checkout": "Виїзд",
+        "prof_status_confirmed": "Підтверджено",
+        "prof_admin_no_bookings": "У системі поки немає жодного бронювання.",
+        "prof_admin_guest": "Гість",
+        "prof_admin_contact": "Контакт",
+        "prof_admin_dates": "Дати",
     }
 };
 

@@ -106,22 +106,30 @@
     <script src="lang.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // 0. Визначаємо поточну мову (з пам'яті або за замовчуванням 'en')
+            const currentLang = localStorage.getItem('site_language') || 'en';
+
+            // Функція безпечного отримання перекладу (запобігає появі "undefined")
+            function getTranslation(key, defaultText) {
+                if (window.translations && translations[currentLang] && translations[currentLang][key]) {
+                    return translations[currentLang][key];
+                }
+                return defaultText || key;
+            }
+
             // 1. Отримуємо юзера
             const currentUser = JSON.parse(localStorage.getItem('higlton_user'));
             if(!currentUser) {
-                alert("Please log in first.");
                 window.location.href = "getstarted.html";
                 return;
             }
             
-            // Встановлюємо роль (якщо ролі немає, за замовчуванням - user)
-            const userRole = currentUser.role || 'user'; 
+            const userRole = (currentUser.role || 'user').toLowerCase(); 
 
             // 2. Встановлюємо дані користувача
             document.getElementById('user-name-display').innerText = currentUser.firstName || "Guest";
             document.getElementById('user-email-display').innerText = currentUser.email || "user@higlton.com";
 
-            // Налаштування бейджа ролі
             const roleBadge = document.getElementById('user-role-badge');
             if (userRole === 'admin') {
                 roleBadge.innerText = 'Administrator';
@@ -130,32 +138,25 @@
                 roleBadge.innerText = 'Guest';
             }
 
-            // 3. Логіка відображення вкладок залежно від ролі
+            // 3. Логіка відображення вкладок
             if (userRole === 'admin') {
-                // Ховаємо елементи користувача
                 document.querySelectorAll('.user-only').forEach(el => el.style.display = 'none');
-                // Показуємо елементи адміна
                 document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
                 
-                // Змінюємо активну вкладку за замовчуванням для адміна
                 document.querySelector('.tab-btn[data-tab="bookings"]').classList.remove('active');
                 document.getElementById('bookings').classList.remove('active');
-                
                 document.querySelector('.tab-btn[data-tab="all-bookings"]').classList.add('active');
                 document.getElementById('all-bookings').classList.add('active');
 
-                // Рендер адмінських бронювань
                 renderAdminBookings();
             } else {
-                // Звичайний користувач: рендер його бронювань та вішліста
                 renderUserBookings();
                 renderUserWishlist();
             }
 
-            // 4. Універсальна логіка перемикання вкладок
+            // 4. Перемикання вкладок
             const tabs = document.querySelectorAll('.tab-btn');
             const contents = document.querySelectorAll('.tab-content');
-
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     tabs.forEach(t => t.classList.remove('active'));
@@ -165,31 +166,30 @@
                 });
             });
 
-            // 5. Вихід з акаунту
+            // 5. Вихід
             document.getElementById('logout-btn').addEventListener('click', () => {
                 localStorage.removeItem('higlton_user');
                 localStorage.removeItem('username');
                 window.location.href = "index.html";
             });
 
-            // --- ФУНКЦІЇ РЕНДЕРУ ---
+            // --- ФУНКЦІЇ РЕНДЕРУ З ПЕРЕКЛАДОМ ---
 
             function renderUserBookings() {
                 const bookingsList = document.getElementById('bookings-list');
-                // Фільтруємо лише бронювання цього користувача (якщо у вас бронювання прив'язані до імені)
                 const allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
-                const myBookings = allBookings.filter(b => b.name === currentUser.username);
+                const myBookings = allBookings.filter(b => b.name === currentUser.username || b.name === currentUser.firstName);
                 
                 if(myBookings.length === 0) {
-                    bookingsList.innerHTML = `<p style="color:var(--gray)">You don't have any bookings yet.</p>`;
+                    bookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_no_bookings', "You don't have any bookings yet.")}</p>`;
                 } else {
                     bookingsList.innerHTML = myBookings.reverse().map(b => `
                         <div class="booking-item">
                             <div class="book-info">
                                 <h4>${b.room || 'Suite'}</h4>
-                                <p><strong>Check-in:</strong> ${b.checkin} | <strong>Check-out:</strong> ${b.checkout}</p>
+                                <p><strong>${getTranslation('prof_checkin', 'Check-in')}:</strong> ${b.checkin} | <strong>${getTranslation('prof_checkout', 'Check-out')}:</strong> ${b.checkout}</p>
                             </div>
-                            <span class="status-badge">Confirmed</span>
+                            <span class="status-badge">${getTranslation('prof_status_confirmed', 'Confirmed')}</span>
                         </div>
                     `).join('');
                     document.getElementById('loyal-discount').style.display = 'flex';
@@ -201,7 +201,7 @@
                 const wishlist = JSON.parse(localStorage.getItem('higlton_wishlist')) || [];
 
                 if(wishlist.length === 0) {
-                    wishlistGrid.innerHTML = `<p style="color:var(--gray); grid-column: 1/-1;">Your wishlist is empty. Go explore our suites!</p>`;
+                    wishlistGrid.innerHTML = `<p style="color:var(--gray); grid-column: 1/-1;">${getTranslation('prof_empty_wishlist', 'Your wishlist is empty. Go explore our suites!')}</p>`;
                 } else {
                     wishlistGrid.innerHTML = wishlist.map(item => `
                         <div class="room-card" style="flex: auto; scroll-snap-align: none;">
@@ -222,14 +222,14 @@
                 const allBookings = JSON.parse(localStorage.getItem('higlton_bookings')) || [];
 
                 if(allBookings.length === 0) {
-                    adminBookingsList.innerHTML = `<p style="color:var(--gray)">No bookings in the system yet.</p>`;
+                    adminBookingsList.innerHTML = `<p style="color:var(--gray)">${getTranslation('prof_admin_no_bookings', 'No bookings in the system yet.')}</p>`;
                 } else {
                     adminBookingsList.innerHTML = allBookings.reverse().map((b, index) => `
                         <div class="booking-item admin-booking-card">
                             <div class="book-info">
                                 <h4>${b.room || 'Suite'} <span class="admin-ref">#REF-${1000 + index}</span></h4>
-                                <p><strong>Guest:</strong> ${b.name} | <strong>Contact:</strong> ${b.email || 'N/A'}</p>
-                                <p><strong>Dates:</strong> ${b.checkin} to ${b.checkout}</p>
+                                <p><strong>${getTranslation('prof_admin_guest', 'Guest')}:</strong> ${b.name} | <strong>${getTranslation('prof_admin_contact', 'Contact')}:</strong> ${b.email || 'N/A'}</p>
+                                <p><strong>${getTranslation('prof_admin_dates', 'Dates')}:</strong> ${b.checkin} to ${b.checkout}</p>
                             </div>
                             <div class="admin-actions">
                                 <button class="btn-action approve">Approve</button>
@@ -241,7 +241,6 @@
             }
         });
     </script>
-
 
 
     <script>
