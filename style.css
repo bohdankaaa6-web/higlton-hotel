@@ -986,7 +986,7 @@ main {
 }
 
 .suites-hero__current {
-    color: var(--blackgold); /* Твій золотий колір для позначення поточної сторінки */
+    color: var(--blackgold); /*золотий колір для позначення поточної сторінки */
     font-weight: 500;
 }
 
@@ -1115,7 +1115,7 @@ main {
     position: absolute;
     top: 15px;
     right: 15px;
-    font-size: 16px; /* Трохи збільшив для кращої видимості */
+    font-size: 16px; /* Трохи збільшено для кращої видимості */
     color: var(--blackgold) !important; /* Робимо її золотою */
     opacity: 0;
     visibility: hidden; /* Надійно приховуємо */
@@ -1220,7 +1220,7 @@ main {
     -webkit-overflow-scrolling: touch; /* Плавна прокрутка на iOS */
 }
 
-/* Приховуємо стандартний scrollbar для естетики (опціонально) */
+/* Приховуємо стандартний scrollbar для естетики */
 .rooms__grid::-webkit-scrollbar {
     display: none;
 }
@@ -1268,7 +1268,7 @@ main {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: #D4AF37; /* Золотистий колір як на фото */
+    background: #D4AF37; /* Золотистий колір  */
     color: white;
     padding: 10px;
     border-radius: 12px;
@@ -1457,7 +1457,7 @@ main {
 .rating-value {
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
-    color: #696871; /* Твоя змінна --gray */
+    color: #696871; /* --gray */
     margin-left: 4px;
 }
 
@@ -1535,7 +1535,7 @@ main {
 
 .modal-info__title {
     font-family: 'Playfair Display', serif;
-    font-size: 28px; /* Зробили меншим і елегантнішим (було 2rem/32px) */
+    font-size: 28px; /* Зробили меншим і елегантнішим ) */
     color: var(--dark);
     margin-bottom: 8px;
     line-height: 1.2;
@@ -1745,7 +1745,16 @@ main {
 .form-group { margin-bottom: 15px; }
 .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
 .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-.btn-confirm { background: #d4af37; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; }
+.btn-confirm { 
+    background: #d4af37; 
+    color: white; 
+    border: none; 
+    padding: 15px; 
+    width: 100%; 
+    border-radius: 10px;
+     cursor: pointer; 
+     font-weight: bold;
+}
 
 
 /* Базовий стан для всіх елементів, що виринають */
@@ -1816,7 +1825,7 @@ main {
     margin-bottom: 30px;
 }
 
-/* --- СТИЛЬ GOOGLE SEARCH (Золотистий) --- */
+/* --- СТИЛЬ GOOGLE SEARCH --- */
 .search-wrapper {
     position: relative;
     width: 100%;
@@ -1992,7 +2001,7 @@ main {
 /* Стилізація секції About Info */
 .about-info {
     padding-block: 100px;
-    background-color: antiquewhite; /* Твій базовий колір */
+    background-color: antiquewhite; /* базовий колір */
 }
 
 .about-info__wrapper {
@@ -2854,7 +2863,7 @@ main {
 .toggle-box::before {
     content: '';
     position: absolute;
-    left: -250%; /* БУЛО: -250px. Змініть на % */
+    left: -250%; 
     width: 300%;
     height: 100%;
     background: #7494ec;
@@ -3529,7 +3538,7 @@ main {
 }
 
 /* ==========================================================================
-   3. ФІКС ФОРМИ ВХОДУ (GET STARTED)
+   3. ФОРМА ВХОДУ (GET STARTED)
    ========================================================================== */
 @media (max-width: 768px) {
     .auth-container {
@@ -3557,7 +3566,7 @@ main {
     .auth-container.active .form-box.login { display: none !important; }
     .auth-container.active .form-box.registration { display: block !important; }
 
-    /* Посилання для перемикання на мобільці */
+    /* Посилання для перемикання на мобілці */
     .mobile-text {
         display: block !important;
         margin-top: 20px;
