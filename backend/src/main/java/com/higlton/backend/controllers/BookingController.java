@@ -91,14 +91,24 @@ public class BookingController {
     @PutMapping("/{id}")
     public Booking update(@PathVariable Long id, @RequestBody Booking details) {
         Booking booking = bookingRepository.findById(id).orElseThrow();
-        booking.setCheckIn(details.getCheckIn());
-        booking.setCheckOut(details.getCheckOut());
-        booking.setStatus(details.getStatus());
-        
-        long days = ChronoUnit.DAYS.between(booking.getCheckIn(), booking.getCheckOut());
-        if (days <= 0) days = 1;
-        booking.setTotalPrice(days * booking.getRoom().getPricePerNight());
-        
+
+        if (details.getStatus() != null) {
+            booking.setStatus(details.getStatus());
+        }
+
+        if (details.getCheckIn() != null) {
+            booking.setCheckIn(details.getCheckIn());
+        }
+        if (details.getCheckOut() != null) {
+            booking.setCheckOut(details.getCheckOut());
+        }
+
+        if (booking.getCheckIn() != null && booking.getCheckOut() != null) {
+            long days = ChronoUnit.DAYS.between(booking.getCheckIn(), booking.getCheckOut());
+            if (days <= 0) days = 1;
+            booking.setTotalPrice(days * booking.getRoom().getPricePerNight());
+        }
+
         return bookingRepository.save(booking);
     }
 
