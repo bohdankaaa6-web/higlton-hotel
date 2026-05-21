@@ -976,3 +976,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+
+
+// ==========================================
+// ОБМЕЖЕННЯ ДАТ (Заборона вибору минулих дат)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+
+    const checkinInputs = document.querySelectorAll('#book-checkin, #checkin, input[name*="checkin"], input[id*="checkin"]');
+    const checkoutInputs = document.querySelectorAll('#book-checkout, #checkout, input[name*="checkout"], input[id*="checkout"]');
+
+    // Використовуємо setAttribute, щоб коректно встановити min навіть для текстових полів
+    checkinInputs.forEach(input => {
+        input.setAttribute('min', todayStr);
+    });
+
+    checkoutInputs.forEach(input => {
+        input.setAttribute('min', todayStr);
+    });
+
+    checkinInputs.forEach(checkin => {
+        checkin.addEventListener('change', () => {
+            const selectedCheckin = checkin.value;
+            
+            const parentContainer = checkin.closest('form') || checkin.closest('.booking-card') || checkin.closest('div') || document;
+            const checkout = parentContainer.querySelector('#book-checkout, #checkout, input[name*="checkout"], input[id*="checkout"]');
+            
+            if (checkout) {
+                checkout.setAttribute('min', selectedCheckin);
+                
+                if (checkout.value && checkout.value < selectedCheckin) {
+                    checkout.value = '';
+                }
+            }
+        });
+    });
+});
