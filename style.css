@@ -3624,3 +3624,40 @@ main {
         backdrop-filter: blur(5px); /* Ефект матового скла */
     }
 }
+
+
+
+
+/* Ховаємо мобільне посилання "На головну" на комп'ютерах */
+.mobile-only-link {
+    display: none;
+}
+
+/* Налаштування для профілю, щоб кнопка не заважала контенту */
+.profile-page .back-home-btn {
+    position: fixed; /* Фіксуємо, щоб була завжди під рукою */
+    top: 20px;
+    left: 20px;
+    background: var(--dark); /* Робимо її темною, щоб виділялася на світлому фоні профілю */
+    color: white;
+}
+
+.profile-page .back-home-btn:hover {
+    color: var(--blackgold);
+}
+
+@media (max-width: 992px) {
+    /* Показуємо посилання "На головну" в розгорнутому гамбургер-меню */
+    .mobile-only-link {
+        display: block;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding-bottom: 10px;
+        width: 100%;
+    }
+    
+    /* Зсуваємо кнопку профілю трохи нижче на мобільці, щоб не перекривала іконку гамбургера */
+    .profile-page .back-home-btn {
+        top: 85px; 
+    }
+}
