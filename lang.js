@@ -891,3 +891,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// ФУНКЦІЯ ПЕРЕВІРКИ АВТОРИЗАЦІЇ
+function checkAuth() {
+    const authBtn = document.getElementById('authBtn');
+    const userDataString = localStorage.getItem('higlton_user');
+
+    if (userDataString && authBtn) {
+        try {
+            const user = JSON.parse(userDataString);
+            if (user && user.firstName) {
+                authBtn.href = 'profile.html';
+                // ВАЖЛИВО: видаляємо атрибут, щоб переклад не затирав ім'я
+                authBtn.removeAttribute('data-i18n'); 
+                authBtn.innerHTML = '<span>' + user.firstName + '</span>';
+            }
+        } catch (e) {
+            console.error("Auth error:", e);
+        }
+    }
+}
+
+function setLanguage(lang) {
+    const elementsToTranslate = document.querySelectorAll('[data-i18n], [data-i18n-placeholder]');
+    
+    elementsToTranslate.forEach(element => {
+        if (element.hasAttribute('data-i18n')) {
+            const key = element.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                element.innerHTML = translations[lang][key]; 
+            }
+        }
+        
+        if (element.hasAttribute('data-i18n-placeholder')) {
+            const key = element.getAttribute('data-i18n-placeholder');
+            if (translations[lang] && translations[lang][key]) {
+                element.placeholder = translations[lang][key]; 
+            }
+        }
+    });
+
+    localStorage.setItem('site_language', lang);
+    
+    // ПІСЛЯ перекладу запускаємо перевірку юзера
+    checkAuth();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const langButtons = document.querySelectorAll('.lang-btn');
+    let currentLang = localStorage.getItem('site_language') || 'en';
+
+    // Встановлюємо мову
+    setLanguage(currentLang);
+
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const selectedLang = btn.getAttribute('data-lang');
+            setLanguage(selectedLang);
+            // Оновлюємо підсвітку кнопок
+            langButtons.forEach(b => b.classList.toggle('active', b === btn));
+        });
+    });
+});
