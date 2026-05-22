@@ -117,6 +117,9 @@
                 }
                 return defaultText || key;
             }
+            // Робимо функцію глобальною, щоб вона була доступною в інших блоках <script>
+            window.getTranslation = getTranslation;
+
 
             // 1. Отримуємо юзера
             const currentUser = JSON.parse(localStorage.getItem('higlton_user'));
