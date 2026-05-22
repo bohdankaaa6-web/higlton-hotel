@@ -40,8 +40,9 @@
                         <button class="tab-btn user-only" data-tab="discounts" data-i18n="prof_tab_disc">My Discounts</button>
                         
                         <!-- Меню для Адміністратора (приховане за замовчуванням) -->
-                        <button class="tab-btn admin-only" data-tab="all-bookings" style="display: none;">All Bookings</button>
-                        <button class="tab-btn admin-only" data-tab="manage-rooms" style="display: none;">Manage Rooms</button>
+                        <!-- Меню для Адміністратора (приховане за замовчуванням) -->
+                        <button class="tab-btn admin-only" data-tab="all-bookings" data-i18n="prof_admin_tab_bookings" style="display: none;">All Bookings</button>
+                        <button class="tab-btn admin-only" data-tab="manage-rooms" data-i18n="prof_admin_tab_rooms" style="display: none;">Manage Rooms</button>
                     </nav>
                 </aside>
 
@@ -81,7 +82,7 @@
 
                     <!-- Вкладки Адміністратора -->
                     <section id="all-bookings" class="tab-content admin-only">
-                        <h2>Manage All Bookings</h2>
+                        <h2 data-i18n="prof_admin_title_bookings">Manage All Bookings</h2>
                         <div id="admin-bookings-list" class="items-list">
                             <!-- JS додасть всі бронювання -->
                         </div>
@@ -89,8 +90,8 @@
 
                     <section id="manage-rooms" class="tab-content admin-only">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                            <h2 style="margin-bottom: 0;">Manage Rooms</h2>
-                            <button class="btn-add-room">+ Add Room</button>
+                            <h2 style="margin-bottom: 0;" data-i18n="prof_admin_title_rooms">Manage Rooms</h2>
+                            <button class="btn-add-room" data-i18n="prof_admin_btn_add_room">+ Add Room</button>
                         </div>
                         <div id="admin-rooms-list" class="items-list">
                             <p style="color:var(--gray)">Room management interface will be here...</p>
@@ -281,7 +282,17 @@
 
                         adminBookingsList.innerHTML = bookings.reverse().map((b, index) => {
                             const status = (b.status || 'PENDING').toUpperCase();
-                            let statusText = status === 'CONFIRMED' ? 'Confirmed' : (status === 'CANCELLED' ? 'Cancelled' : 'Pending');
+                            
+                            // Визначаємо переклад статусу
+                            let statusText = '';
+                            if (status === 'CONFIRMED') {
+                                statusText = getTranslation('prof_status_confirmed', 'Confirmed');
+                            } else if (status === 'CANCELLED') {
+                                statusText = getTranslation('prof_status_cancelled', 'Cancelled');
+                            } else {
+                                statusText = getTranslation('prof_status_pending', 'Pending');
+                            }
+                            
                             let statusColor = status === 'CONFIRMED' ? '#059669' : (status === 'CANCELLED' ? '#dc2626' : '#d97706');
 
                             const guestName = b.client ? (b.client.firstName || 'N/A') : 'N/A';
@@ -296,19 +307,19 @@
                                     <div class="book-info">
                                         <h4>${roomTitle} <span class="admin-ref">#${b.id}</span></h4>
                                         <p><strong>${getTranslation('prof_admin_guest', 'Guest')}:</strong> ${guestName} | <strong>${getTranslation('prof_admin_contact', 'Contact')}:</strong> ${guestEmail}</p>
-                                        <p><strong>${getTranslation('prof_admin_dates', 'Dates')}:</strong> ${checkIn} → ${checkOut} | <strong>Total:</strong> ${totalPrice}</p>
-                                        <p><strong>Status:</strong> <span style="color: ${statusColor}; font-weight: bold;">${statusText}</span></p>
-                                        ${b.comment ? `<p><strong>Comment:</strong> ${b.comment}</p>` : ''}
+                                        <p><strong>${getTranslation('prof_admin_dates', 'Dates')}:</strong> ${checkIn} → ${checkOut} | <strong>${getTranslation('prof_total', 'Total')}:</strong> ${totalPrice}</p>
+                                        <p><strong>${getTranslation('prof_admin_status', 'Status')}:</strong> <span style="color: ${statusColor}; font-weight: bold;">${statusText}</span></p>
+                                        ${b.comment ? `<p><strong>${getTranslation('prof_admin_comment', 'Comment')}:</strong> ${b.comment}</p>` : ''}
                                     </div>
                                     <div class="admin-actions" style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
                                         ${status !== 'CONFIRMED' ? `
-                                            <button onclick="updateBookingStatus(${b.id}, 'CONFIRMED')" style="background-color: #4CAF50; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">✓ Approve</button>
+                                            <button onclick="updateBookingStatus(${b.id}, 'CONFIRMED')" style="background-color: #4CAF50; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">✓ ${getTranslation('prof_admin_btn_approve', 'Approve')}</button>
                                         ` : ''}
                                         ${status !== 'CANCELLED' ? `
-                                            <button onclick="updateBookingStatus(${b.id}, 'CANCELLED')" style="background-color: #f44336; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">✕ Cancel</button>
+                                            <button onclick="updateBookingStatus(${b.id}, 'CANCELLED')" style="background-color: #f44336; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">✕ ${getTranslation('prof_admin_btn_cancel', 'Cancel')}</button>
                                         ` : ''}
                                         ${status !== 'PENDING' ? `
-                                            <button onclick="updateBookingStatus(${b.id}, 'PENDING')" style="background-color: #d97706; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">↺ Pending</button>
+                                            <button onclick="updateBookingStatus(${b.id}, 'PENDING')" style="background-color: #d97706; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 120px;">↺ ${getTranslation('prof_admin_btn_pending', 'Pending')}</button>
                                         ` : ''}
                                     </div>
                                 </div>
@@ -369,11 +380,11 @@
                             ${room.imageUrl ? `<img src="${room.imageUrl}" alt="${room.title}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px;">` : ''}
                             <div>
                                 <strong style="font-size: 18px; color: #333;">${room.title}</strong>
-                                <p style="margin: 5px 0 0; color: #bead8e; font-weight: bold;">$${room.pricePerNight} / Night</p>
-                                <p style="margin: 2px 0 0; color: #777; font-size: 14px;">Capacity: ${room.capacity} guests | ${room.bedType || ''} | ${room.areaM2 || 0} m² | ID: ${room.id}</p>
+                                <p style="margin: 5px 0 0; color: #bead8e; font-weight: bold;">$${room.pricePerNight} / ${getTranslation('prof_night', 'Night')}</p>
+                                <p style="margin: 2px 0 0; color: #777; font-size: 14px;">${getTranslation('prof_capacity', 'Capacity')}: ${room.capacity} ${getTranslation('prof_guests_count', 'guests')} | ${room.bedType || ''} | ${room.areaM2 || 0} m² | ID: ${room.id}</p>
                             </div>
                         </div>
-                        <button onclick="deleteRoom(${room.id})" style="background: #ff4d4d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">Delete</button>
+                        <button onclick="deleteRoom(${room.id})" style="background: #ff4d4d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">${getTranslation('prof_admin_delete', 'Delete')}</button>
                     </div>
                 `).join('');
 
@@ -396,36 +407,36 @@
 
                 const formHtml = `
                     <div id="add-room-form-inline" style="background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 6px solid #bead8e;">
-                        <h3 style="margin: 0 0 16px; color: #333;">Add New Room</h3>
+                        <h3 style="margin: 0 0 16px; color: #333;">${getTranslation('prof_admin_add_room_title', 'Add New Room')}</h3>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                             <div>
-                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Room Title *</label>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">${getTranslation('prof_admin_room_title_label', 'Room Title *')}</label>
                                 <input id="new-room-title" type="text" placeholder="e.g. Luxury Suite" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
                             </div>
                             <div>
-                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Price per Night ($) *</label>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">${getTranslation('prof_admin_price_label', 'Price per Night ($) *')}</label>
                                 <input id="new-room-price" type="number" placeholder="250" min="1" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
                             </div>
                             <div>
-                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Capacity (guests)</label>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">${getTranslation('prof_admin_capacity_label', 'Capacity (guests)')}</label>
                                 <input id="new-room-capacity" type="number" placeholder="2" min="1" value="2" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
                             </div>
                             <div>
-                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Bed Type</label>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">${getTranslation('prof_admin_bed_type_label', 'Bed Type')}</label>
                                 <input id="new-room-bed" type="text" placeholder="King Size" value="King Size" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
                             </div>
                             <div>
-                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Area (m²)</label>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">${getTranslation('prof_admin_area_label', 'Area (m²)')}</label>
                                 <input id="new-room-area" type="number" placeholder="45" min="1" value="45" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
                             </div>
                             <div>
-                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Image URL</label>
+                                <label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">${getTranslation('prof_admin_image_label', 'Image URL')}</label>
                                 <input id="new-room-image" type="text" placeholder="https://..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:14px; box-sizing:border-box;">
                             </div>
                         </div>
                         <div style="display: flex; gap: 10px; margin-top: 16px;">
-                            <button id="save-new-room-btn" style="background: #bead8e; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px;">Save Room</button>
-                            <button id="cancel-new-room-btn" style="background: #eee; color: #555; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 15px;">Cancel</button>
+                            <button id="save-new-room-btn" style="background: #bead8e; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px;">${getTranslation('prof_admin_save_btn', 'Save Room')}</button>
+                            <button id="cancel-new-room-btn" style="background: #eee; color: #555; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 15px;">${getTranslation('prof_admin_cancel_btn', 'Cancel')}</button>
                         </div>
                         <p id="room-save-error" style="color: #dc2626; margin: 8px 0 0; display: none;"></p>
                     </div>
